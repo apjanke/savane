@@ -874,8 +874,8 @@ function trackers_build_notification_list($item_id, $group_id, $changes,
   # Now go through the CC list:
   # (automatically added CC will be in numerical
   # form and email = added_by).
-  $result = db_execute("SELECT email,added_by FROM {$artifact}_cc
-                        WHERE bug_id=? GROUP BY email LIMIT 150",
+  $result = db_execute("SELECT DISTINCT email,added_by FROM {$artifact}_cc
+                        WHERE bug_id=? LIMIT 150",
                        array($item_id));
   $rows = db_numrows($result);
   for ($i=0; $i < $rows; $i++)

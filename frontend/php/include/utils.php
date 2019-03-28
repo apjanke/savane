@@ -62,7 +62,7 @@ information from file '%s', please contact administrators"),
        $filename), 1);
 }
 
-# Make sure that to avoid malicious file paths.
+# Make sure to avoid malicious file paths.
 function utils_check_path ($path)
 {
   if (strpos ($path, "../") !== FALSE)
@@ -92,8 +92,8 @@ function utils_link ($url, $title, $defaultclass=0, $available=1, $help=0,
   return $return;
 }
 
-# Make an clean email link depending on the authentification level of the user,
-# Don't use this on normal text, just on field where only an email address is
+# Make an clean email link depending on the authentification level of the user.
+# Don't use this on normal text, just on fields where only an email address is
 # expected. THis may corrupt the text and does extensive search.
 function utils_email ($address, $nohtml=0)
 {
@@ -141,12 +141,12 @@ function utils_email ($address, $nohtml=0)
                      $GLOBALS['sys_mail_domain']).'</span>';
         }
 
-      # If we are here, it means that we have an @ in the address,
+      # If we are here, it means that we have an @ in the address.
       # Even if the address is invalid, the system is likely to try to
       # send the mail, and we have no way to know if the address is valid.
       # We will only do a check on the address syntax.
 
-      # We found a real address that is syntaxically correct.
+      # We found a real address that is syntactically correct.
       if ($realaddress && validate_email($realaddress))
         return '<a href="mailto:'.htmlspecialchars($realaddress).'">'
                .htmlspecialchars($address).'</a>';
@@ -175,7 +175,7 @@ function utils_email ($address, $nohtml=0)
                     1);
 }
 
-# Like the previous, but does no extended search, just print as it comes.
+# Like the previous, but does no extended search, just prints it as it comes.
 function utils_email_basic ($address, $nohtml=0)
 {
   if (user_isloggedin() || CONTEXT == 'forum' || CONTEXT == 'news'
@@ -195,7 +195,7 @@ function utils_email_basic ($address, $nohtml=0)
                     1);
 }
 
-# Find out if a string is pure ASCII or not.
+# Find out if a string is pure (7-bit) ASCII or not.
 function utils_is_ascii ($string)
 {
   return preg_match('%^(?: [\x09\x0A\x0D\x20-\x7E] )*$%xs', $string);
@@ -220,7 +220,7 @@ function utils_cutstring ($string, $length=35)
 }
 
 # Same as the previous but is used for links and does not try to cut
-# because it annoys users who can't safely.
+# because it annoys users who can't safely
 # copy/paste a complete paragraph with the links intact (check
 # 105807@sv).
 function utils_cutlink ($string, $length=35)
@@ -252,7 +252,7 @@ function utils_format_date($timestamp, $format="default")
     }
 
   # The installation configured a specific date format. This is not nice
-  # this will prevent locales from being used.
+  # since this will prevent locales from being used.
   if ($sys_datefmt)
     {
       return strftime($sys_datefmt, $timestamp);
@@ -264,8 +264,8 @@ function utils_format_date($timestamp, $format="default")
     {
     case 'minimal':
       {
-        # To be used where place is really lacking, like in feature boxes.
-        # (Nowhere else, it is too uninformative.)
+        # To be used where space is really lacking, like in feature boxes.
+        # (Nowhere else; it is too uninformative.)
         # Let's use a non-ambiguous format, such as ISO 8601's YYYY-MM-DD
         # extended calendar format.
         # Previously we used %x, where MM and DD can be swapped
@@ -674,7 +674,7 @@ function utils_double_diff_array($arr1, $arr2)
 
 function utils_registration_history ($unix_group_name)
 {
-  # Meaningless with chrooted system; all www system should be chrooted.
+  # Meaningless with chrooted system; all www systems should be chrooted.
 }
 
 function show_priority_colors_key()
@@ -846,7 +846,7 @@ function utils_show_result_set ($result,$title="Untitled",$linkify=false,
     }
 }
 
-# Clean up email address (remove spaces...) and put to lower case.
+# Clean up email address (remove spaces...) and convert to lower case.
 function utils_cleanup_emails ($addresses)
 {
   # It was previously removing white spaces:
@@ -855,7 +855,7 @@ function utils_cleanup_emails ($addresses)
   # If we allow white space to be entered, then we have to keep them.
   # For instance, if we allow to be entered: Robert <bob@bla.org>
   # it must not end up in Robert<bob@bla.org>.
-  # (And we want to allow CC to be added like in a mail client).
+  # (And we want to allow CC to be added like in a mail client.)
   return strtolower($addresses);
 }
 

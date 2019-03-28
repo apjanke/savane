@@ -136,10 +136,17 @@ if (empty($sys_www_topdir))
       die("Could not find Savane's top directory (missing .topdir file)");
   }
 
-# Add a trailing slash.
-$sys_home = $GLOBALS['sys_url_topdir'];
-if (!preg_match('|/$|', $GLOBALS['sys_url_topdir']))
-  $sys_home = $GLOBALS['sys_url_topdir'].'/';
+# Get $sys_home, avoiding warnings about unset $GLOBALS index
+if (isset($GLOBALS['sys_url_topdir']))
+  $sys_home = $GLOBALS['sys_url_topdir'];
+else
+  $sys_home = "/";
+
+# Add a trailing slash to $sys_home
+if (!preg_match('|/$|', $sys_home))
+  $sys_home = $sys_home.'/';
+
+trigger_error("sys_home is $sys_home");
 
 # Defines the https url, if available -- no path is added since this
 # variable can be used with REQUEST_URI added. It's used when we need

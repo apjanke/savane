@@ -177,7 +177,8 @@ if ($form_is_valid)
                                  'email'     => $form_email,
                                  'add_date'  => time(),
                                  'status'    => 'P',
-                                 'confirm_hash' => $confirm_hash),
+                                 'people_resume' => "",
+                                 'confirm_hash'  => $confirm_hash),
                            DB_AUTOQUERY_INSERT);
 
     if (!$result)

@@ -62,6 +62,6 @@ test -d "$phpdir" \
 export SAVANE_PHPROOT="$phpdir"
 
 
-php -S "$SVHOST:$SVPORT" -t "$phpdir" local2/local.php
+php -S "$SVHOST:$SVPORT" -t "$phpdir" "$dir/local2/local.php"
 
 

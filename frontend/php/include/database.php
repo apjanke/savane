@@ -308,7 +308,7 @@ function db_numrows($qhandle)
 {
   # Return only if qhandle exists, otherwise 0.
   if ($qhandle)
-    return mysql_numrows($qhandle);
+    return mysql_num_rows($qhandle);
   return 0;
 }
 

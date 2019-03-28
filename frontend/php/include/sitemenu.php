@@ -120,7 +120,11 @@ function sitemenu_extraurl ($only_with_post=false)
         }
       else
         {
-          $extraurl = htmlspecialchars($_SERVER['QUERY_STRING']);
+          if (isset($_SERVER['QUERY_STRING']))
+            $query_string = $_SERVER['QUERY_STRING'];
+          else
+            $query_string = "";
+          $extraurl = htmlspecialchars($query_string);
           $extraurl = str_replace("reload=1&amp;", "", $extraurl);
           $extraurl = str_replace("printer=1&amp;", "", $extraurl);
           $extraurl = "&amp;".$extraurl;

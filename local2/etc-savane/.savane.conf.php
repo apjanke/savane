@@ -66,10 +66,10 @@ if (!file_exists($db_file)) {
 	$text=<<<'EOD'
 <?php
 /*
-   this file contains DB/USER/PASSWORD to access the GNU savannah
+   This file contains DB/USER/PASSWORD to access the GNU Savannah
    development database.
 
-   To get access to such database, please contant GNU savannah
+   To get access to such database, please contant the GNU Savannah
    developers by writing to savannah-hackers-public@gnu.org .
 
    Once you have the DB/USER/PASSWORDS, please update
@@ -77,7 +77,7 @@ if (!file_exists($db_file)) {
 
    This file must be a valid PHP script.
 
-   If you have any questions, contact savannah-hackers-public@gnu.org .
+   If you have any questions, contact savannah-hackers-public@gnu.org.
 */
 $sys_dbhost="";
 $sys_dbname="";

@@ -28,7 +28,7 @@
 //    The two slashes (/ /) are mandatory, see the preg_match manual.
 //    Theme names are at this step uncapitalized
 //    (currently, nov 2006):
-//    	savanedu is a modified version of savannah
+//    	savanedu is a modified version of Savannah
 //      cern is a CERN-specific version of Emeraud
 $GLOBALS['forbid_theme_regexp'] = "/^(savanedu|ugent|cern)$/";
 

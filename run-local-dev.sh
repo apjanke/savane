@@ -18,12 +18,12 @@
 
 
 
-# This script can be used to run savannah's webserver locally.
+# This script can be used to run savane's webserver locally.
 # It requires PHP>=5.4 and php-mysql.
 #
 # It also requires having access to a demo savane MySQL database.
 # The first time the server is run locally, a messsage with
-# instructions on how to request access to such database will be displayed.
+# instructions on how to request access to such a database will be displayed.
 # (or, read it in ./local2/etc-savane/.savane.conf.php ).
 #
 # For more information, write to savannah-hackers-public@gnu.org .
@@ -50,7 +50,7 @@ test -e "$conffile" \
 
 
 # The PHP code expects to find the directory in the environment
-# (on savannah's servers it is set in Apache's configuration SetEnv)
+# (on Savannah's servers it is set in Apache's configuration SetEnv)
 export SAVANE_CONF="$confdir"
 
 # Find the location of the PHP code

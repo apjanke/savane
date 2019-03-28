@@ -105,6 +105,7 @@ uninstall: uninstall-backend uninstall-lib uninstall-i18n
 ###############################################################
 ###############################################################
 ### Info for developers
+
 devinfo: 
 	cd po && make stats
 	devel/sv_check_register_globals.pl --path "./frontend/php";

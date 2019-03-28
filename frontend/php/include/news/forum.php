@@ -120,8 +120,8 @@ function forum_header($params)
   $params['toptab']='forum';
 
   # NEWS ADMIN
-  #this is a news item for the whole system or a for a project,
-  # not a regular forum: forum are deactivated in savannah
+  # this is a news item for the whole system or a for a project,
+  # not a regular forum: forum are deactivated in Savannah
   if ($forum_id)
     {
       # Show this news item at the top of the page

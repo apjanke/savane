@@ -104,7 +104,7 @@ function html_hidsubpart_header ($uniqueid, $title, $deployed=false)
 
   # Try to find a deployed value that match the unique id.
   # If found, override the deployed setting (the deployed setting should be
-  # used to set a default behavior, but if in the case we explicitely
+  # used to set a default behavior, but if in the case we explicitly
   # use an array to determine what is deployed, this matters more).
   if (is_array($is_deployed)
       && array_key_exists($uniqueid, $is_deployed))

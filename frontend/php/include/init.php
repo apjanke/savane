@@ -121,7 +121,7 @@ else
       include('/etc/savane/.savane.conf.php');
   }
 
-// Detect where we are, unless it's explicitely specified in the
+// Detect where we are, unless it's explicitly specified in the
 // configuration file:
 if (empty($sys_www_topdir))
   {

@@ -33,7 +33,7 @@ if (!$group_id)
 function show_pending_users_list ($result, $group_id)
 {
   print "<h2>"._("Users Pending for Group")."</h2>
-<p>"._("Users that have requested to be member of the group are listed
+<p>"._("Users that have requested to be a member of the group are listed
 here. To approve their requests, select their names and push the button
 below. To discard requests, go to the next section called &ldquo;Removing users
 from group.&rdquo;")."</p>
@@ -118,7 +118,7 @@ function show_all_users_add_searchbox ($group_id, $previous_search)
         <h2 id="searchuser">'._("Adding users to group").'</h2>
 <p>'._("You can search one or several users to add in the whole users
 database with the following search tool. A list of users, depending on the
-names you'll type in this form, will be generated.").'
+names you type in this form, will be generated.").'
 
 <form action="'.htmlentities ($_SERVER['PHP_SELF']).'#searchuser" method="post">
         <input type="hidden" name="action" value="add_to_group_list" />

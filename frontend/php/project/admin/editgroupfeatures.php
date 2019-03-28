@@ -192,7 +192,7 @@ if ($update)
           }
         else
           {
-            # To avoid the fact that we $project was already set and
+            # To avoid the fact that $project was already set and
             # that $project =& new Project($group_id); no longer works,
             # we force reloading the page with a redirection.
             session_redirect($_SERVER['PHP_SELF']."?group=$group&feedback="
@@ -236,8 +236,8 @@ function specific_line ($artifact, $explanation, $use, $increment=1)
   print '</td>
 ';
   # If allowed from the group type, add a text field to put a non-standard
-  # url (news cannot be activated and using a non-standard url, it would
-  # broke the news system).
+  # url (news cannot be activated and using a non-standard url; it would
+  # break the news system).
   print ' <td class="'.utils_get_alt_row_color($i).'">';
   if ($project->CanModifyUrl($artifact))
     {
@@ -266,10 +266,10 @@ function specific_line ($artifact, $explanation, $use, $increment=1)
 }
 
 print '<p>';
-print _("You can activate or deactivate feature/artifact for your project. In
-some cases, depending on the system administrator's choices, you can even use
+print _("You can activate or deactivate features/artifacts for your project. In
+some cases, depending on the system administrator's choices, you can even
 change the URL for a feature/artifact. If the field &ldquo;alternative
-address&rdquo; is empty, the standard is used.");
+address&rdquo; is empty, the standard address is used.");
 print '</p>
 ';
 

@@ -2,7 +2,7 @@
 
 * GNU coreutils, textutils, shellutils...
 * GNU gettext
-* PHP >= 4.3
+* PHP >= 4.3 and <= 5.6
 * Perl >= 5.6
 * Exim (or sendmail, postfix...)
 * MySQL

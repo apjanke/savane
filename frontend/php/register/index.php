@@ -305,13 +305,13 @@ effectively *logged as site administrators* (superuser):
 	
       $address = "";
       $item_id = trackers_data_create_item($GLOBALS['sys_group_id'],$vfl,$address);
-      # send an email to notify the admins of the ite update
+      # send an email to notify the admins of the item update
       list($additional_address, $sendall) =
         trackers_data_get_item_notification_info($item_id, ARTIFACT, 1);
       if ((trim($address) != "") && (trim($additional_address) != "")) 
 	{ $address .= ", "; }
       $address .= $additional_address;
-      # exclude the submitter from the notification, he got a specific mail
+      # exclude the submitter from the notification; he got a specific mail
       # for himself
       trackers_mail_followup($item_id, $address, false, user_getname());
     }

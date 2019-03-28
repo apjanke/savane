@@ -20,6 +20,8 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+date_default_timezone_set("UTC");
+
 /* Set up proper use of UTF-8, even if the webserver does
    not serve it by default.  */
 header('Content-Type: text/html; charset=utf-8');

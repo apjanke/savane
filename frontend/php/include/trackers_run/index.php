@@ -178,17 +178,21 @@ switch ($func)
    {
 ### Actually add in the database what was filled in the form
 
+### spam_stats is temporarily commented out here because the spam_stats table
+### does not exist in the demo database. There is a trackers_spamscore table,
+### though; should that be used instead? -apjanke
+
      $fields = sane_import('post', array('form_id', 'check', 'details'));
-     db_autoexecute('spam_stats',
-		    array('tracker' => ARTIFACT,
-			  'bug_id' => 0,
-			  'type' => 'new',
-			  'user_id' => user_isloggedin() ? user_getid() : null,
-			  'form_id' => $fields['form_id'],
-			  'ip' => '127.0.0.1',
-			  'check_value' => $fields['check'],
-			  'details' => $fields['details']));
-     $stat_id = mysql_insert_id();
+//     db_autoexecute('spam_stats',
+//		    array('tracker' => ARTIFACT,
+//			  'bug_id' => 0,
+//			  'type' => 'new',
+//			  'user_id' => user_isloggedin() ? user_getid() : null,
+//			  'form_id' => $fields['form_id'],
+//			  'ip' => '127.0.0.1',
+//			  'check_value' => $fields['check'],
+//			  'details' => $fields['details']));
+//     $stat_id = mysql_insert_id();
 
  if (!user_isloggedin() && ($_POST['check'] != 1984))
  { exit_error(_("You're not logged in and you didn't enter the magic anti-spam number, please go back!")); }
@@ -202,7 +206,7 @@ switch ($func)
 
      # Data control layer
      $item_id = trackers_data_create_item($group_id,$vfl,$address);
-     db_execute('UPDATE spam_stats SET bug_id=? WHERE id=?', array($item_id, $stat_id));
+     //db_execute('UPDATE spam_stats SET bug_id=? WHERE id=?', array($item_id, $stat_id));
 
      if ($item_id)
        {
@@ -342,16 +346,19 @@ switch ($func)
 ### for a bug already in the database, reserved to item techn.
 ### or manager.
 
+### spam_stats stuff is commented out because table spam_stats does not
+### exist in the demo database. See above. -apjanke
+
      $fields = sane_import('post', array('item_id', 'form_id', 'check', 'comment'));
-     db_autoexecute('spam_stats',
-                    array('tracker' => ARTIFACT,
-                          'bug_id' => $fields['item_id'],
-                          'type' => 'comment',
-                          'user_id' => user_isloggedin() ? user_getid() : null,
-                          'form_id' => $fields['form_id'],
-                          'ip' => '127.0.0.1',
-                          'check_value' => $fields['check'],
-                          'details' => $fields['comment']));
+//     db_autoexecute('spam_stats',
+//                    array('tracker' => ARTIFACT,
+//                          'bug_id' => $fields['item_id'],
+//                          'type' => 'comment',
+//                          'user_id' => user_isloggedin() ? user_getid() : null,
+//                          'form_id' => $fields['form_id'],
+//                          'ip' => '127.0.0.1',
+//                          'check_value' => $fields['check'],
+//                          'details' => $fields['comment']));
 
      # Check for duplicates
      if (!form_check($form_id))
@@ -569,16 +576,16 @@ project and submit the form."),
  case 'postaddcomment' :
    {
      $fields = sane_import('post', array('item_id', 'form_id', 'check', 'comment'));
-     db_autoexecute('spam_stats',
-		    array('tracker' => ARTIFACT,
-			  'bug_id' => $fields['item_id'],
-			  'type' => 'comment',
-			  'user_id' => user_isloggedin() ? user_getid() : null,
-			  // 'date' => strftime("%Y-%m-%d %T"), // automatically filled by MySQL
-			  'form_id' => $fields['form_id'],
-			  'ip' => '127.0.0.1',
-			  'check_value' => $fields['check'],
-			  'details' => $fields['comment']));
+//     db_autoexecute('spam_stats',
+//		    array('tracker' => ARTIFACT,
+//			  'bug_id' => $fields['item_id'],
+//			  'type' => 'comment',
+//			  'user_id' => user_isloggedin() ? user_getid() : null,
+//			  // 'date' => strftime("%Y-%m-%d %T"), // automatically filled by MySQL
+//			  'form_id' => $fields['form_id'],
+//			  'ip' => '127.0.0.1',
+//			  'check_value' => $fields['check'],
+//			  'details' => $fields['comment']));
  if (!user_isloggedin() && (!isset($_POST['check'])
      || ($_POST['check'] != 1984 && !$preview)))
  { exit_error(_("You're not logged in and you didn't enter the magic anti-spam number, please go back!")); }

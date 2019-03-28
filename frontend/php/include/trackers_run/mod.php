@@ -34,7 +34,7 @@ $fields_per_line=2;
 $max_size=40;
 
 $result = db_execute("SELECT * FROM ".ARTIFACT." WHERE bug_id=? AND group_id=?",
-		     array($item_id, $group_id));
+                     array($item_id, $group_id));
 
 if (db_numrows($result) > 0)
 {
@@ -51,19 +51,19 @@ if (db_numrows($result) > 0)
   if (db_result($result,0,'privacy') == "2")
     {
       if (member_check_private(0, $group_id))
-	{
-        # Nothing worth being mentioned
-	}
+        {
+          # Nothing worth being mentioned
+        }
       elseif (db_result($result,0,'submitted_by') == user_getid())
-	{
-	  $private_intro =
-_("This item is private. However, you are allowed to read it as you submitted it.");
-	}
+        {
+          $private_intro =
+            _("This item is private. However, you are allowed to read it as you submitted it.");
+        }
       else
-	{
-	  exit_error(_("This item is private. You are not listed as member
+        {
+          exit_error(_("This item is private. You are not listed as member
 allowed to read private items."));
-	}
+        }
     }
 
   trackers_header(array ('title'=>$item_name.", "
@@ -83,14 +83,14 @@ allowed to read private items."));
     {
       print '<p>'.help(_("You are technician for this tracker."),
         array(_("technician")
-	      =>_("you can be assigned tracker's items, but you cannot reassign
+              =>_("you can be assigned tracker's items, but you cannot reassign
 items, change priority nor open/close")))."</p>\n";
     }
   elseif (member_check(0,$group_id,member_create_tracker_flag(ARTIFACT).'3', 1))
     {
       print '<p>'.help(_("You are manager for this tracker."),
         array(_("manager")
-	      =>_("you can fully manage the trackers items, including assigning
+              =>_("you can fully manage the trackers items, including assigning
 items to technicians, reassign items over trackers and projects, changing
 priority and open/close items")))."</p>\n";
     }
@@ -176,28 +176,28 @@ priority and open/close items")))."</p>\n";
     {
       # If the field is not used by the project, skip it
       if (!trackers_data_is_used($field_name))
-	{ continue ; }
+        { continue ; }
 
       # if the field is a special field (not summary) then skip it
       if (trackers_data_is_special($field_name) &&
-	  $field_name != 'summary')
-	{
-	  # If we are on the cookbook, details (a special field) must be
-	  # allowed too
-	  if (ARTIFACT == 'cookbook' && $field_name == 'details')
-	    {
-	      # ok
-	    }
-	  else
-	    {
-	      continue;
-	    }
-	}
+          $field_name != 'summary')
+        {
+          # If we are on the cookbook, details (a special field) must be
+          # allowed too
+          if (ARTIFACT == 'cookbook' && $field_name == 'details')
+            {
+              # ok
+            }
+          else
+            {
+              continue;
+            }
+        }
 
       #  print the originator email field only if the submitted was anonymous
       if ($field_name == 'originator_email' &&
-	  db_result($result,0,'submitted_by') != '100')
-	{ continue; }
+          db_result($result,0,'submitted_by') != '100')
+        { continue; }
 
       # display the bug field
       # if field size is greatest than max_size chars then force it to
@@ -212,9 +212,9 @@ priority and open/close items")))."</p>\n";
       if (!isset ($nocache))
         $nocache = false;
       if (empty($$field_name) || $nocache)
-	{ $field_value = db_result($result,0,$field_name); }
+        { $field_value = db_result($result,0,$field_name); }
       else
-	{ $field_value = htmlspecialchars($$field_name); }
+        { $field_value = htmlspecialchars($$field_name); }
       list($sz,) = trackers_data_get_display_size($field_name);
       $label = trackers_field_label_display($field_name,$group_id,false,false);
 
@@ -226,29 +226,29 @@ priority and open/close items")))."</p>\n";
 
       # Discussion lock is shown only to at least managers
       if ($field_name == 'discussion_lock')
-	{
-	  # Save for later
-	  $item_discussion_lock = db_result($result,0,$field_name);
-	  if (!$is_manager)
-	    { continue; }
-	}
+        {
+          # Save for later
+          $item_discussion_lock = db_result($result,0,$field_name);
+          if (!$is_manager)
+            { continue; }
+        }
 
       # some fields must be displayed read-only,
       # assigned_to, status_id and priority too, for technicians
       # (if super_user, do nothing)
       if (!$is_manager &&
-	  ($field_name == 'status_id' ||
-	   $field_name == 'assigned_to' ||
-	   $field_name == 'priority' ||
-	   $field_name == 'originator_email'))
-	{
+          ($field_name == 'status_id' ||
+           $field_name == 'assigned_to' ||
+           $field_name == 'priority' ||
+           $field_name == 'originator_email'))
+        {
           $value = trackers_field_display($field_name,$group_id,$field_value,
                                           false,false,true);
-	  if ($field_name == 'originator_email')
-	    {
-	      $value = utils_email_basic($value);
-	    }
-	}
+          if ($field_name == 'originator_email')
+            {
+              $value = utils_email_basic($value);
+            }
+        }
       else
         $value = trackers_field_display($field_name,$group_id,$field_value,
                                         false,false,$printer,false,false,
@@ -263,44 +263,44 @@ priority and open/close items")))."</p>\n";
               && trackers_check_is_shown_to_submitter($field_name, $group_id,
                                                       db_result($result, 0,
                                                                 'submitted_by'))))
-	{
-	  $star = '<span class="warn"> *</span>';
-	}
+        {
+          $star = '<span class="warn"> *</span>';
+        }
 
       # Fields colors
       $field_class = '';
       $row_class = '';
       if ($j % 2 && $field_name != 'details')
-	{
+        {
           # We keep the original submission with the default
-	  # background color, for lisibility sake
-	  #
-	  # We also use the boxitem background color only one time
+          # background color, for lisibility sake
+          #
+          # We also use the boxitem background color only one time
           # out of two, to keep the page light
-	  $row_class = ' class="'.utils_altrow($j+1).'"';
-	}
+          $row_class = ' class="'.utils_altrow($j+1).'"';
+        }
 
       # If we are working on the cookbook, present checkboxes to
       # defines context before the summary line;
       if (CONTEXT == 'cookbook' && $field_name == 'summary')
-	{
-	  cookbook_print_form();
-	}
+        {
+          cookbook_print_form();
+        }
 
       # We highlight fields that were not properly/completely
       # filled.
       if ($previous_form_bad_fields
           && array_key_exists($field_name, $previous_form_bad_fields))
-	{
-	  $field_class = ' class="highlight"';
-	}
+        {
+          $field_class = ' class="highlight"';
+        }
 
       if ($sz > $max_size)
-	{
-	  # Field getting one line for itself
+        {
+          # Field getting one line for itself
 
           # Each time prepare the change of the background color
-	  $j++;
+          $j++;
 
           print "\n<tr".$row_class.">"
             .'<td valign="middle" '.$field_class.' width="15%">'.$label.$star
@@ -357,7 +357,7 @@ priority and open/close items")))."</p>\n";
     {
       reset($is_deployed);
       while (list($entry,) = each($is_deployed))
-	{ $is_deployed[$entry] = true; }
+        { $is_deployed[$entry] = true; }
     }
 
   # If at the second step of any two-step activity (add deps, reassign,
@@ -370,14 +370,14 @@ priority and open/close items")))."</p>\n";
     {
       reset($is_deployed);
       while (list($entry,) = each($is_deployed))
-	{ $is_deployed[$entry] = false; }
+        { $is_deployed[$entry] = false; }
 
       if ($depends_search)
-	{ $is_deployed["dependencies"] = true; }
+        { $is_deployed["dependencies"] = true; }
       if ($canned_response == "!multiple!")
-	{ $is_deployed["postcomment"] = true; }
+        { $is_deployed["postcomment"] = true; }
       if ($reassign_change_project_search)
-	{ $is_deployed["reassign"] = true; }
+        { $is_deployed["reassign"] = true; }
     }
 
 # ################################ Post a comment
@@ -389,7 +389,7 @@ priority and open/close items")))."</p>\n";
   # There is one more click but people feel more in control (well, at least
   # the one that were vocal about Savane UI design)
   print html_hidsubpart_header("postcomment",
-			       _("Post a Comment"), $is_deployed['postcomment']);
+                               _("Post a Comment"), $is_deployed['postcomment']);
 
   # The discussion lock will not prevent technicians and manager to comment
   # The point is too filter spams and to allow to stop flamewars, but
@@ -412,25 +412,25 @@ priority and open/close items")))."</p>\n";
     {
       $result_canned = trackers_data_get_canned_responses($group_id);
       if (db_numrows($result_canned) > 0)
-	{
-	  print '<div>';
+        {
+          print '<div>';
 
-	  while ($canned = db_fetch_array($result_canned))
-	    {
-	      print '&nbsp;&nbsp;&nbsp;';
+          while ($canned = db_fetch_array($result_canned))
+            {
+              print '&nbsp;&nbsp;&nbsp;';
               print form_input("checkbox", "canned_response[]",
                                $canned['bug_canned_id']).' '.$canned['title'];
               print "<br />\n";
 
-	    }
+            }
           print "</div>\n";
-	}
+        }
       else
-	{
+        {
           print '<span class="warn">'
                 ._("Strangely enough, there is no canned response available.")
                 .'</span>';
-	}
+        }
     }
   else
     {
@@ -457,7 +457,7 @@ priority and open/close items")))."</p>\n";
 # ################################ Read Comments
 
   print html_hidsubpart_header("discussion",
-			       _("Discussion"));
+                               _("Discussion"));
 
   // FIXME: quoted is broken with the new markup feature
   $quotation_style = false;
@@ -471,7 +471,7 @@ priority and open/close items")))."</p>\n";
 
   # deployed by default, important item info
   print html_hidsubpart_header("attached",
-			       _("Attached Files"));
+                               _("Attached Files"));
 
   print '<p class="noprint">';
   print sprintf(_("(Note: upload size limit is set to %s kB, after insertion of
@@ -505,7 +505,7 @@ the required escape characters.)"), $GLOBALS['sys_upload_max']);
 
   # deployed by default, important item info
   print html_hidsubpart_header("dependencies",
-			       _("Dependencies"));
+                               _("Dependencies"));
 
   print '<p class="noprint"><span class="preinput">';
   if (!$depends_search)
@@ -600,60 +600,60 @@ of '%s' in the database:"), $depends_search);
 # If we have less than 4 characters, to avoid giving lot of feedback
 # and put an exit to the report, just consider the search as a failure.
       if (strlen($depends_search) > 3)
-	{
+        {
 
 # Build the list of trackers to take account of.
-	  if ($depends_search_only_artifact == "all")
-	    { $artifacts = array("support", "bugs", "task", "patch"); }
-	  else
-	    { $artifacts = array($depends_search_only_artifact); }
+          if ($depends_search_only_artifact == "all")
+            { $artifacts = array("support", "bugs", "task", "patch"); }
+          else
+            { $artifacts = array($depends_search_only_artifact); }
 
 # Actually search on each asked trackers.
-	  while (list($num, $tracker) = each($artifacts))
-	    {
-	      if ($depends_search_only_project == "notany")
-		{ $GLOBALS['only_group_id'] = $group_id; }
+          while (list($num, $tracker) = each($artifacts))
+            {
+              if ($depends_search_only_project == "notany")
+                { $GLOBALS['only_group_id'] = $group_id; }
 
 # Do not ask for all words,
               $GLOBALS['exact'] = 0;
 
-	      $result_search = search_run($depends_search, $tracker, 0);
-	      $success = db_numrows($result_search) + $success;
+              $result_search = search_run($depends_search, $tracker, 0);
+              $success = db_numrows($result_search) + $success;
 
 # Print the result, if existing.
-	      if (db_numrows($result_search) != 0)
-		{
+              if (db_numrows($result_search) != 0)
+                {
                   while (list($res_id, $res_summary, $res_date, $res_privacy,
                               $res_submitter_id, $res_submitter_name,
                               $res_group) = db_fetch_array($result_search))
-		    {
+                    {
 # Avoid item depending on itself.
 # Hide private items. For now, they are excluded for dependencies.
 # We ll implement that later if necessary.
-		      if ($res_privacy == 2)
-			{ continue; }
-		      if ($res_id != $item_id || $tracker != ARTIFACT)
-			{
+                      if ($res_privacy == 2)
+                        { continue; }
+                      if ($res_id != $item_id || $tracker != ARTIFACT)
+                        {
 # Right now only print id, summary and group.
 # We may change that depending on users feedback.
-			  print '<br />';
+                          print '<br />';
                           print '&nbsp;&nbsp;&nbsp;'
                             .form_input("checkbox", "dependent_on_".$tracker
                             ."[]", $res_id).' '.$tracker.' #'.$res_id.': '
                             .$res_summary;
-			  print ', '._("group").' '.group_getname($res_group);
-			}
-		    }
-		}
-	    }
-	}
+                          print ', '._("group").' '.group_getname($res_group);
+                        }
+                    }
+                }
+            }
+        }
       if (!$success)
-	{
-	  print '<br /><span class="warn">';
-	  print _("None found. Please note that only search words of more than
+        {
+          print '<br /><span class="warn">';
+          print _("None found. Please note that only search words of more than
 three characters are valid.");
-	  print '</span>';
-	}
+          print '</span>';
+        }
 
     }
 
@@ -673,7 +673,7 @@ three characters are valid.");
 # ################################ Mail notification
 
   print html_hidsubpart_header("cc",
-			       _("Mail Notification Carbon-Copy List"));
+                               _("Mail Notification Carbon-Copy List"));
   print '<p class="noprint">';
 # TRANSLATORS: the argument is site name (like Savannah).
   printf (_("(Note: for %s users, you can use their login name
@@ -712,7 +712,7 @@ rather than their email addresses.)"), $GLOBALS['sys_name']);
 # ATM, the mod page is only for technicians/manager. They always have
 # the right to vote, as they are project member anyway.
       print html_hidsubpart_header("votes",
-				   _("Votes"));
+                                   _("Votes"));
       print '<p>'.sprintf(ngettext("There is %s vote so far.",
                                    "There are %s votes so far.",
                                    $votes), $votes).' '
@@ -745,19 +745,19 @@ managers.").'</p>
       # no point in having this part printable
       print '<span class="noprint">';
       print html_hidsubpart_header("reassign",
-				   _("Reassign this item"));
+                                   _("Reassign this item"));
 
 
       function specific_reassign_artifact ($art, $content)
-	{
-	  $checked = '';
-	  if (!$GLOBALS['reassign_change_artifact'] && ARTIFACT == $art
+        {
+          $checked = '';
+          if (!$GLOBALS['reassign_change_artifact'] && ARTIFACT == $art
               || $GLOBALS['reassign_change_artifact'] == $art)
-	      $checked = ' selected="selected"';
-	  $ret = '<option value="'.$art.'"'.$checked.'>'.$content."</option>\n";
-	  $checked = '';
+              $checked = ' selected="selected"';
+          $ret = '<option value="'.$art.'"'.$checked.'>'.$content."</option>\n";
+          $checked = '';
           return $ret;
-	}
+        }
       $tracker_select = '<select title="'._("Tracker to reassign to")
                         .'" name="reassign_change_artifact">';
       $tracker_select .= specific_reassign_artifact("support",
@@ -780,79 +780,79 @@ managers.").'</p>
         <span class="preinput">';
 
       if (!$reassign_change_project_search)
-	print _("Move to the project:");
+        print _("Move to the project:");
       else
-	{
+        {
 # Print a specific message if we are already at step 2 of
 # reassignation to another project.
-	  print _("New search, in case the previous one was not satisfactory
+          print _("New search, in case the previous one was not satisfactory
 (to reassign the item to another project):");
-	}
+        }
 
       print '</span><br />
 &nbsp;&nbsp;&nbsp;<input type="text" title="'._("Project to reassign item to")
 .'" name="reassign_change_project_search" '
 .'size="40" maxlength="255" />';
       if (!$reassign_change_project_search)
-	{
-	  print form_submit(_("Search"), "submit");
-	}
+        {
+          print form_submit(_("Search"), "submit");
+        }
       else
-	{
+        {
 # Print a specific message if we are already at step 2 of filling
 # a ressign.
-	  print form_submit(_("New search"), "submit");
-	}
+          print form_submit(_("New search"), "submit");
+        }
 
 # Search results, if we are already at step 2 of filling
       if ($reassign_change_project_search)
-	{
-	  print '</p>
+        {
+          print '</p>
 <p><span class="preinput">';
-	  printf (_("To which project this bug should be reassigned to? This is
+          printf (_("To which project this bug should be reassigned to? This is
 the result of your search of '%s' in the database:"),
                   $reassign_change_project_search);
-	  print '</span>';
+          print '</span>';
 
 # Print a null-option, someone may change his mine without having
 # to use the back button of his browser.
-	  print '<br />
+          print '<br />
 &nbsp;&nbsp;&nbsp;<input type="radio" name="reassign_change_project" '
 .'value="0" checked="checked" /> '._("Do not reassign to another project.");
 
-	  $success = false;
-	  $result_search = search_run($reassign_change_project_search, "soft",
+          $success = false;
+          $result_search = search_run($reassign_change_project_search, "soft",
                                       0);
-	  $success = db_numrows($result_search);
+          $success = db_numrows($result_search);
 
 # Print the result, if existing.
-	  if (db_numrows($result_search) != 0)
-	    {
-	      while (list($res_group_name, $res_unix_group_name, $res_group_id)
+          if (db_numrows($result_search) != 0)
+            {
+              while (list($res_group_name, $res_unix_group_name, $res_group_id)
                      = db_fetch_array($result_search))
-		{
+                {
 # Not reassigning to itself.
-		  if ($res_unix_group_name != $group)
-		    {
+                  if ($res_unix_group_name != $group)
+                    {
                       print "<br />\n";
                       print '&nbsp;&nbsp;&nbsp;'
                             .form_input("radio", "reassign_change_project",
                                         $res_unix_group_name)
                             .' ['.$res_unix_group_name.', #'.$res_group_id.'] '
                             .$res_group_name;
-		    }
-		}
-	    }
+                    }
+                }
+            }
 
-	  if (!$success)
-	    {
-	      print '<br /><span class="warn">';
-	      print _("None found. Please note that only search words of more
+          if (!$success)
+            {
+              print '<br /><span class="warn">';
+              print _("None found. Please note that only search words of more
 than three characters are valid.");
-	      print '</span>';
-	    }
+              print '</span>';
+            }
 
-	}
+        }
       print html_hidsubpart_footer();
       print '</span>';
     }

@@ -8,3 +8,8 @@ config.log
 config.status
 www
 *~
+
+# Files used/generated when running Savane locally
+lib/MYMETA.json
+lib/MYMETA.yml
+local2/etc-savane/savane-dev-db.php

@@ -52,9 +52,9 @@ function db_connect()
   if (!$conn or !mysql_select_db($sys_dbname, $conn))
     {
       echo "Failed to connect to database: " . mysql_error() . "<br />";
-      echo "Please contact as soon as possible server administrators "
+      echo "Please contact the server administrators: "
             .$GLOBALS['sys_email_adress'].".<br />";
-      echo "Until this problem get fixed, you will not be able to use this site.";
+      echo "Until this problem gets fixed, you will not be able to use this site.";
       exit;
     }
 

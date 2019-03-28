@@ -333,7 +333,7 @@ db_connect();
 if (isset($GLOBALS['sys_unix_group_name']))
   {
     $search_group = $GLOBALS['sys_unix_group_name'];
-    $res = db_execute("SELECT group_id FROM groups WHERE unix_group_name=?",
+    $res = db_execute("SELECT group_id FROM $sys_dbname.groups WHERE unix_group_name=?",
                       array($search_group));
     if (db_numrows($res) != 0)
       $sys_group_id = db_result($res, 0, 'group_id');
@@ -456,7 +456,7 @@ if (!isset($group_id) && isset($msg_id))
 $res_grp = null;
 if (isset($group) && !isset($group_id))
   {
-    $res_grp = db_execute("SELECT group_id,status FROM groups "
+    $res_grp = db_execute("SELECT group_id,status FROM $sys_dbname.groups "
                           ."WHERE unix_group_name=?",
                           array($group));
     if (db_numrows($res_grp) > 0)
@@ -464,7 +464,7 @@ if (isset($group) && !isset($group_id))
   }
 elseif (isset($group_id))
   {
-    $res_grp = db_execute("SELECT unix_group_name,status FROM groups "
+    $res_grp = db_execute("SELECT unix_group_name,status FROM $sys_dbname.groups "
                           ."WHERE group_id=?",
                           array($group_id));
     if (db_numrows($res_grp) > 0)
@@ -480,7 +480,7 @@ if (isset($group_id))
   {
     if (!$res_grp)
       {
-        $res_grp = db_execute("SELECT unix_group_name,status FROM groups "
+        $res_grp = db_execute("SELECT unix_group_name,status FROM $sys_dbname.groups "
                               ."WHERE group_id=?",
                               array($group_id));
       }

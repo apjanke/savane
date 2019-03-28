@@ -8,7 +8,7 @@
 # 
 # Build by mysqldump  Ver 10.10 Distrib 5.0.27, for pc-linux-gnu (i486)
 # 
-# Go at <https://gna.org/projects/savane> if you need information 
+# Go at <https://savannah.nongnu.org/projects/administration> if you need information 
 # about Savane.
 
 CREATE TABLE `support` (

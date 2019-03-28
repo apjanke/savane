@@ -1,6 +1,6 @@
 <?php
 // This file is part of the Savane project
-// <http://gna.org/projects/savane/>
+// <https://savannah.nongnu.org/projects/administration/>
 //
 // $Id: forbidden_theme.txt 3686 2004-09-22 08:11:52Z yeupou $
 //

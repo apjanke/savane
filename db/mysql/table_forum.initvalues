@@ -8,7 +8,7 @@
 # 
 # Build by mysqldump  Ver 10.10 Distrib 5.0.27, for pc-linux-gnu (i486)
 # 
-# Go at <https://gna.org/projects/savane> if you need information 
+# Go at <https://savannah.nongnu.org/projects/administration> if you need information 
 # about Savane.
 
 INSERT INTO `forum` (`msg_id`, `group_forum_id`, `posted_by`, `subject`, `body`, `date`, `is_followup_to`, `thread_id`, `has_followups`) VALUES (100,100,0,'','',0,0,0,0);

@@ -8,7 +8,7 @@
 # 
 # Build by mysqldump  Ver 10.10 Distrib 5.0.27, for pc-linux-gnu (i486)
 # 
-# Go at <https://gna.org/projects/savane> if you need information 
+# Go at <https://savannah.nongnu.org/projects/administration> if you need information 
 # about Savane.
 
 INSERT INTO `people_skill_year` (`skill_year_id`, `name`) VALUES (1,'< 6 Months'),(2,'6 Mo - 2 yr'),(3,'2 yr - 5 yr'),(4,'5 yr - 10 yr'),(5,'> 10 years');

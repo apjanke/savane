@@ -8,7 +8,7 @@
 # 
 # Build by mysqldump  Ver 10.10 Distrib 5.0.27, for pc-linux-gnu (i486)
 # 
-# Go at <https://gna.org/projects/savane> if you need information 
+# Go at <https://savannah.nongnu.org/projects/administration> if you need information 
 # about Savane.
 
 INSERT INTO `news_bytes` (`id`, `group_id`, `submitted_by`, `is_approved`, `date`, `forum_id`, `summary`, `details`) VALUES (100,100,0,0,0,100,NULL,NULL);

@@ -4,7 +4,7 @@
 <P>Your project has been submitted and is waiting to be reviewed by a 
 <?php
 // This file is part of the Savane project
-// <http://gna.org/projects/savane/>
+// <https://savannah.nongnu.org/projects/administration/>
 //
 // $Id$
 // print $GLOBALS['sys_name']; ?> 

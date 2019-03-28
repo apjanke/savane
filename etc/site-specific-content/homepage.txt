@@ -19,6 +19,6 @@ themselves (the place where you are most likely to need it).
 
 <p>
 The software used to run this site has been developed by the
-<a href="https://gna.org/projects/savane">Savane</a> project.
+<a href="https://savannah.nongnu.org/projects/administration">Savane</a> project.
 </p>
 <!-- $Id$ END -->

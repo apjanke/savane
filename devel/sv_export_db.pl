@@ -87,7 +87,7 @@ sub BuildHeader {
 # 
 # Build by $mysqldumpversion
 # 
-# Go at <https://gna.org/projects/savane> if you need information 
+# Go at <https://savannah.nongnu.org/projects/administration> if you need information 
 # about Savane.
 
 ";

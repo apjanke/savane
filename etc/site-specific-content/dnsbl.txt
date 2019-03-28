@@ -1,6 +1,6 @@
 <?php
 # This file is part of the Savane project
-# <http://gna.org/projects/savane/>
+# <https://savannah.nongnu.org/projects/administration/>
 #
 # $Id: hashes.txt 5281 2006-02-01 18:06:10Z yeupou $
 #

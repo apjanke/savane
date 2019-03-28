@@ -1,6 +1,6 @@
 #!/bin/bash
 # This file is part of the Savane project
-# <http://gna.org/projects/savane/>
+# <https://savannah.nongnu.org/projects/administration/>
 #
 # $Id$
 #

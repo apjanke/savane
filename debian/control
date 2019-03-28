@@ -17,7 +17,7 @@ Description: Meta package that fetch every packages for a standard install.
  member management, mailing lists, and individual account maintenance.
  It is internationalised and themable.
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-database
 Architecture: all
@@ -26,13 +26,13 @@ Recommends: savane-update
 Description: Necessary files to create a Savane database.
  This package does not need the Savane lib/backend.
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-doc
 Architecture: all
 Description: Savane documentation, related to setup. 
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-backend
 Architecture: all
@@ -42,7 +42,7 @@ Description: The complete savane backend.
  You may want to install only some parts of the backend, in this case use
  the packages savane-backend-[part wanted].
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-config
 Replaces: savane-backend-config
@@ -54,7 +54,7 @@ Recommends: savane-update
 Description: Savane configurator. This could be handy on any system that
  runs Savane parts (frontend or backend).
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-backend-members-shell
 Architecture: all
@@ -68,7 +68,7 @@ Description: Part of Savane backend that help providing shell access to users.
  .
  It is necessary on all systems that provide write-access to users.
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-backend-misc
 Architecture: all
@@ -79,7 +79,7 @@ Description: Important part of Savane backend that contains misc scripts .
  reminders to users. This part of the backend is important and must be 
  up and running.
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-backend-mail
 Architecture: all
@@ -91,7 +91,7 @@ Description: Part of Savane backend related to mails.
  mails. It include the script that build the list of mail aliases according
  to the database.
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-backend-extra-cvs
 Architecture: all
@@ -103,7 +103,7 @@ Description: Part of Savane backend that contains CVS related scripts.
  This package provides handy programs that could be useful to generate
  cvs repositories dumps and snapshot etc.
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-backend-extra-subversion
 Architecture: all
@@ -115,7 +115,7 @@ Description: Part of Savane backend that contains SVN related scripts.
  SVN repositories dumps and snapshot, to set up automated annotation of
  trackers item on commit (post-commit script) etc.
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-backend-download
 Architecture: all
@@ -125,7 +125,7 @@ Description: Part of Savane backend that contains download related scripts.
  This package provides handy programs that could be useful to check GPG 
  signatures of uploaded files
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-backend-export
 Architecture: all
@@ -135,7 +135,7 @@ Description: Part of Savane backend that contains export/import related scripts.
  This package provides necessary part of the backend for the import/export 
  savane functionalities.
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-backend-spamcheck
 Architecture: all
@@ -145,7 +145,7 @@ Description: Part of Savane backend that contains spamassassin related scripts.
  This package provides necessary part of the backend for the spamcheck with 
  spamc savane functionalities.
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-lib
 Architecture: all
@@ -154,7 +154,7 @@ Description: Savane library.
  .
  This library is used by the backend and the Perl frontend. 
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-update
 Architecture: all
@@ -172,7 +172,7 @@ Description: Package containing script necessary for the upgrade of Savane.
  .
  Read the READMEs.
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-frontend
 Architecture: all
@@ -184,7 +184,7 @@ Description: Savane main frontend, the interface most users will use.
  .
  This is an essential part of Savane.
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration
 
 Package: savane-frontend-mail
 Architecture: all
@@ -194,4 +194,4 @@ Description: Savane extra mail related frontend.
  It's a secondary frontend of Savane that provide ways
  to control access to mailing-list private archives.
  .
- Homepage: http://gna.org/projects/savane
+ Homepage: https://savannah.nongnu.org/projects/administration

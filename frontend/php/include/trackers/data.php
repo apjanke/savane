@@ -2354,6 +2354,17 @@ function trackers_data_create_item($group_id,$vfl,&$extra_addresses)
   $vfl['status_id'] = '1';
   reset($vfl);
   $insert_fields = array();
+  # Initialize fields which do not have a default value defined in the db schema
+  $insert_fields['custom_ta1'] = '';
+  $insert_fields['custom_ta2'] = '';
+  $insert_fields['custom_ta3'] = '';
+  $insert_fields['custom_ta4'] = '';
+  $insert_fields['custom_ta5'] = '';
+  $insert_fields['custom_ta6'] = '';
+  $insert_fields['custom_ta7'] = '';
+  $insert_fields['custom_ta8'] = '';
+  $insert_fields['custom_ta9'] = '';
+  $insert_fields['custom_ta10'] = '';
   $field_transition_id = '';
   while (list($field,$value) = each($vfl))
     {

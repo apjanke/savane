@@ -59,9 +59,10 @@ class Group extends Error
 
   function Group($id)
     {
+      global $sys_dbname;
       $this->Error();
       $this->group_id=$id;
-      $this->db_result=db_execute("SELECT * FROM groups WHERE group_id=?", array($id));
+      $this->db_result=db_execute("SELECT * FROM $sys_dbname.groups WHERE group_id=?", array($id));
       if (db_numrows($this->db_result) < 1)
 	{
 	  #function in class we extended
@@ -527,7 +528,8 @@ function group_get_result($group_id=0)
 
 function group_getid ($group_name)
 {
-  $res = db_execute("SELECT group_id FROM groups WHERE unix_group_name=?",
+  global $sys_dbname;
+  $res = db_execute("SELECT group_id FROM $sys_dbname.groups WHERE unix_group_name=?",
                     array($group_name));
   if (db_numrows($res) > 0)
     return db_result($res,0,'group_id');

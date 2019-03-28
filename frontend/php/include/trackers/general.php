@@ -1240,44 +1240,47 @@ function trackers_attach_file($item_id,
   # Found of the previous upload count.
   # It could not be inferior to 0. If it is, someone obviously find a way
   # to tamper, ignore the file.
-  $current_upload_size = $GLOBALS['current_upload_size'];
+  $current_upload_size_kb = $GLOBALS['current_upload_size'];
+  $current_upload_size_mb = round($current_upload_size_kb / 1024);
   $current_upload_size_comment = '';
-  if ($current_upload_size < 0)
+  if ($current_upload_size_kb < 0)
     {
 # TRANSLATORS: the argument is file name.
       fb(sprintf(_("Unexpected error, disregarding file %s attachment"),
                  $input_file_name), 1);
       return false;
     }
-  if ($current_upload_size > 0)
+  if ($current_upload_size_kb > 0)
     {
       # Explanation added when an upload is refused, if the upload count
       # is involved.
       $current_upload_size_comment = ' '
-       .sprintf (ngettext("You already uploaded %s kilobyte.",
-                          "You already uploaded %s kilobytes.",
-                          $current_upload_size),
-                 $current_upload_size);
+       .sprintf (ngettext("You already uploaded %s megabyte.",
+                          "You already uploaded %s megabytes.",
+                          $current_upload_size_mb),
+                 $current_upload_size_mb);
     }
 
 
   # Check file size.
-  # Note: in english, use the expression kilobytes, and not kB, because
+  # Note: in english, use the expression megabytes, and not kB, because
   # feedback is in lowercase for the whole string.
   # We always add the current upload count.
-  $filesize = round(filesize($input_file) / 1024);
-  $uploadsize = $filesize + $current_upload_size;
-  if ($uploadsize > $GLOBALS['sys_upload_max'])
+  $filesize_kb = round(filesize($input_file) / 1024);
+  $filesize_mb = round($filesize_kb / 1024);
+  $uploadsize_kb = $filesize_kb + $current_upload_size_kb;
+  $upload_max_mb = round($GLOBALS['sys_upload_max'] / 1024);
+  if ($uploadsize_kb > $upload_max_mb)
     {
-      fb(sprintf(ngettext("File %s not attached: its size is %s kilobyte.",
-                          "File %s not attached: its size is %s kilobytes.",
-                          $filesize), $input_file_name, $filesize).' '
-          .sprintf(ngettext("Maximum allowed file size is %s kilobyte,
+      fb(sprintf(ngettext("File %s not attached: its size is %s megabyte.",
+                          "File %s not attached: its size is %s megabytes.",
+                          $filesize_mb), $input_file_name, $filesize_mb).' '
+          .sprintf(ngettext("Maximum allowed file size is %s megabyte,
 after escaping characters as required.",
-                            "Maximum allowed file size is %s kilobytes,
+                            "Maximum allowed file size is %s megabytes,
 after escaping characters as required.",
-                            $GLOBALS['sys_upload_max']),
-                   $GLOBALS['sys_upload_max']).$current_upload_size_comment, 1);
+                            $upload_max_mb),
+                   $upload_max_mb).$current_upload_size_comment, 1);
       return false;
     }
   if (filesize($input_file) == 0)
@@ -1288,7 +1291,7 @@ after escaping characters as required.",
     }
 
   # Update the upload count value (before the actual database insert, safer).
-  $GLOBALS['current_upload_size'] = $uploadsize;
+  $GLOBALS['current_upload_size'] = $uploadsize_kb;
 
   $res = db_autoexecute('trackers_file',
     array(
@@ -1323,7 +1326,7 @@ after escaping characters as required.",
                             "Added ".$input_file_name.", #".$file_id,
                             $item_id,
                             0,0,1);
-  # Add the guy in CC.
+  # Add the uploader in CC.
   if (user_isloggedin() &&
       !user_get_preference("skipcc_updateitem"))
     {

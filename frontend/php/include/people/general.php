@@ -490,11 +490,12 @@ function people_show_job_list($result, $edit=0)
 
 function people_show_project_jobs($group_id,$edit=0)
 {
+  global $sys_dbname;
   #show open jobs for this project
   $result = db_execute("SELECT people_job.group_id,people_job.job_id,"
      ."groups.group_name,groups.unix_group_name,groups.type,people_job.title,"
      ."people_job.date,people_job_category.name AS category_name "
-     ."FROM people_job,people_job_category,groups "
+     ."FROM people_job,people_job_category,$sys_dbname.groups "
      ."WHERE people_job.group_id=? "
      ."AND people_job.group_id=groups.group_id "
      ."AND people_job.category_id=people_job_category.category_id "
@@ -505,11 +506,12 @@ function people_show_project_jobs($group_id,$edit=0)
 
 function people_project_jobs_rows($group_id)
 {
+  global $sys_dbname;
   #show open jobs for this project
   $result = db_execute("SELECT people_job.group_id,people_job.job_id,"
      ."groups.group_name,people_job.title,people_job.date,"
      ."people_job_category.name AS category_name "
-     ."FROM people_job,people_job_category,groups "
+     ."FROM people_job,people_job_category,$sys_dbname.groups "
      ."WHERE people_job.group_id=? "
      ."AND people_job.group_id=groups.group_id "
      ."AND people_job.category_id=people_job_category.category_id "

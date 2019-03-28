@@ -562,6 +562,7 @@ function show_post_form($forum_id, $thread_id=0, $is_followup_to=0, $subject="")
 function handle_monitoring($forum_id,$msg_id)
 {
   global $feedback;
+  global $sys_dbname;
 
   $result=db_execute("SELECT user.email from forum_monitored_forums,user "
                      ."WHERE forum_monitored_forums.user_id=user.user_id "
@@ -576,7 +577,7 @@ function handle_monitoring($forum_id,$msg_id)
           ."forum_group_list.forum_name,user.email,user.realname,"
           ."forum.group_forum_id,forum.thread_id,forum.subject,"
           ."forum.date,forum.body "
-          ."FROM forum,user,forum_group_list,groups "
+          ."FROM forum,user,forum_group_list,$sys_dbname.groups "
           ."WHERE user.user_id=forum.posted_by "
           ."AND forum_group_list.group_forum_id=forum.group_forum_id "
           ."AND groups.group_id=forum_group_list.group_id "

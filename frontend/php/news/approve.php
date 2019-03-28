@@ -120,7 +120,7 @@ if ($approve)
       {
         $result = db_execute("SELECT groups.unix_group_name,"
            ."news_bytes.*,news_bytes.submitted_by AS submitted_by
-           FROM news_bytes,groups WHERE id=?
+           FROM news_bytes,$sys_dbname.groups WHERE id=?
              AND news_bytes.group_id=groups.group_id",
            array($id));
       }

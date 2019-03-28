@@ -170,6 +170,7 @@ function my_item_list_buildsql ($tracker, $role="assignee", $threshold="5",
                                 $openclosed="open", $uid=false)
 {
   global $item_data, $group_data, $sql_limit, $usergroups, $usergroups_groupid;
+  global $sys_dbname;
   global $items_per_groups, $usersquads;
 
   if (!ctype_alnum($tracker))
@@ -221,7 +222,7 @@ function my_item_list_buildsql ($tracker, $role="assignee", $threshold="5",
                 .'.summary,groups.group_id,groups.group_name,'
                 .'groups.unix_group_name ';
       $select_params = array();
-      $from = 'FROM '.$tracker.',groups ';
+      $from = 'FROM '.$tracker.",$sys_dbname.groups ";
       $from_params = array();
       $where = 'WHERE groups.group_id='.$tracker.'.group_id ';
 
@@ -338,7 +339,7 @@ function my_item_list_buildsql ($tracker, $role="assignee", $threshold="5",
                    .'.summary,groups.group_id,groups.group_name,'
                    .'groups.unix_group_name ';
           $select_params = array();
-	  $from = ' FROM '.$tracker.',groups ';
+	  $from = ' FROM '.$tracker.",$sys_dbname.groups ";
           $from_params = array();
 	  $where = 'WHERE groups.group_id='.$tracker.'.group_id '.
 	    'AND '.$tracker.'.status_id=1 '.
@@ -360,7 +361,7 @@ function my_item_list_buildsql ($tracker, $role="assignee", $threshold="5",
                    .'.summary,groups.group_id,groups.group_name,'
                    .'groups.unix_group_name ';
           $select_params = array();
-	  $from = ' FROM '.$tracker.',groups ';
+	  $from = ' FROM '.$tracker.",$sys_dbname.groups ";
           $from_params = array();
 	  $where = ' WHERE groups.group_id='.$tracker.'.group_id AND '
             .$tracker.'.status_id=? AND ('

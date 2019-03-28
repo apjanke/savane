@@ -71,7 +71,7 @@ if (!$is_suspended)
   #    very active developers
   #  - ignore private items
 
-    $result = db_execute("SELECT groups.group_name,"
+    $result = db_execute("SELECT DISTINCT groups.group_name,"
                          . "groups.group_id,"
                          . "groups.unix_group_name,"
                          . "groups.status "
@@ -79,7 +79,6 @@ if (!$is_suspended)
                          . "WHERE groups.group_id=user_group.group_id "
                          . "AND user_group.user_id=? "
                          . "AND groups.status='A' "
-                         . "GROUP BY groups.unix_group_name "
                          . "ORDER BY groups.unix_group_name",
                          array(user_getid()));
     $rows = db_numrows($result);
@@ -225,7 +224,7 @@ if (!$is_suspended)
 
     print $HTML->box_top(_("Project Information"),'',1);
     # Now get listing of groups for that user.
-    $result = db_execute("SELECT groups.group_name,"
+    $result = db_execute("SELECT DISTINCT groups.group_name,"
                          . "groups.group_id,"
                          . "groups.unix_group_name,"
                          . "groups.status,"
@@ -241,14 +240,13 @@ if (!$is_suspended)
                          . "OR user_group.admin_flags='P')"
                          . "AND group_history.group_id=user_group.group_id "
                          . "AND group_history.old_value=? "
-                         . "GROUP BY groups.unix_group_name "
                          . "ORDER BY groups.unix_group_name",
                          array($user_id, db_result($res_user,0,'user_name')));
     $rows = db_numrows($result);
 
 # Alternative sql that do not use group_history, just in case this history
 # would be flawed (history usage has been inconsistent over Savane history).
-    $result_without_history = db_execute("SELECT groups.group_name,"
+    $result_without_history = db_execute("SELECT DISTINCT groups.group_name,"
                                          . "groups.group_id,"
                                          . "groups.unix_group_name,"
                                          . "groups.status,"
@@ -258,7 +256,6 @@ if (!$is_suspended)
                                          . "AND user_group.user_id=? "
                                          . "AND groups.status='A' "
                                          . "AND groups.is_public='1' "
-                                         . "GROUP BY groups.unix_group_name "
                                          . "ORDER BY groups.unix_group_name",
                                          array($user_id));
     $rows_without_history = db_numrows($result_without_history);

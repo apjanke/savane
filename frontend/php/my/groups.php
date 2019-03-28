@@ -160,7 +160,7 @@ administrator, a short explanation of why you want to join this project."), 1);
 }
 
 # Get global user and group vars.
-$result = db_execute("SELECT groups.group_name,"
+$result = db_execute("SELECT DISTINCT groups.group_name,"
 . "groups.group_id,"
 . "groups.unix_group_name,"
 . "groups.status,"
@@ -174,7 +174,6 @@ $result = db_execute("SELECT groups.group_name,"
 . "OR group_history.field_name='Approved User' OR user_group.admin_flags='P')"
 . "AND group_history.group_id=user_group.group_id "
 . "AND group_history.old_value=? "
-. "GROUP BY groups.unix_group_name "
 . "ORDER BY groups.unix_group_name",
                      array(user_getid(), user_getname()));
 $rows = db_numrows($result);
@@ -182,7 +181,7 @@ $rows = db_numrows($result);
 # Alternative sql that do not use group_history, just in case this history
 # would be flawed (history usage has been inconsistent over Savane history).
 $history_is_flawed = false;
-$result_without_history = db_execute("SELECT groups.group_name,"
+$result_without_history = db_execute("SELECT DISTINCT groups.group_name,"
 . "groups.group_id,"
 . "groups.unix_group_name,"
 . "groups.status,"
@@ -191,7 +190,6 @@ $result_without_history = db_execute("SELECT groups.group_name,"
 . "WHERE groups.group_id=user_group.group_id "
 . "AND user_group.user_id=? "
 . "AND groups.status='A' "
-. "GROUP BY groups.unix_group_name "
 . "ORDER BY groups.unix_group_name",
                                    array(user_getid()));
 $rows_without_history = db_numrows($result_without_history);

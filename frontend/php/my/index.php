@@ -40,7 +40,7 @@ still unassigned or assigned to you and news posted on a project you are member
 of.").'</p>';
 
 # Get the list of projects the user is member of.
-$result = db_execute("SELECT groups.group_name,"
+$result = db_execute("SELECT DISTINCT groups.group_name,"
   . "groups.group_id,"
   . "groups.unix_group_name,"
   . "groups.status "
@@ -48,7 +48,6 @@ $result = db_execute("SELECT groups.group_name,"
   . "WHERE groups.group_id=user_group.group_id "
   . "AND user_group.user_id = ? "
   . "AND groups.status='A' "
-  . "GROUP BY groups.unix_group_name "
   . "ORDER BY groups.unix_group_name", array(user_getid()));
 $rows = db_numrows($result);
 $usergroups = array();

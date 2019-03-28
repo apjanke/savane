@@ -36,7 +36,7 @@ extract(sane_import('get', array('form_threshold', 'form_open',
                     'boxoptionwanted')));
 
 # Get the list of projects the user is member of.
-$result = db_execute("SELECT groups.group_name,"
+$result = db_execute("SELECT DISTINCT groups.group_name,"
   . "groups.group_id,"
   . "groups.unix_group_name,"
   . "groups.status "
@@ -44,7 +44,6 @@ $result = db_execute("SELECT groups.group_name,"
   . "WHERE groups.group_id=user_group.group_id "
   . "AND user_group.user_id = ? "
   . "AND groups.status='A' "
-  . "GROUP BY groups.unix_group_name "
   . "ORDER BY groups.unix_group_name", array(user_getid()));
 $rows = db_numrows($result);
 $usergroups = array();

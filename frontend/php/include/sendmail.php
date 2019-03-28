@@ -463,7 +463,7 @@ function sendmail_encode_header_content ($header, $charset="UTF-8")
     {
       # Otherwise, the default behavior is to consider words as strings to
       # encode.
-      $words = split(' ', $header);
+      $words = preg_split('/ +/', $header);
     }
   while (list($key,$word) = each($words))
     {

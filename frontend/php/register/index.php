@@ -178,6 +178,12 @@ if ($form->validate())
       'license' => $form_license,
       'license_other' => htmlspecialchars($form_license_other),
       'type' => $group_type,
+      'new_bugs_address' => '',
+      'new_patch_address' => '',
+      'new_support_address' => '',
+      'new_task_address' => '',
+      'new_news_address' => '',
+      'new_cookbook_address' => '',
     ),
     DB_AUTOQUERY_INSERT);
   $result = db_execute("SELECT group_id FROM $sys_dbname.groups WHERE unix_group_name = ?",

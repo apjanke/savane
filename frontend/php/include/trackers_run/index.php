@@ -539,17 +539,18 @@ project and submit the form."),
      # in the new one.
      if ($reassign_change_project || ($reassign_change_artifact && ($reassign_change_artifact != ARTIFACT)))
        {
-	 dbg("reassign item: reassign_change_project:$reassign_change_project, reassign_change_artifact:$reassign_change_artifact, ARTIFACT:".ARTIFACT);
-	 trackers_data_reassign_item($item_id,
-				     $reassign_change_project,
-				     $reassign_change_artifact);
+         dbg("reassign item: reassign_change_project:$reassign_change_project,
+           reassign_change_artifact:$reassign_change_artifact, ARTIFACT:".ARTIFACT);
+         trackers_data_reassign_item($item_id,
+                         $reassign_change_project,
+                         $reassign_change_artifact);
        }
 
      # show browse item page, unless the user want to get back to the
      # same report, to make something else
      if (!$submitreturn) 
        {
-	 include '../include/trackers_run/browse.php';
+           include '../include/trackers_run/browse.php';
        }
      elseif (!$preview)
        { # ends up including tracker item number in url, if present
@@ -562,7 +563,7 @@ project and submit the form."),
              $reassign_change_project_search = $add_cc =
              $input_file = $changed = $vfl = $details = $comment = null;
              $nocache = 1;
- 	     include '../include/trackers_run/mod.php';
+             include '../include/trackers_run/mod.php';
            }
        }
      else
@@ -605,47 +606,47 @@ project and submit the form."),
 	
      if (db_numrows($result) > 0) 
        {
-         # Check if the item is private, refuse post if it is and the 
+         # Check if the item is private; refuse post if it is and the
          # users has no appropriate rights (not member, not submitter)
-	 if (db_result($result,0,'privacy') == '2')
-	   {
-	     if (!member_check(user_getid(), $group_id) &&
-		 db_result($result,0,'submitted_by') != user_getid())
-	       {
-		 # As the user here is expected to behave maliciously,
-		 # return an error message that does not give too much info
-		 exit_permission_denied();
-		 #exit_error(_("This item is private."));
-	       }
-	   }
+         if (db_result($result,0,'privacy') == '2')
+           {
+             if (!member_check(user_getid(), $group_id) &&
+             db_result($result,0,'submitted_by') != user_getid())
+               {
+                 # As the user here is expected to behave maliciously,
+                 # return an error message that does not give too much info
+                 exit_permission_denied();
+                 #exit_error(_("This item is private."));
+               }
+           }
 
-	 # Exit if the discussion is locked
-	 if (db_result($result,0,'discussion_lock'))
-	   {
-	     exit_permission_denied();
-	   }	 
-       }	
-     else
+         # Exit if the discussion is locked
+         if (db_result($result,0,'discussion_lock'))
+           {
+             exit_permission_denied();
+           }
+       }
+       else
        {
-	 # Nothing found? Something obviously weird!
-	 exit_permission_denied();
+         # Nothing found? Something obviously weird!
+         exit_permission_denied();
        }
 		    
-     // To keep track of changes
-     $changes = array();
+       // To keep track of changes
+       $changes = array();
 
-     // Attach new file if there is one
-     // Do that first so it can update the comment
-     $additional_comment = '';
-     if (!$preview && group_restrictions_check($group_id, ARTIFACT, 2))
-       {
-         // (attach_several_files will use sane_() functions to get the
-         // the necessary info)
-         list($changed, $additional_comment) = 
-           trackers_attach_several_files($item_id,
-                                         $group_id,
-                                         $changes);
-       }
+       // Attach new file if there is one
+       // Do that first so it can update the comment
+       $additional_comment = '';
+       if (!$preview && group_restrictions_check($group_id, ARTIFACT, 2))
+         {
+           // (attach_several_files will use sane_() functions to get the
+           // the necessary info)
+           list($changed, $additional_comment) =
+             trackers_attach_several_files($item_id,
+                                           $group_id,
+                                           $changes);
+         }
                     
      # Add a new comment if there is one
      if ($comment != '' and group_restrictions_check($group_id, ARTIFACT, 2))
@@ -701,25 +702,25 @@ project and submit the form."),
      # the user is member
      if (!$preview && trackers_data_is_used("vote"))
        {
-	 if (trackers_data_is_showed_on_add("vote") && user_isloggedin() ||
-	     member_check(user_getid(), $group_id))
-	   {
+         if (trackers_data_is_showed_on_add("vote") && user_isloggedin() ||
+	         member_check(user_getid(), $group_id))
+           {
              # Currently votes does not influence notifications
              # (that could harass developers)
-	     trackers_votes_update($item_id,
-				   $group_id,
-				   $new_vote);
-	   }
+	         trackers_votes_update($item_id,
+               $group_id,
+               $new_vote);
+	       }
        }
      if ($changed)
        {
-	 list($additional_address, $sendall) = trackers_data_get_item_notification_info($item_id, ARTIFACT, 1);
-	 if (($sendall == 1) && (trim($address) != "") && (trim($additional_address) != "")) 
-	   {
-	     $address .= ", ";
-	   }
-	 $address .= $additional_address;
-	 trackers_mail_followup($item_id, $address, $changes);
+         list($additional_address, $sendall) = trackers_data_get_item_notification_info($item_id, ARTIFACT, 1);
+         if (($sendall == 1) && (trim($address) != "") && (trim($additional_address) != ""))
+           {
+	         $address .= ", ";
+           }
+         $address .= $additional_address;
+         trackers_mail_followup($item_id, $address, $changes);
        }
      if ($preview)
        include '../include/trackers_run/detail.php';

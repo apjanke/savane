@@ -82,7 +82,10 @@ function sendmail_mail ($from,
   if (empty($int_delayspamcheck))
     {
       $more_headers .= "X-Savane-Server: ".$_SERVER['SERVER_NAME'].":"
-                    .$_SERVER['SERVER_PORT']." [".$_SERVER['SERVER_ADDR']."]\n";
+                    .$_SERVER['SERVER_PORT'];
+      if (isset($_SERVER['SERVER_ADDR']))
+        $more_headers .= " [".$_SERVER['SERVER_ADDR']."]";
+      $more_headers .= "\n";
     }
 
   # Necessary for proper utf-8 support.

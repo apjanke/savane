@@ -422,7 +422,7 @@ project and submit the form."),
      $vfl = trackers_extract_field_list();
 
      $changed = 0;
-     // Attach new file if there is one Do that first so it can update
+     // Attach new file if there is one. Do that first so it can update
      // the comment (attach_several_files will use sane_() functions
      // to get the the necessary info)
      if (!$preview)
@@ -482,7 +482,7 @@ project and submit the form."),
          # Add new cc if any
          if ($add_cc)
            {
-             # No notification needs to be sent when a cc is added,
+             # No notification needs to be sent when a cc is added;
              # it is irrelevant to the item itself
              trackers_add_cc($item_id,
                              $group_id,
@@ -505,7 +505,7 @@ project and submit the form."),
      # Now handle notification, after all necessary actions has been
      if ($changed)
        {
-         # Check if we re supposed to send all modifications to an address
+         # Check if we are supposed to send all modifications to an address
 	 list($additional_address, $sendall) = trackers_data_get_item_notification_info($item_id, ARTIFACT, 1);
 	 
 	 if (($sendall == 1) && (trim($address) != "") && (trim($additional_address) != "")) 
@@ -515,12 +515,10 @@ project and submit the form."),
 	 $address .= $additional_address;
 	 trackers_mail_followup($item_id, $address,$changes);
 	    
-         # If the assigned_to was changed and the previously assigned 
-         # guy
-         # wants to be removed from CC when he is no longer assigned,
-         # do it now.
-         # We do this after the item update so the previously assignee
-         # got the notification of the this change.
+         # If the assigned_to was changed and the previously assigned guy
+         # wants to be removed from CC when he is no longer assigned, do it now.
+         # We do this after the item update so the previous assignee
+         # gets the notification of the this change.
 	 if (!empty($changes['assigned_to']['del']))
 	   {
 	     $previously_assigned_uid = user_getid($changes['assigned_to']['del']);
@@ -547,8 +545,7 @@ project and submit the form."),
 				     $reassign_change_artifact);
        }
 
-     # show browse item page, unless the user want to get back
-     # to the 
+     # show browse item page, unless the user want to get back to the
      # same report, to make something else
      if (!$submitreturn) 
        {
@@ -590,8 +587,8 @@ project and submit the form."),
      || ($_POST['check'] != 1984 && !$preview)))
  { exit_error(_("You're not logged in and you didn't enter the magic anti-spam number, please go back!")); }
 
-### Add a comment to a bug already in the database,
-### these are the only changes an non member can make
+### Add a comment to a bug already in the database.
+### These are the only changes a non member can make
 
 # Restrictions: don't allow posts/attachments/... but allow votes and CCs
 

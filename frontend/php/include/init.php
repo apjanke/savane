@@ -146,8 +146,6 @@ else
 if (!preg_match('|/$|', $sys_home))
   $sys_home = $sys_home.'/';
 
-trigger_error("sys_home is $sys_home");
-
 # Defines the https url, if available -- no path is added since this
 # variable can be used with REQUEST_URI added. It's used when we need
 # to point a https URL (cannot be expressed using a http-relative

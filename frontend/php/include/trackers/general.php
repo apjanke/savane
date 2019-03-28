@@ -1255,9 +1255,9 @@ function trackers_attach_file($item_id,
       # Explanation added when an upload is refused, if the upload count
       # is involved.
       $current_upload_size_comment = ' '
-       .sprintf (ngettext("You already uploaded %s megabyte.",
-                          "You already uploaded %s megabytes.",
-                          $current_upload_size_mb),
+        .sprintf (ngettext("You already uploaded %s megabyte.",
+                           "You already uploaded %s megabytes.",
+                           $current_upload_size_mb),
                  $current_upload_size_mb);
     }
 
@@ -1334,11 +1334,11 @@ after escaping characters as required.",
                       $group_id,
                       user_getid(),
                       "-UPD-");
-     # Use a flag as comment, because if we
-     # translate the string now, people will get
-     # the translation of the submitter when they
-     # read the item, not necessarily the one they
-     # want.
+      # Use a flag as comment, because if we
+      # translate the string now, people will get
+      # the translation of the submitter when they
+      # read the item, not necessarily the one they
+      # want.
     }
   return $file_id;
 }

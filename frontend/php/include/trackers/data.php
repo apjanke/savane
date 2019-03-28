@@ -274,7 +274,7 @@ for="'.$tracker_name.'_private_exclude_address"'._("Exclude List:")
 
 function trackers_data_post_notification_settings($group_id, $tracker_name)
 {
-  global $feedback;
+  global $feedback, $sys_dbname;
 
   $local_feedback = "";
 # build the variable names related to elements always present in the form
@@ -314,7 +314,7 @@ function trackers_data_post_notification_settings($group_id, $tracker_name)
     $notif_value = 1; # global only (scope not proposed = no categories)
 
 # set global notification info for this group
-  $res_gl = db_autoexecute('groups',
+  $res_gl = db_autoexecute("$sys_dbname.groups",
     array($tracker_name."_glnotif" => $notif_value,
           "send_all_".$tracker_name => $send_all_changes,
           "new_".$tracker_name."_address" => ($new_item_address ?
@@ -369,13 +369,14 @@ function trackers_data_post_notification_settings($group_id, $tracker_name)
 
 function trackers_data_get_item_notification_info($item_id, $artifact, $updated)
 {
+  global $sys_dbname;
   $emailad = "";
   $sendemail = 0;
 # Get group information bur new entity notification settings.
   $result = db_execute(
     "SELECT groups.{$artifact}_glnotif, groups.send_all_{$artifact},
      groups.new_{$artifact}_address ".
-    "FROM {$artifact}, groups ".
+    "FROM {$artifact}, $sys_dbname.groups ".
     "WHERE {$artifact}.bug_id=? ".
     "AND groups.group_id={$artifact}.group_id",
     array($item_id));

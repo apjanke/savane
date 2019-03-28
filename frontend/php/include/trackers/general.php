@@ -1237,9 +1237,9 @@ function trackers_attach_file($item_id,
       return false;
     }
 
-  # Found of the previous upload count.
-  # It could not be inferior to 0. If it is, someone obviously find a way
-  # to tamper, ignore the file.
+  # Find the previous upload count.
+  # It could not be less than 0. If it is, someone obviously found a way
+  # to tamper; ignore the file.
   $current_upload_size_kb = $GLOBALS['current_upload_size'];
   $current_upload_size_mb = round($current_upload_size_kb / 1024);
   $current_upload_size_comment = '';

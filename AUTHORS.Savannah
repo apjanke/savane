@@ -32,7 +32,7 @@ Guillaume Morin		<gmorin--gnu.org>
 Jaime E. Villate	<villate--gnu.org>
 	Implemented and maintained the link with viewcvs and cvs
 
-Rodolphe Quiédeville	<rq--lolix.org>
+Rodolphe QuiÃ©deville	<rq--lolix.org>
 	Fixed a few bugs.
 
 Olivier Berger		<oberger--april.org>
@@ -85,7 +85,7 @@ Mathieu Roy		<yeupou--gnu.org>
 Benoit Schwinden 	<schwi005--etudiant.univ-nancy2.fr>
 	Contributed to the gettext support.
 
-Stéphane Urbanovski	<s.urbanovski--ac-nancy-metz.fr>
+StÃ©phane Urbanovski	<s.urbanovski--ac-nancy-metz.fr>
 	Implemented gettext support, several code cleanups/bugfixes.
 
 + Translators:

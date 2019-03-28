@@ -102,7 +102,7 @@ if ($update)
         # Some characters cannot be allowed
         if (strspn($form_subject_line,
             'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVW'
-            .'XYZ0123456789-_[]()&ιθΰ=$ω*:!,;?./%$ <>|')
+            .'XYZ0123456789-_[]()&Γ©Γ¨Γ =$ΓΉ*:!,;?./%$ <>|')
             == strlen($form_subject_line))
           {
             user_set_preference("subject_line", $form_subject_line);

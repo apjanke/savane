@@ -30,7 +30,7 @@ function news_new_subbox($row)
 function news_show_latest ($group_id,$limit=10,$show_summaries="true",
                            $start_from="no")
 {
-  global $sys_datefmt;
+  global $sys_datefmt, $sys_dbname;
   if (!isset($group_id))
     {
       $group_id = $GLOBALS['sys_group_id'];
@@ -56,7 +56,7 @@ function news_show_latest ($group_id,$limit=10,$show_summaries="true",
 
   $sql="SELECT groups.group_name,groups.unix_group_name,user.user_name,"
      ."news_bytes.forum_id,news_bytes.summary,news_bytes.date,news_bytes.details "
-     ."FROM user,news_bytes,groups "
+     ."FROM user,news_bytes,$sys_dbname.groups "
      ."WHERE $wclause "
      ."AND user.user_id=news_bytes.submitted_by "
      ."AND news_bytes.group_id=groups.group_id "
@@ -186,6 +186,7 @@ function news_show_latest ($group_id,$limit=10,$show_summaries="true",
 
 function news_total_number($group_id)
 {
+  global $sys_dbname;
   # We want the total number of news for a group
   if ($group_id != $GLOBALS['sys_group_id'])
     {
@@ -198,7 +199,7 @@ function news_total_number($group_id)
       $wclause='news_bytes.is_approved=1';
       $params = array();
     }
-  $sql="SELECT count(*) FROM user,news_bytes,groups "
+  $sql="SELECT count(*) FROM user,news_bytes,$sys_dbname.groups "
      ."WHERE $wclause "
      ."AND user.user_id=news_bytes.submitted_by "
      ."AND news_bytes.group_id=groups.group_id ";

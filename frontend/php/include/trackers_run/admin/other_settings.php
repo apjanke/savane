@@ -38,7 +38,7 @@ if ($submit)
     group_add_history ('Changed Tracking System Settings','',$group_id);
 
   # Update the Bug table.
-    $result = db_execute('UPDATE groups SET '.ARTIFACT.'_preamble=? '
+    $result = db_execute("UPDATE $sys_dbname.groups SET ".ARTIFACT."_preamble=? "
                          .'WHERE group_id=?',
                          array(htmlspecialchars($form_preamble), $group_id));
     if (!$result)
@@ -51,7 +51,7 @@ if ($submit)
 
 trackers_header_admin(array ('title'=>_("Other Settings")));
 
-$res_grp = db_execute("SELECT * FROM groups WHERE group_id=?", array($group_id));
+$res_grp = db_execute("SELECT * FROM $sys_dbname.groups WHERE group_id=?", array($group_id));
 if (db_numrows($res_grp) < 1)
   exit_no_group();
 $row_grp = db_fetch_array($res_grp);

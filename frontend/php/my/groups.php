@@ -68,7 +68,8 @@ _("Unable to add user in the watched users list, probably a broken URL"));
 # Send an email to group admins when a user joins group.
 function send_pending_user_email($group_id, $user_id, $user_message)
 {
-  $res_grp = db_execute("SELECT * FROM groups WHERE group_id=?", array($group_id));
+  global $sys_dbname;
+  $res_grp = db_execute("SELECT * FROM $sys_dbname.groups WHERE group_id=?", array($group_id));
 
   if (db_numrows($res_grp) < 1)
     {
@@ -115,7 +116,7 @@ extract(sane_import('post', array('update', 'form_id', 'form_message',
 # ($form_groups is an array)
 if ($update)
 {
-  $result_upd = db_query("SELECT group_id FROM groups WHERE status='A' "
+  $result_upd = db_query("SELECT group_id FROM $sys_dbname.groups WHERE status='A' "
                          ."AND is_public='1' ORDER BY group_id");
   # Check for duplicates.
   if (!form_check($form_id))
@@ -165,7 +166,7 @@ $result = db_execute("SELECT groups.group_name,"
 . "groups.status,"
 . "user_group.admin_flags, "
 . "group_history.date "
-. "FROM groups,user_group,group_history "
+. "FROM $sys_dbname.groups,user_group,group_history "
 . "WHERE groups.group_id=user_group.group_id "
 . "AND user_group.user_id=? "
 . "AND groups.status='A' "
@@ -186,7 +187,7 @@ $result_without_history = db_execute("SELECT groups.group_name,"
 . "groups.unix_group_name,"
 . "groups.status,"
 . "user_group.admin_flags "
-. "FROM groups,user_group "
+. "FROM $sys_dbname.groups,user_group "
 . "WHERE groups.group_id=user_group.group_id "
 . "AND user_group.user_id=? "
 . "AND groups.status='A' "

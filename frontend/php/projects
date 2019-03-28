@@ -29,7 +29,7 @@ require_once('include/init.php');
 # Extract the group name.
 $pathinfo = basename (preg_replace ("/\?.*/", "", $_SERVER['REQUEST_URI']));
 
-$res_grp = db_execute ("SELECT * FROM groups WHERE unix_group_name=?",
+$res_grp = db_execute ("SELECT * FROM $sys_dbname.groups WHERE unix_group_name=?",
                        array($pathinfo));
 
 if (db_numrows($res_grp) < 1)

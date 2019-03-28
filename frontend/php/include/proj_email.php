@@ -27,7 +27,8 @@ require_once(dirname(__FILE__).'/sendmail.php');
 
 function send_new_project_email($group_id)
 {
-  $res_grp = db_execute("SELECT * FROM groups WHERE group_id=?",
+  global $sys_dbname;
+  $res_grp = db_execute("SELECT * FROM $sys_dbname.groups WHERE group_id=?",
                         array($group_id));
 
   if (db_numrows($res_grp) < 1)

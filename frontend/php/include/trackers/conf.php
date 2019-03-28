@@ -77,6 +77,8 @@ function artifact_name ($artifact)
 
 function trackers_conf_copy ($group_id, $artifact, $from_group_id)
 {
+  global $sys_dbname;
+
   if (!ctype_alnum($artifact))
     die("Invalid artifact name: " . htmlspecialchars($artifact));
 
@@ -93,7 +95,7 @@ function trackers_conf_copy ($group_id, $artifact, $from_group_id)
              $from_group_id, artifact_name($artifact)));
 
 # Copy the notification settings.
-  $res_groups_from_group = db_execute("SELECT * FROM groups WHERE group_id=?",
+  $res_groups_from_group = db_execute("SELECT * FROM $sys_dbname.groups WHERE group_id=?",
                                       array($from_group_id));
   $rows = db_fetch_array($res_groups_from_group);
   $res = db_autoexecute('groups',
@@ -316,11 +318,13 @@ function trackers_conf_copy ($group_id, $artifact, $from_group_id)
 
 function conf_form ($group_id, $artifact)
 {
+  global $sys_dbname;
+
   if (!ctype_alnum($artifact))
     die("Invalid artifact name: " . htmlspecialchars($artifact));
 
   $result = db_execute("SELECT groups.group_name,groups.group_id
-                       FROM groups,user_group
+                       FROM $sys_dbname.groups,user_group
                        WHERE groups.group_id=user_group.group_id
                          AND user_group.user_id = ?
                          AND groups.status = 'A'

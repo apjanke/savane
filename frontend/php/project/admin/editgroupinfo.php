@@ -32,7 +32,7 @@ extract(sane_import('post', array('update',
 session_require(array('group'=>$group_id,'admin_flags'=>'A'));
 
 # Update info for page.
-$res_grp = db_execute("SELECT * FROM groups WHERE group_id=?", array($group_id));
+$res_grp = db_execute("SELECT * FROM $sys_dbname.groups WHERE group_id=?", array($group_id));
 if (db_numrows($res_grp) < 1)
   exit_no_group();
 $row_grp = db_fetch_array($res_grp);
@@ -57,7 +57,7 @@ if ($update)
                  array($group_id));
   }
 
-$res_grp = db_execute("SELECT * FROM groups WHERE group_id=?", array($group_id));
+$res_grp = db_execute("SELECT * FROM $sys_dbname.groups WHERE group_id=?", array($group_id));
 if (db_numrows($res_grp) < 1)
   exit_no_group();
 $row_grp = db_fetch_array($res_grp);

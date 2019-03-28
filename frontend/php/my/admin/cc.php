@@ -79,7 +79,7 @@ foreach ($trackers as $tracker)
   {
     $result = db_execute("
 SELECT groups.unix_group_name,groups.group_name,$tracker.group_id
-FROM groups,$tracker,${tracker}_cc
+FROM $sys_dbname.groups,$tracker,${tracker}_cc
 WHERE groups.group_id = $tracker.group_id
   AND $tracker.bug_id = {$tracker}_cc.bug_id
   AND (${tracker}_cc.email = ?

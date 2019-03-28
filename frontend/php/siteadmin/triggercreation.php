@@ -38,7 +38,7 @@ if ($GLOBALS['sys_group_id'] != $group_id)
 #   If a project can use a feature for its group type, assume he would
 #   use it by default
 #   Exception: the patch tracker is deprecated, so it is ignored.
-$group_type = db_result(db_execute("SELECT type FROM groups WHERE group_id=?",
+$group_type = db_result(db_execute("SELECT type FROM $sys_dbname.groups WHERE group_id=?",
                                    array($group_id)),0,'type');
 $res_type = db_execute("SELECT * FROM group_type WHERE type_id=?",
                        array($group_type));

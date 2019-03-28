@@ -49,14 +49,14 @@ $inc = 0;
 print html_build_list_table_top ($title_arr);
 
 print '<tr class="'.utils_get_alt_row_color($inc++).'">';
-$res = db_query("SELECT count(*) AS count FROM groups");
+$res = db_query("SELECT count(*) AS count FROM $sys_dbname.groups");
 $row = db_fetch_array();
 print '<td><a href="grouplist.php">'.no_i18n("Any").'</a></td>';
 print '<td>'.$row['count'].'</td>';
 print "</tr>\n";
 
 print '<tr class="'.utils_get_alt_row_color($inc++).'">';
-$res = db_query("SELECT count(*) AS count FROM groups WHERE status='P' ");
+$res = db_query("SELECT count(*) AS count FROM $sys_dbname.groups WHERE status='P' ");
 $row = db_fetch_array();
 print '<td><a href="grouplist.php?status=P">'
 .no_i18n("Pending projects (normally, an opened task should exist about them)")
@@ -66,7 +66,7 @@ print '<td><a href="grouplist.php?status=P">'
 print "</tr>\n";
 
 print '<tr class="'.utils_get_alt_row_color($inc++).'">';
-$res = db_query("SELECT count(*) AS count FROM groups WHERE status='D' ");
+$res = db_query("SELECT count(*) AS count FROM $sys_dbname.groups WHERE status='D' ");
 $row = db_fetch_array();
 print '<td><a href="grouplist.php?status=D">'
 .no_i18n("Deleted projects (the backend will remove the record soon)").'</a></td>
@@ -151,7 +151,7 @@ else if ($groupsearch)
 # TODO db_execute() this $where:
 $res = db_execute("SELECT DISTINCTROW group_name,unix_group_name,group_id,"
                   ."is_public,status,license "
-                  . "FROM groups WHERE $where ORDER BY group_name LIMIT ?,?",
+                  . "FROM $sys_dbname.groups WHERE $where ORDER BY group_name LIMIT ?,?",
                   array($offset,$MAX_ROW+1))
      or ($feedback = db_error());
 print "<p><strong>$msg</strong></p>\n";

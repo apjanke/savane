@@ -104,9 +104,11 @@ function trackers_data_get_item_group($item_id)
 
 function &trackers_data_get_notification_settings($group_id, $tracker_name)
 {
+  global $sys_dbname;
+
   assert('ctype_alnum($tracker_name)');
 
-  $result = db_execute("SELECT * FROM groups WHERE group_id=?", array($group_id));
+  $result = db_execute("SELECT * FROM $sys_dbname.groups WHERE group_id=?", array($group_id));
   if (db_numrows($result) < 1)
     exit_no_group();
 

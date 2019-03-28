@@ -130,13 +130,13 @@ function show_sitestats()
 
 function show_newest_projects($group_type, $limit)
 {
-  global $j;
+  global $j, $sys_dbname;
 
   # Shows only projects that were added in the last trimester.
   $since = mktime(0,0,0,(date("m")-2));
 
   $res_newproj = db_execute(
-"SELECT group_id,unix_group_name,group_name,register_time FROM groups
+"SELECT group_id,unix_group_name,group_name,register_time FROM $sys_dbname.groups
 WHERE is_public=1 AND status='A' AND type=? AND register_time >= ?
 ORDER BY register_time DESC LIMIT ?", array($group_type, $since, $limit));
   if (!db_numrows($res_newproj))

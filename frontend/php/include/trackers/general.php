@@ -993,7 +993,7 @@ function trackers_build_notification_list($item_id, $group_id, $changes,
 function trackers_mail_followup ($item_id,$more_addresses=false,$changes=false,
                                  $force_exclude_list=false, $artifact=0)
 {
-  global $sys_datefmt, $int_probablyspam;
+  global $sys_datefmt, $int_probablyspam, $sys_dbname;
 
   # If presumed to be a spam, no notifications.
   if ($int_probablyspam)
@@ -1140,7 +1140,7 @@ Details:\n".trackers_field_display('details',
     {
       $exclude_list = db_result(db_execute("SELECT ".$artifact
                                            ."_private_exclude_address
-                                            FROM groups WHERE group_id=?",
+                                            FROM $sys_dbname.groups WHERE group_id=?",
                                            array($group_id)),
                                 0, $artifact."_private_exclude_address");
 
@@ -2326,12 +2326,13 @@ This item URL is:";
   if ($repl_addresses)
     $to .= ($to ? ',':'').$repl_addresses;
 
+  global $sys_dbname;
   # If the item is private, take into account the exclude-list.
   if (db_result($result,0,'privacy') == '2')
     {
        $exclude_list = db_result(db_execute("SELECT ".ARTIFACT
                                             ."_private_exclude_address
-                                            FROM groups WHERE group_id=?",
+                                            FROM $sys_dbname.groups WHERE group_id=?",
                                             array($group_id)), 0,
                                  ARTIFACT."_private_exclude_address");
     }

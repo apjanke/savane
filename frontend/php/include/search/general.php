@@ -453,7 +453,7 @@ function search_keywords_in_fields($keywords, $fields, $and_or='OR')
 # Run a search in the database, by default in programs.
 function search_run ($keywords, $type_of_search="soft", $return_error_messages=1)
 {
-  global $type, $exact, $crit, $offset, $only_group_id, $max_rows;
+  global $type, $exact, $crit, $offset, $only_group_id, $max_rows, $sys_dbname;
   $and_or = $crit;
 
   # Remove useless blank spaces, escape nasty characters.
@@ -499,7 +499,7 @@ function search_run ($keywords, $type_of_search="soft", $return_error_messages=1
   if ($type_of_search == "soft")
     {
       $sql = "SELECT group_name,unix_group_name,type,group_id,short_description "
-             ."FROM groups WHERE status='A' AND is_public='1' ";
+             ."FROM $sys_dbname.groups WHERE status='A' AND is_public='1' ";
       if ($type)
         {
           $sql .= "AND type=? ";
@@ -574,6 +574,8 @@ function search_run ($keywords, $type_of_search="soft", $return_error_messages=1
 
 function search_exact ($keywords)
 {
+  global $sys_dbname;
+
 # Find the characters that maybe for a non-precise search. No need to continue
 # if it they are present.
   $non_precise_key1 = strpos($keywords, '*' );
@@ -584,7 +586,7 @@ function search_exact ($keywords)
   $arr_keywords = explode(' ', $keywords);
   $question_marks = implode(',', array_fill(0, count($arr_keywords), '?'));
   $sql = "SELECT group_name,unix_group_name,short_description,name
-             FROM groups,group_type
+             FROM $sys_dbname.groups,group_type
           WHERE type=type_id AND group_name IN ($question_marks)
           AND status='A' AND is_public='1'";
   $result = db_execute($sql,$arr_keywords);

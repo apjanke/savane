@@ -49,7 +49,7 @@ if ($update || $updatefast)
     # Full details update.
     if ($update)
       {
-        $res_grp = db_execute("SELECT * FROM groups WHERE group_id=?",
+        $res_grp = db_execute("SELECT * FROM $sys_dbname.groups WHERE group_id=?",
                               array($group_id));
         $res_type = db_execute("SELECT * FROM group_type WHERE type_id=?",
                                array($group_type));
@@ -90,7 +90,7 @@ if ($update || $updatefast)
     fb(no_i18n("Updating Project Info"));
   }
 # Get current information.
-$res_grp = db_execute("SELECT * FROM groups WHERE group_id=?", array($group_id));
+$res_grp = db_execute("SELECT * FROM $sys_dbname.groups WHERE group_id=?", array($group_id));
 
 site_admin_header(array('title'=>no_i18n("Group List"),'context'=>'admgroup'));
 

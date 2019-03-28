@@ -46,8 +46,9 @@ function stats_getprojects_bytype_active($type_id)
 
 function stats_getprojects_pending()
 {
+  global $sys_dbname;
   return stats_get_generic(
-           db_query("SELECT count(*) AS count FROM groups WHERE status='P'"));
+           db_query("SELECT count(*) AS count FROM $sys_dbname.groups WHERE status='P'"));
 }
 
 function stats_getprojects_total()
@@ -57,6 +58,8 @@ function stats_getprojects_total()
 
 function stats_getprojects($type_id="", $is_public="",$period="")
 {
+  global $sys_dbname;
+
   $params = array();
   $type_id_sql = '';
   $is_public_sql = '';
@@ -78,7 +81,7 @@ function stats_getprojects($type_id="", $is_public="",$period="")
     }
 
   return stats_get_generic(
-    db_execute("SELECT count(*) AS count FROM groups WHERE status='A'
+    db_execute("SELECT count(*) AS count FROM $sys_dbname.groups WHERE status='A'
                 $type_id_sql $is_public_sql $period_sql",
 	       $params));
 }

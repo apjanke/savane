@@ -46,7 +46,7 @@ site_project_header(array('group'=>$group_id,'context'=>'anews'));
 print '<p>'
 ._("You can change all of this tracker configuration from this page.").'</p>
 ';
-$res_grp = db_execute("SELECT new_news_address FROM groups WHERE group_id=?",
+$res_grp = db_execute("SELECT new_news_address FROM $sys_dbname.groups WHERE group_id=?",
                       array($group_id));
 $row_grp = db_fetch_array($res_grp);
   

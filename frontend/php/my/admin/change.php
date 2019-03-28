@@ -199,7 +199,7 @@ if ($item == 'delete')
     for ($i = 0; $i < $rows && !$exists; $i++)
       {
         $group_id = db_result ($res_check, $i, 'group_id');
-        if (0 != db_numrows(db_execute("SELECT unix_group_name FROM groups "
+        if (0 != db_numrows(db_execute("SELECT unix_group_name FROM $sys_dbname.groups "
                                        ."WHERE group_id=? and status='A'",
                                        array($group_id))))
           $exists = true;

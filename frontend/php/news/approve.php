@@ -88,7 +88,7 @@ if ($post_changes && $approve)
       {
          # get notification address and submitter id
          $to = db_result(db_execute("SELECT new_news_address "
-                                    ."FROM groups WHERE group_id=?",
+                                    ."FROM $sys_dbname.groups WHERE group_id=?",
                                     array($group_id)),
                          0, 'new_news_address');
 

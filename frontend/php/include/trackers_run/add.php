@@ -38,7 +38,7 @@ $max_size=40;
 
 # First display the message preamble
 $res_preamble = db_execute("SELECT ".ARTIFACT."_preamble
-                            FROM groups WHERE group_id=?", array($group_id));
+                            FROM $sys_dbname.groups WHERE group_id=?", array($group_id));
 
 $preamble = db_result($res_preamble,0,ARTIFACT.'_preamble');
 if ($preamble)

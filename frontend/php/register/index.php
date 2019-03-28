@@ -40,12 +40,13 @@ require_once('../include/sendmail.php');
  */
 function project_does_not_already_exist($form_unix_name)
 {
+global $sys_dbname;
 # make sure the name is not already taken, ignoring incomplete
 # registrations: risks of a name clash seems near 0, while not doing that
 # require maintainance, since some people interrupt registration and
 # try to redoit later with another name. 
 # And even if a name clash happens, admins will notice it during approval
-  return (db_numrows(db_execute("SELECT group_id FROM groups "
+  return (db_numrows(db_execute("SELECT group_id FROM $sys_dbname.groups "
                                 ."WHERE unix_group_name LIKE ? AND status <> 'I'",
 				array($form_unix_name))) == 0);
 }
@@ -179,7 +180,7 @@ if ($form->validate())
       'type' => $group_type,
     ),
     DB_AUTOQUERY_INSERT);
-  $result = db_execute("SELECT group_id FROM groups WHERE unix_group_name = ?",
+  $result = db_execute("SELECT group_id FROM $sys_dbname.groups WHERE unix_group_name = ?",
     array($form_values['unix_name']));
   $group_id = db_result($result, 0, 'group_id');
   $project=project_get_object($group_id);

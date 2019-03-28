@@ -37,37 +37,37 @@ if (!$group_id)
 # Get parameters
 extract(sane_import('all',
   array('func', 'printer',
-	// delete_*
-	'item_file_id', 'item_cc_id',
-	)));
+        // delete_*
+        'item_file_id', 'item_cc_id',
+        )));
 extract(sane_import('post',
   array('form_id', # anti double-post
-	// The comment/follow-up itself
-	'comment', 'additional_comment', 'canned_response',
-	'comment_type_id', # comment type
-	// Original e-mail
-	'originator_email',
-	// carbon-copy
-	'add_cc', 'cc_comment',
-	// vote field
-	'new_vote',
-	// Reassign item: search a project to assign the item to
-	'depends_search',
-	'depends_search_only_artifact', 'depends_search_only_project',
-	'reassign_change_project_search', 'reassign_change_project',
-	'reassign_change_artifact',
-	'dependent_on_task', 'dependent_on_bugs', 'dependent_on_support', 'dependent_on_patch',
-	// Second button 'submit but then edit this item again'
-	'submitreturn',
+        // The comment/follow-up itself
+        'comment', 'additional_comment', 'canned_response',
+        'comment_type_id', # comment type
+        // Original e-mail
+        'originator_email',
+        // carbon-copy
+        'add_cc', 'cc_comment',
+        // vote field
+        'new_vote',
+        // Reassign item: search a project to assign the item to
+        'depends_search',
+        'depends_search_only_artifact', 'depends_search_only_project',
+        'reassign_change_project_search', 'reassign_change_project',
+        'reassign_change_artifact',
+        'dependent_on_task', 'dependent_on_bugs', 'dependent_on_support', 'dependent_on_patch',
+        // Second button 'submit but then edit this item again'
+        'submitreturn',
         # Button to preview comment
         'preview'
-	)));
+        )));
 
 // Spam-related
 extract(sane_import('get',
   array('comment_internal_id',
-	// delete_dependency
-	'item_depends_on', 'item_depends_on_artifact',
+        // delete_dependency
+        'item_depends_on', 'item_depends_on_artifact',
 )));
 
 # Other form fields: check trackers_extract_field_list()
@@ -119,7 +119,7 @@ switch ($func)
 # Form to create an item digest: search item stage
 
      include '../include/trackers_run/digest.php';
-     include '../include/trackers_run/browse.php';	
+     include '../include/trackers_run/browse.php';      
      break;
    }
 
@@ -163,13 +163,13 @@ switch ($func)
 
      if (member_check(0,$group_id,member_create_tracker_flag(ARTIFACT).'2'))
        {
-	 dbg("Management/Technician rights, include mod.php");
-	 include '../include/trackers_run/mod.php';
+         dbg("Management/Technician rights, include mod.php");
+         include '../include/trackers_run/mod.php';
        }
      else
        {
-	 dbg("No specific rights, include detail.php");
-	 include '../include/trackers_run/detail.php';
+         dbg("No specific rights, include detail.php");
+         include '../include/trackers_run/detail.php';
        }
      break;
    }
@@ -184,14 +184,14 @@ switch ($func)
 
      $fields = sane_import('post', array('form_id', 'check', 'details'));
 //     db_autoexecute('spam_stats',
-//		    array('tracker' => ARTIFACT,
-//			  'bug_id' => 0,
-//			  'type' => 'new',
-//			  'user_id' => user_isloggedin() ? user_getid() : null,
-//			  'form_id' => $fields['form_id'],
-//			  'ip' => '127.0.0.1',
-//			  'check_value' => $fields['check'],
-//			  'details' => $fields['details']));
+//                  array('tracker' => ARTIFACT,
+//                        'bug_id' => 0,
+//                        'type' => 'new',
+//                        'user_id' => user_isloggedin() ? user_getid() : null,
+//                        'form_id' => $fields['form_id'],
+//                        'ip' => '127.0.0.1',
+//                        'check_value' => $fields['check'],
+//                        'details' => $fields['details']));
 //     $stat_id = mysql_insert_id();
 
  if (!user_isloggedin() && ($_POST['check'] != 1984))
@@ -219,77 +219,77 @@ switch ($func)
          # files is the section next to comments, and the original 
          # submission in the latest comment. So the proximity is always
          # optimal.
-	 // (attach_several_files will use sane_() functions to get the
-	 // the necessary info)
-	 list($changed,) = 
-	   trackers_attach_several_files($item_id,
-					 $group_id,
-					 $changes);
+         // (attach_several_files will use sane_() functions to get the
+         // the necessary info)
+         list($changed,) = 
+           trackers_attach_several_files($item_id,
+                                         $group_id,
+                                         $changes);
 
          # Add new cc if any
-	 if ($add_cc && user_isloggedin())
-	   {
-	     trackers_add_cc($item_id,
-			     $group_id,
-			     $add_cc,
-			     $cc_comment, # 4
-			     $changes);
-	   }
+         if ($add_cc && user_isloggedin())
+           {
+             trackers_add_cc($item_id,
+                             $group_id,
+                             $add_cc,
+                             $cc_comment, # 4
+                             $changes);
+           }
 
          # Originator Email:
          # "Email address of the person who submitted the item
             # (if different from the submitter field, add address to CC list)"
          # Only apply this behavior if the field is present and used
-	 $oe_field_name = "originator_email";
+         $oe_field_name = "originator_email";
 
-	 $is_trackeradmin = member_check(0,$group_id,member_create_tracker_flag(ARTIFACT).'2');
+         $is_trackeradmin = member_check(0,$group_id,member_create_tracker_flag(ARTIFACT).'2');
 
          # $oem=sane_post($oe_field_name);
          # $valoem=validate_email(sane_post($oe_field_name));
          # $used=trackers_data_is_used($oe_field_name);
          # print "OEM=$oem VALID=$valoem USED=$used ITA=$is_trackeradmin \n";
 
-	 if (trackers_data_is_used($oe_field_name))
-	   {
-	     // Originator email is only available to anonymous
-	     if (!user_isloggedin() && trackers_data_is_showed_on_add_nologin($oe_field_name))
-	       {
+         if (trackers_data_is_used($oe_field_name))
+           {
+             // Originator email is only available to anonymous
+             if (!user_isloggedin() && trackers_data_is_showed_on_add_nologin($oe_field_name))
+               {
                  # cannot be a registered user
-		 if (validate_email($originator_email))
-		   {
+                 if (validate_email($originator_email))
+                   {
                   # must be different from the submitter field
-		     $user=user_getid();
-		     $submitter_email = db_result(db_execute("SELECT email FROM user WHERE user_id=?", array($user)),
-						  0, 'email');
-		     if ($originator_email != $submitter_email)
-		       {
-			 trackers_add_cc($item_id,
-					 $group_id,
-					 $originator_email,
-					 "-SUB-",
-					 $changes);
-		       }
-		   }
-		 else
-		   {
-		     # $oem=sane_post($oe_field_name);
-		     fb(_("Originator E-mail is not valid, thus was not added to the Carbon-Copy list."), 1);
-		   }
-	       }
-	   }
+                     $user=user_getid();
+                     $submitter_email = db_result(db_execute("SELECT email FROM user WHERE user_id=?", array($user)),
+                                                  0, 'email');
+                     if ($originator_email != $submitter_email)
+                       {
+                         trackers_add_cc($item_id,
+                                         $group_id,
+                                         $originator_email,
+                                         "-SUB-",
+                                         $changes);
+                       }
+                   }
+                 else
+                   {
+                     # $oem=sane_post($oe_field_name);
+                     fb(_("Originator E-mail is not valid, thus was not added to the Carbon-Copy list."), 1);
+                   }
+               }
+           }
 
          # Send an email to notify the user of the item update
          # (third arg of get_item_notification must be 0 for a first 
          # submission)
-	 list($additional_address, $sendall) = trackers_data_get_item_notification_info($item_id, ARTIFACT, 0);
-	    
-	 if ((trim($address) != "") && (trim($additional_address) != "")) 
-	   {
-	     $address .= ", ";
-	   }
-	 $address .= $additional_address;
+         list($additional_address, $sendall) = trackers_data_get_item_notification_info($item_id, ARTIFACT, 0);
+            
+         if ((trim($address) != "") && (trim($additional_address) != "")) 
+           {
+             $address .= ", ";
+           }
+         $address .= $additional_address;
 
-	 trackers_mail_followup($item_id, $address);
+         trackers_mail_followup($item_id, $address);
 
        }
      else
@@ -300,22 +300,22 @@ switch ($func)
          # The relevant error message was supposedly properly produced by
          # trackers_data_create_item.
          # Reshow the same page
-	 if ($previous_form_bad_fields)
-	   {		   
+         if ($previous_form_bad_fields)
+           {               
              # Mention if there was an attached file: we cannot
              # pre-fill an HTML input file. 
-	     $filenames = array();
-	     for ($i = 1; $i < 5; $i++)
-	       $filenames[] = "input_file$i";
-	     $files = sane_import('files', $filenames);
-	     foreach ($files as $file)
-	       {
-		 if ($file['error'] == UPLOAD_ERR_OK)
-		   {
-		     fb(sprintf(_("Warning: do not forget to re-attach your file '%s'"), $file['name'], 1));
-			
-		   }
-	       }
+             $filenames = array();
+             for ($i = 1; $i < 5; $i++)
+               $filenames[] = "input_file$i";
+             $files = sane_import('files', $filenames);
+             foreach ($files as $file)
+               {
+                 if ($file['error'] == UPLOAD_ERR_OK)
+                   {
+                     fb(sprintf(_("Warning: do not forget to re-attach your file '%s'"), $file['name'], 1));
+                        
+                   }
+               }
              #copy the previous form values (taking into account dates) to redisplay them and initialize nocache to 0
              foreach ($vfl as $fieldname => $value)
                {
@@ -323,14 +323,14 @@ switch ($func)
                    { list($value, $ok) = utils_date_to_unixtime($value); }
                  $$fieldname = $value;
                }
-             $nocache=0;             		
+             $nocache=0;                        
 
-	     include '../include/trackers_run/add.php';
-	     break;
-	   }
+             include '../include/trackers_run/add.php';
+             break;
+           }
 
          # Otherwise, that's odd and there's not much to do. 
-	 fb(_("Missing parameters, nothing added."), 1);
+         fb(_("Missing parameters, nothing added."), 1);
 
        }
 
@@ -376,46 +376,46 @@ switch ($func)
      # Special case: we may be searching for an item, in that case
      # reprint the same page, plus search results.
      if ($depends_search || 
-	 $reassign_change_project_search ||
-	 $canned_response == "!multiple!" ||
-	 $change_quotation_style)
+         $reassign_change_project_search ||
+         $canned_response == "!multiple!" ||
+         $change_quotation_style)
        {
-	 if ($depends_search)
-	   {
-	     fb(sprintf(_("You provided search words to get a list of items
+         if ($depends_search)
+           {
+             fb(sprintf(_("You provided search words to get a list of items
 this one may depend on. Below, in the section [%s Dependencies], you can now
 select the appropriate ones and submit the form."),
                 $GLOBALS['sys_https_url'].$_SERVER['SCRIPT_NAME']
                 .'#dependencies'));
-	   }
-	 if ($reassign_change_project_search)
-	   {
-	     fb(sprintf(_("You provided search words to get a list of projects
+           }
+         if ($reassign_change_project_search)
+           {
+             fb(sprintf(_("You provided search words to get a list of projects
 this item should maybe reassigned to. Below, in the section
 [%s Reassign this item], you can now select the appropriate
 project and submit the form."),
                         $GLOBALS['sys_https_url'].$_SERVER['SCRIPT_NAME']
                         .'#reassign'));
-	   }
-	 if ($canned_response == "!multiple!")
-	   {
-	     fb(_("You selected Multiple Canned Responses: you are free now to select the one you want to use to compose your answer."));
-	   }
-	 if ($change_quotation_style)
-	   {
-	     if ($change_quotation_style == ("Quoted, ready to be copied/pasted into your new comment"))
-	       {
-		 $quotation_style = "quoted";
-		 fb(("Previous comments will now be printed in a copy/paste-friendly mode."));
-	       }
-	     else
-	       {
-		 $quotation_style = false;
-	       }
-	   }
+           }
+         if ($canned_response == "!multiple!")
+           {
+             fb(_("You selected Multiple Canned Responses: you are free now to select the one you want to use to compose your answer."));
+           }
+         if ($change_quotation_style)
+           {
+             if ($change_quotation_style == ("Quoted, ready to be copied/pasted into your new comment"))
+               {
+                 $quotation_style = "quoted";
+                 fb(("Previous comments will now be printed in a copy/paste-friendly mode."));
+               }
+             else
+               {
+                 $quotation_style = false;
+               }
+           }
 
-	 include '../include/trackers_run/mod.php';
-	 break;
+         include '../include/trackers_run/mod.php';
+         break;
        }
 
      # Get the list of bug fields used in the form
@@ -506,32 +506,32 @@ project and submit the form."),
      if ($changed)
        {
          # Check if we are supposed to send all modifications to an address
-	 list($additional_address, $sendall) = trackers_data_get_item_notification_info($item_id, ARTIFACT, 1);
-	 
-	 if (($sendall == 1) && (trim($address) != "") && (trim($additional_address) != "")) 
-	   {
-	     $address .= ", ";
-	   }
-	 $address .= $additional_address;
-	 trackers_mail_followup($item_id, $address,$changes);
-	    
+         list($additional_address, $sendall) = trackers_data_get_item_notification_info($item_id, ARTIFACT, 1);
+         
+         if (($sendall == 1) && (trim($address) != "") && (trim($additional_address) != "")) 
+           {
+             $address .= ", ";
+           }
+         $address .= $additional_address;
+         trackers_mail_followup($item_id, $address,$changes);
+            
          # If the assigned_to was changed and the previously assigned guy
          # wants to be removed from CC when he is no longer assigned, do it now.
          # We do this after the item update so the previous assignee
          # gets the notification of the this change.
-	 if (!empty($changes['assigned_to']['del']))
-	   {
-	     $previously_assigned_uid = user_getid($changes['assigned_to']['del']);
-	     if (user_get_preference("removecc_notassignee",
-				     $previously_assigned_uid))
-	       {
+         if (!empty($changes['assigned_to']['del']))
+           {
+             $previously_assigned_uid = user_getid($changes['assigned_to']['del']);
+             if (user_get_preference("removecc_notassignee",
+                                     $previously_assigned_uid))
+               {
                  # No feedback for this
-		 trackers_delete_cc_by_user($item_id, $previously_assigned_uid);
-	       }
-	   }
-	 
+                 trackers_delete_cc_by_user($item_id, $previously_assigned_uid);
+               }
+           }
+         
        }
-	    
+            
      
      # Handle reassignation of an entry. Why so late?
      # Because all the information entered by someone reassigning
@@ -575,15 +575,15 @@ project and submit the form."),
    {
      $fields = sane_import('post', array('item_id', 'form_id', 'check', 'comment'));
 //     db_autoexecute('spam_stats',
-//		    array('tracker' => ARTIFACT,
-//			  'bug_id' => $fields['item_id'],
-//			  'type' => 'comment',
-//			  'user_id' => user_isloggedin() ? user_getid() : null,
-//			  // 'date' => strftime("%Y-%m-%d %T"), // automatically filled by MySQL
-//			  'form_id' => $fields['form_id'],
-//			  'ip' => '127.0.0.1',
-//			  'check_value' => $fields['check'],
-//			  'details' => $fields['comment']));
+//                  array('tracker' => ARTIFACT,
+//                        'bug_id' => $fields['item_id'],
+//                        'type' => 'comment',
+//                        'user_id' => user_isloggedin() ? user_getid() : null,
+//                        // 'date' => strftime("%Y-%m-%d %T"), // automatically filled by MySQL
+//                        'form_id' => $fields['form_id'],
+//                        'ip' => '127.0.0.1',
+//                        'check_value' => $fields['check'],
+//                        'details' => $fields['comment']));
  if (!user_isloggedin() && (!isset($_POST['check'])
      || ($_POST['check'] != 1984 && !$preview)))
  { exit_error(_("You're not logged in and you didn't enter the magic anti-spam number, please go back!")); }
@@ -602,8 +602,8 @@ project and submit the form."),
      # Filter out people that would submit data while they are not allowed 
      # too (obviously by using an old form, or something else)
      $result = db_execute("SELECT privacy,discussion_lock,submitted_by FROM ".ARTIFACT." WHERE bug_id=? AND group_id=?",
-			  array($item_id, $group_id));
-	
+                          array($item_id, $group_id));
+        
      if (db_numrows($result) > 0) 
        {
          # Check if the item is private; refuse post if it is and the
@@ -631,7 +631,7 @@ project and submit the form."),
          # Nothing found? Something obviously weird!
          exit_permission_denied();
        }
-		    
+                    
        // To keep track of changes
        $changes = array();
 
@@ -653,9 +653,9 @@ project and submit the form."),
        {
          # Add the additionnal comment that may have been added during
          # the file upload
-	 $comment .= $additional_comment;
+         $comment .= $additional_comment;
          # For none project members force the comment type to None (100)
-	 # The delay for spamcheck will be called from this function:
+         # The delay for spamcheck will be called from this function:
          if (!$preview)
            {
              # Encode special characters
@@ -685,39 +685,39 @@ project and submit the form."),
              fb(_("Comment added"));
           }
        }
-	
+        
      # Add new cc if any, only accepted from logged in users.
      if (!$preview && $add_cc && user_isloggedin())
        {
          # No notification needs to be sent when a cc is added,
          # it is irrelevant to the item itself
-	 trackers_add_cc($item_id,
-			 $group_id,
-			 $add_cc,
-			 $cc_comment, # 4
-			 $changes);
+         trackers_add_cc($item_id,
+                         $group_id,
+                         $add_cc,
+                         $cc_comment, # 4
+                         $changes);
        }
-	
+        
      # Add vote, if configured to be accepted from non members or if 
      # the user is member
      if (!$preview && trackers_data_is_used("vote"))
        {
          if (trackers_data_is_showed_on_add("vote") && user_isloggedin() ||
-	         member_check(user_getid(), $group_id))
+                 member_check(user_getid(), $group_id))
            {
              # Currently votes does not influence notifications
              # (that could harass developers)
-	         trackers_votes_update($item_id,
+                 trackers_votes_update($item_id,
                $group_id,
                $new_vote);
-	       }
+               }
        }
      if ($changed)
        {
          list($additional_address, $sendall) = trackers_data_get_item_notification_info($item_id, ARTIFACT, 1);
          if (($sendall == 1) && (trim($address) != "") && (trim($additional_address) != ""))
            {
-	         $address .= ", ";
+                 $address .= ", ";
            }
          $address .= $additional_address;
          trackers_mail_followup($item_id, $address, $changes);
@@ -735,18 +735,18 @@ project and submit the form."),
 
      if (member_check(0,$group_id, member_create_tracker_flag(ARTIFACT).'2'))
        {
-	 trackers_data_delete_file($group_id,
-				   $item_id,
-				   $item_file_id);
+         trackers_data_delete_file($group_id,
+                                   $item_id,
+                                   $item_file_id);
 
 # unset previous settings and return to the item
-	 $depends_search = $reassign_change_project_search = $add_cc
-	   = $input_file = $changed = $vfl = $details = null;
-	 include '../include/trackers_run/mod.php';
+         $depends_search = $reassign_change_project_search = $add_cc
+           = $input_file = $changed = $vfl = $details = null;
+         include '../include/trackers_run/mod.php';
        }
      else
        {
-	 exit_permission_denied();
+         exit_permission_denied();
        }
      break;
    }
@@ -755,23 +755,23 @@ project and submit the form."),
    {
 #### Remove a person from the Cc
      $changed = trackers_delete_cc($group_id,
-				   $item_id,
-				   $item_cc_id,
-				   $changes);
+                                   $item_id,
+                                   $item_cc_id,
+                                   $changes);
 
 # Irrevelant: no need to warn people that someone got removed from the
 # cc list.
-#	if ($changed)
-#	  {
+#       if ($changed)
+#         {
 # see if we are supposed to send all modifications to an address
-#	     list($additional_address, $sendall) = trackers_data_get_item_notification_info($item_id, ARTIFACT, 1);
-#	     if (($sendall == 1) && (trim($address) != "") && (trim($additional_address) != "")) 
+#            list($additional_address, $sendall) = trackers_data_get_item_notification_info($item_id, ARTIFACT, 1);
+#            if (($sendall == 1) && (trim($address) != "") && (trim($additional_address) != "")) 
 #{
-#	        $address .= ", ";
+#               $address .= ", ";
 #             }
-#	     $address .= $additional_address;
+#            $address .= $additional_address;
 #             trackers_mail_followup($item_id, $address,$changes);
-#	    }
+#           }
 
 # unset previous settings and return to the item
      $depends_search = $reassign_change_project_search = $add_cc = $input_file
@@ -780,13 +780,13 @@ project and submit the form."),
 # CC may be deleted by a user without privilegies, if it is himself
      if (member_check(0,$group_id,member_create_tracker_flag(ARTIFACT).'2'))
        {
-	 dbg("Management/Technician rights, include mod.php");
-	 include '../include/trackers_run/mod.php';
+         dbg("Management/Technician rights, include mod.php");
+         include '../include/trackers_run/mod.php';
        }
      else
        {
-	 dbg("No specific rights, include detail.php");
-	 include '../include/trackers_run/detail.php';
+         dbg("No specific rights, include detail.php");
+         include '../include/trackers_run/detail.php';
        }
 
      break;
@@ -797,21 +797,21 @@ project and submit the form."),
 ### Remove a dependancy
 
      $changed |= trackers_delete_dependancy($group_id,
-					    $item_id,
-					    $item_depends_on,
-					    $item_depends_on_artifact,
-					    $changes);
-	
+                                            $item_id,
+                                            $item_depends_on,
+                                            $item_depends_on_artifact,
+                                            $changes);
+        
      if ($changed)
        {
 # see if we are supposed to send all modifications to an address
-	 list($additional_address, $sendall) = trackers_data_get_item_notification_info($item_id, ARTIFACT, 1);
-	 if (($sendall == 1) && (trim($address) != "") && (trim($additional_address) != "")) 
-	   {
-	     $address .= ", ";
-	   }
-	 $address .= $additional_address;
-	 trackers_mail_followup($item_id, $address,$changes);
+         list($additional_address, $sendall) = trackers_data_get_item_notification_info($item_id, ARTIFACT, 1);
+         if (($sendall == 1) && (trim($address) != "") && (trim($additional_address) != "")) 
+           {
+             $address .= ", ";
+           }
+         $address .= $additional_address;
+         trackers_mail_followup($item_id, $address,$changes);
        }
 
 
@@ -819,21 +819,21 @@ project and submit the form."),
      $depends_search = $reassign_change_project_search = $add_cc = $input_file
        = $changed = $vfl = $details = $changes = $address = null;
      include '../include/trackers_run/mod.php';
-	
+        
      break;
    }
-      	
+        
  case 'flagspam' :
    {
 ## Report a spam
-	
+        
 # Only allowed to logged in user
      if (!user_isloggedin())
        { 
          # Do not use exit_not_logged_in(), because the user has no
          # valid reason to get here if he was not logged in in first place
          # (the link was not provided)
-	 exit_permission_denied();
+         exit_permission_denied();
        }
 
      # Determine the additional spamscore according to user credentials
@@ -843,31 +843,31 @@ project and submit the form."),
      $spamscore = 1;
      if (member_check(0, $group_id))
        {
-	 if (member_check(0, $group_id, 'A'))
-	   { $spamscore = 5; }
-	 else
-	   { $spamscore = 3; }
-	    
+         if (member_check(0, $group_id, 'A'))
+           { $spamscore = 5; }
+         else
+           { $spamscore = 3; }
+            
        }
 
      spam_flag($item_id, 
-	       $comment_internal_id,
-	       $spamscore,
-	       $group_id);
-	
-	
+               $comment_internal_id,
+               $spamscore,
+               $group_id);
+        
+        
 
      # Return to the item page if it was not the item itself that was
      # marked as spam
      if (member_check(0,$group_id,member_create_tracker_flag(ARTIFACT).'2'))
        {
-	 dbg("Management/Technician rights, include mod.php");
-	 include '../include/trackers_run/mod.php';
+         dbg("Management/Technician rights, include mod.php");
+         include '../include/trackers_run/mod.php';
        }
      else
        {
-	 dbg("No specific rights, include detail.php");
-	 include '../include/trackers_run/detail.php';
+         dbg("No specific rights, include detail.php");
+         include '../include/trackers_run/detail.php';
        }
 
      break;
@@ -882,13 +882,13 @@ project and submit the form."),
          # Do not use exit_not_logged_in(), because the user has no
          # valid reason to get here if he was not logged in in first place
          # (the link was not provided)
-	 exit_permission_denied();
+         exit_permission_denied();
        }
-	
+        
      spam_unflag($item_id, 
-		 $comment_internal_id,
-		 ARTIFACT,
-		 $group_id);
+                 $comment_internal_id,
+                 ARTIFACT,
+                 $group_id);
 
      include '../include/trackers_run/mod.php';
      break;
@@ -899,15 +899,15 @@ project and submit the form."),
    {
      if (member_check(0,$group_id,member_create_tracker_flag(ARTIFACT).'2'))
        {
-	 dbg("Management/Technician rights, include mod.php");
-	 include '../include/trackers_run/mod.php';
+         dbg("Management/Technician rights, include mod.php");
+         include '../include/trackers_run/mod.php';
        }
      else
        {
-	 dbg("No specific rights, include detail.php");
-	 include '../include/trackers_run/detail.php';
+         dbg("No specific rights, include detail.php");
+         include '../include/trackers_run/detail.php';
        }
-	
+        
      break;
    }
   
@@ -922,25 +922,25 @@ project and submit the form."),
       {
       # Modification of the filters (query form)
 
-	if (user_isloggedin())
-	  {
-	    include '../include/trackers_run/mod_filters.php';
-	    break;
-	  }
-	else
-	  { exit_not_logged_in(); }
+        if (user_isloggedin())
+          {
+            include '../include/trackers_run/mod_filters.php';
+            break;
+          }
+        else
+          { exit_not_logged_in(); }
       }
 
     case 'postmodfilters' :
       {
-	if (user_isloggedin())
-	  {
-	    include '../include/trackers_run/postmod_filters.php';
-	    include '../include/trackers_run/mod_filters.php';
-	    break;
-	  }
-	else
-	  { exit_not_logged_in(); }
+        if (user_isloggedin())
+          {
+            include '../include/trackers_run/postmod_filters.php';
+            include '../include/trackers_run/mod_filters.php';
+            break;
+          }
+        else
+          { exit_not_logged_in(); }
       }
    */
 

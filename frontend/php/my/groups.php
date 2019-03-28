@@ -178,7 +178,7 @@ $result = db_execute("SELECT DISTINCT groups.group_name,"
                      array(user_getid(), user_getname()));
 $rows = db_numrows($result);
 
-# Alternative sql that do not use group_history, just in case this history
+# Alternative sql that does not use group_history, just in case this history
 # would be flawed (history usage has been inconsistent over Savane history).
 $history_is_flawed = false;
 $result_without_history = db_execute("SELECT DISTINCT groups.group_name,"
@@ -197,9 +197,9 @@ $rows_without_history = db_numrows($result_without_history);
 if ($rows_without_history != $rows)
 {
   # If number of rows differ, assume that history is flawed. Print a
-  # feedback incitating to fix the installation and override flawed result.
+  # feedback indicating to fix the installation and override flawed result.
   #
-  # The following update script was maybe forgot:
+  # The following update script was maybe forgotten:
   # update/1.0.6/update_group_history.pl
   fb(_("Groups history appears to be flawed.
 Please report the incident to administrators."), 1);
@@ -326,7 +326,7 @@ print '
 extract(sane_import('request', array('words')));
 if ($words)
   {
-  # Avoid to big search by asking for more than 1 characters.
+  # Avoid big search by asking for more than 1 characters.
   # Restricting to more than 2 chars skips a great deal of project names (eg: gv, gdb)
     if (strlen($words) > 1)
       $result_search = search_run($words, "soft", 0);

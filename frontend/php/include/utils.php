@@ -1111,8 +1111,8 @@ function help ($text, $explanation_array, $noarray=0)
 }
 
 # Analyse if we do need MSIE dirtyhacks.
-# Put the result in cache so we wont over and over analyse user agent.
-# (This function will indeed think a browser that claims to be MSIE that it is
+# Put the result in cache so we won't over and over analyse user agent.
+# (This function will indeed think a browser that claims to be MSIE is
 # MSIE. Users of browsers like Opera that pretend to be MSIE should configure
 # properly their User Agent. There is nothing else to do about it).
 function utils_is_broken_msie ()
@@ -1123,7 +1123,7 @@ function utils_is_broken_msie ()
       return $GLOBALS['are_we_using_broken_msie'];
     }
 
-  # Otherwise, find out, assuming that by default we dont use broken MSIE.
+  # Otherwise, find out, assuming that by default we don't use broken MSIE.
   $is_broken = false;
 
   # Try to find the string MSIE.

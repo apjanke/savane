@@ -195,6 +195,7 @@ function user_getid($username=0)
                        array($username));
   if ($result and db_numrows($result) > 0)
     return db_result($result,0,"user_id");
+  return null;
 }
 
 function user_exists($user_id, $squad_only=false)

@@ -288,7 +288,6 @@ function utils_format_date($timestamp, $format="default")
         return strftime('%c', $timestamp);
       }
     }
-  return false;
 }
 
 # Convert a date as used in the bug tracking system and other services (YYYY-MM-DD)
@@ -1002,7 +1001,7 @@ function utils_debug_print_mybacktrace($backtrace=null)
     }
 
   if (empty($backtrace))
-    return '';
+    return;
 
   # Iterate backtrace.
   $calls = array();

@@ -354,6 +354,7 @@ function member_create_tracker_flag ($artifact)
     case 'support': return "S";
     case 'news': return "N";
     case 'cookbook': return "C";
+    default: return null;
     }
 }
 

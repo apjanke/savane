@@ -98,7 +98,7 @@ function sitemenu_extraurl ($only_with_post=false)
   # If only_with_post is set, it means that we will return nothing if the
   # page was loaded with a get.
   if ($only_with_post && $_SERVER["REQUEST_METHOD"] != "POST")
-    return;
+    return null;
 
   $extraurl = '';
   if ($_SERVER["REQUEST_METHOD"] == "POST")

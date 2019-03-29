@@ -360,6 +360,7 @@ function session_require($req)
       return true;
     }
   exit_missing_param();
+  return false;
 }
 
 function session_setglobals($user_id)

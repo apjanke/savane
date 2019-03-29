@@ -64,8 +64,8 @@ function artifact_name_prefixed ($artifact)
                              _('[artifact]news');
        default: return $artifact;
      }
-   return $artifact;
 }
+
 function artifact_name ($artifact)
 {
   $name = artifact_name_prefixed ($artifact);

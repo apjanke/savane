@@ -102,13 +102,13 @@ em { font-style: italic; }
 
 }
 
-.
+
 /* only error feedback is still printed */
 .feedback {
 	display: none;
 }
 
-feedbackerror {
+.feedbackerror {
 	font-weight: normal;
 	border: thin solid #871b00;
 	background-color: #ff947c; 

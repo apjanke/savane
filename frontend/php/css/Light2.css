@@ -232,7 +232,6 @@ li.topmenuitemsubmenuseparator {
 	text-decoration: none;
 }
 .tabselect { 
-	color: #000000; 
 /*	font-weight: bold;  buggy with some RHEL konqueror versions */
 	background: #7e8c9e;
 	border: thin outset #7e8c9e;

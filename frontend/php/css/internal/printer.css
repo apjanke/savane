@@ -329,7 +329,6 @@ hr {
 	text-align: left;
   	border-right: thin solid black;
   	border-bottom: thin solid black; 
-	list-style-type: none;
 }
 
 .boxitemalt { 
@@ -340,7 +339,6 @@ hr {
 	background-color: #f9f9f9;
   	border-right: thin solid black;
   	border-bottom: thin solid black;
-	list-style-type: none;
 }
 
 .boxhighlight { 

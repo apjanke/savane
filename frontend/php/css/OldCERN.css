@@ -263,8 +263,8 @@ li.topmenuitemsubmenuseparator {
 .box {
   border-spacing: 2px;
   border: 1px solid #339966;
-  margin-left: 0%;
-  margin-right: 0%;
+  margin-left: 0;
+  margin-right: 0;
   width: 100%;
   font-size: smaller;
 }

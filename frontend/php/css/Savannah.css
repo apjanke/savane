@@ -108,7 +108,7 @@ h4 {
  **********************************************************************/
 
 .realbody { 
-	border-spacing: 0px;
+	border-spacing: 0;
 	border: none;
 }
 

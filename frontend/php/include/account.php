@@ -160,8 +160,6 @@ function account_namevalid ($name, $allow_dashes=0, $allow_underscores=1,
                             $MIN_ACCNAME_LENGTH=3)
 {
   $underscore = '';
-  $dashe = '';
-  $dot = '';
 
   # By default, underscore are allowed, creating no specific issue for an
   # account name. It may creates trouble if the account is use to handle DNS...

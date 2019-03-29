@@ -320,7 +320,6 @@ function cookbook_handle_update($item_id, $group_id)
   $cookbook_upd_list = array();
 
   # Find out the targetted audience.
-  $audience_cases = array();
   $possiblevalues = cookbook_audience_possiblevalues();
   while(list($field,) = each($possiblevalues))
     {
@@ -331,7 +330,6 @@ function cookbook_handle_update($item_id, $group_id)
     }
 
   # Find out the targetted context (feature).
-  $context_cases = array();
   $possiblevalues = cookbook_context_possiblevalues();
   while(list($field,) = each($possiblevalues))
     {
@@ -342,7 +340,6 @@ function cookbook_handle_update($item_id, $group_id)
     }
 
   # Find out the targetted subcontext (action).
-  $subcontext_cases = array();
   $possiblevalues = cookbook_subcontext_possiblevalues();
   while(list($field,) = each($possiblevalues))
     {

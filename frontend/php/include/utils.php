@@ -768,7 +768,7 @@ function utils_get_priority_color ($index, $closed="")
 function utils_show_result_set ($result,$title="Untitled",$linkify=false,
                                 $level=false)
 {
-  global $group_id,$HTML;
+  global $group_id;
 
   if ($level === false)
     $level = '3';
@@ -912,7 +912,6 @@ function util_debug ($msg)
   if ($GLOBALS['sys_debug_on'])
     {
       $backtrace = debug_backtrace(); // stacktrace
-      $location = '';
       if (isset($backtrace[1]))
         {
           $location = $backtrace[1]['function'];
@@ -932,7 +931,6 @@ function dbg ($msg)
   if ($GLOBALS['sys_debug_on'])
     {
       $backtrace = debug_backtrace();
-      $location = '';
       if (isset($backtrace[1]))
         {
           $location = $backtrace[1]['function'];

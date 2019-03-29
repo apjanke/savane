@@ -30,7 +30,7 @@ function news_new_subbox($row)
 function news_show_latest ($group_id,$limit=10,$show_summaries="true",
                            $start_from="no")
 {
-  global $sys_datefmt, $sys_dbname;
+  global $sys_dbname;
   if (!isset($group_id))
     {
       $group_id = $GLOBALS['sys_group_id'];
@@ -134,11 +134,10 @@ function news_show_latest ($group_id,$limit=10,$show_summaries="true",
                   # this is a short news item. just display it.
                   $summ_txt = markup_full($story);
                 }
-              $proj_name = db_result($result,$i,'group_name');
+              db_result($result,$i,'group_name');
             }
           else
             {
-              $proj_name='';
               $summ_txt='';
             }
       $reply = sprintf(ngettext("%s reply", "%s replies", $trow_count),

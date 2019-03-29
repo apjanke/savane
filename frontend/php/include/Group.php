@@ -781,7 +781,7 @@ function group_set_preference ($group_id, $preference_name, $value)
                            array($group_id, $preference_name));
       if (db_numrows($result) < 1)
         {
-          $result = db_autoexecute('group_preferences',
+          db_autoexecute('group_preferences',
                                    array('group_id' => $group_id,
                                          'preference_name' => $preference_name,
                                          'preference_value' => $value),
@@ -789,7 +789,7 @@ function group_set_preference ($group_id, $preference_name, $value)
         }
       else
         {
-          $result = db_execute("UPDATE group_preferences SET preference_value=? "
+          db_execute("UPDATE group_preferences SET preference_value=? "
                                . " WHERE group_id=? AND preference_name=?",
                                array($value, $group_id, $preference_name));
         }

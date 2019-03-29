@@ -25,8 +25,6 @@
 # second param is which row in that result set to use
 function forum_show_a_nested_message ($result,$row=0)
 {
-  global $sys_datefmt;
-
   $g_id =  db_result($result,$row,'group_id');
 
   # if the forum is a piece of news then get the real group_id from the
@@ -36,7 +34,7 @@ function forum_show_a_nested_message ($result,$row=0)
       $f_id =  db_result($result,$row,'group_forum_id');
       $gr = db_execute("SELECT group_id FROM news_bytes WHERE forum_id=?",
                        array($f_id));
-      $g_id = db_result($gr,0,'group_id');
+      db_result($gr,0,'group_id');
   }
 
   $ret_val = '
@@ -68,7 +66,7 @@ function forum_show_a_nested_message ($result,$row=0)
 
 function forum_show_nested_messages ($thread_id, $msg_id)
 {
-  global $total_rows,$sys_datefmt;
+  global $total_rows;
 
   $result = db_execute("SELECT user.user_name,forum.has_followups,"
                        ."user.realname,user.user_id,forum.msg_id,"
@@ -113,8 +111,8 @@ function forum_show_nested_messages ($thread_id, $msg_id)
 # FIXME: site_project_header function should be used instead
 function forum_header($params)
 {
-  global $DOCUMENT_ROOT,$HTML,$group_id,$forum_name,$thread_id,$msg_id;
-  global $forum_id,$REQUEST_URI,$sys_datefmt,$et,$et_cookie;
+  global $HTML,$group_id,$forum_name;
+  global $forum_id;
 
   $params['group']=$group_id;
   $params['toptab']='forum';
@@ -130,12 +128,10 @@ function forum_header($params)
       # if the result is empty, this is not a news item, but a forum.
       if (!$result || db_numrows($result) < 1)
         {
-          $is_news=0;
           site_project_header($params);
         }
       else
         {
-          $is_news=1;
           #backwards shim for all "generic news" that used to be submitted
           #as of may, "generic news" is not permitted - only project-specific news
 
@@ -183,7 +179,6 @@ function forum_footer($params)
 function forum_create_forum($group_id,$forum_name,$is_public=1,
                             $create_default_message=1,$description='')
 {
-  global $feedback;
   $fields = array();
   $fields['group_id'] = $group_id;
   $fields['forum_name'] = htmlspecialchars($forum_name);
@@ -206,7 +201,7 @@ function forum_create_forum($group_id,$forum_name,$is_public=1,
   if ($create_default_message)
     {
       #set up a cheap default message
-      $result2 = db_autoexecute('forum',
+      db_autoexecute('forum',
         array('group_forum_id' => $forum_id,
               'posted_by' => 100,
               'subject' => 'Welcome to $forum_name',
@@ -224,7 +219,7 @@ function forum_create_forum($group_id,$forum_name,$is_public=1,
 # $et is whether or not the forum is "expanded" or in flat mode
 function show_thread($thread_id,$et=0)
 {
-  global $total_rows,$sys_datefmt,$is_followup_to,$subject;
+  global $total_rows,$is_followup_to,$subject;
   global $forum_id,$current_message;
 
   $result = db_execute("SELECT user.user_name,forum.has_followups,forum.msg_id,
@@ -302,7 +297,7 @@ function show_thread($thread_id,$et=0)
 # $level is used for indentation of the threads.
 function show_submessages($thread_id, $msg_id, $level,$et=0)
 {
-  global $total_rows,$sys_datefmt,$forum_id,$current_message;
+  global $total_rows,$forum_id,$current_message;
 
   $result = db_execute("SELECT user.user_name,forum.has_followups,forum.msg_id,"
           ."forum.subject,forum.thread_id,forum.body,forum.date,"
@@ -406,8 +401,6 @@ function get_forum_saved_date($forum_id)
 function post_message($thread_id, $is_followup_to, $subject, $body,
                       $group_forum_id)
 {
-  global $feedback;
-
   if (!$GLOBALS['sys_enable_forum_comments'])
     {
       exit_error(_("Posting has been disabled."));
@@ -561,7 +554,6 @@ function show_post_form($forum_id, $thread_id=0, $is_followup_to=0, $subject="")
 # If someone is, it sends them the message in email format
 function handle_monitoring($forum_id,$msg_id)
 {
-  global $feedback;
   global $sys_dbname;
 
   $result=db_execute("SELECT user.email from forum_monitored_forums,user "
@@ -705,7 +697,7 @@ function recursive_delete($msg_id,$forum_id)
 
   for ($i=0;$i<$rows;$i++)
     $count += recursive_delete(db_result($result,$i,'msg_id'),$forum_id);
-  $toss = db_execute("DELETE FROM forum WHERE msg_id=? AND group_forum_id=?",
+  db_execute("DELETE FROM forum WHERE msg_id=? AND group_forum_id=?",
                      array($msg_id, $forum_id));
   return $count;
 }

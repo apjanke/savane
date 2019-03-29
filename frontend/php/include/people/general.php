@@ -233,8 +233,6 @@ function people_job_category_box($name='category_id',$checked='xyxy')
 function people_add_to_job_inventory($job_id,$skill_id,$skill_level_id,
                                      $skill_year_id)
 {
-  global $feedback;
-
   if (user_isloggedin())
     {
       #check if they've already added this skill
@@ -430,7 +428,6 @@ function people_edit_job_inventory($job_id,$group_id)
 
 function people_show_job_list($result, $edit=0)
 {
-  global $sys_datefmt;
   #takes a result set from a query and shows the jobs
 
   #query must contain 'group_id', 'job_id', 'title', 'category_name', 'status_name' and 'type'
@@ -638,7 +635,6 @@ function people_skill_year_box($name='skill_year_id',$checked='xyxy')
 
 function people_add_to_skill_inventory($skill_id,$skill_level_id,$skill_year_id)
 {
-  global $feedback;
   if (user_isloggedin())
     {
       #check if they've already added this skill

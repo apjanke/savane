@@ -32,7 +32,7 @@ function show_item_list ($result_arr,
                          $url,
                          $nolink=false)
 {
-  global $group_id,$chunksz,$morder;
+  global $group_id,$chunksz;
 
   # Build the list of links to use for column headings
   # Used to trigger sort on that column
@@ -448,7 +448,6 @@ function show_item_list_sober ($result_arr,
 # excluding details
 function show_item_history ($item_id,$group_id, $no_limit=false)
 {
-  global $sys_datefmt;
   $result=trackers_data_get_history($item_id);
   $rows=db_numrows($result);
 

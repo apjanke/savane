@@ -28,7 +28,6 @@ function format_item_details ($item_id, $group_id, $ascii=false,
 {
   # ASCII must not be translated.
   #  Format the details rows from trackers_history.
-  global $sys_datefmt;
 
   # Obtain data.
   $data = array();
@@ -480,7 +479,6 @@ to be run.")
 function format_item_changes ($changes,$item_id,$group_id)
 {
   # ASCII must not be translated.
-  global $sys_datefmt;
 
   # FIXME: strange, with %25s it does not behave exactly like
   # trackers_field_label_display
@@ -576,7 +574,7 @@ function format_item_changes ($changes,$item_id,$group_id)
 
 function format_item_attached_files ($item_id,$group_id,$ascii=false,$sober=false)
 {
-  global $sys_datefmt, $HTML;
+  global $HTML;
   $out = '';
 
   # ASCII must not be translated
@@ -707,7 +705,7 @@ File Attachments:\n\n";
 function format_item_cc_list ($item_id,$group_id, $ascii=false)
 {
 # ASCII must not be translated.
-  global $sys_datefmt, $HTML;
+  global $HTML;
 
   $result = trackers_data_get_cc_list($item_id);
   $rows = db_numrows($result);
@@ -759,7 +757,6 @@ function format_item_cc_list ($item_id,$group_id, $ascii=false)
           $email = utils_email($email);
         }
       $item_cc_id = db_result($result, $i, 'bug_cc_id');
-      $href_cc = $email;
 
       # If the comment is -SUB-, -UPD- or -COM-, it means submitter
       # or commenter, etc.

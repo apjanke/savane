@@ -113,7 +113,6 @@ function search_box ($searched_words='', $only_artifact=0, $size=15, $class="")
       if (!$project && !empty($group_id))
         $project = project_get_object($group_id);
 
-      $text = '';
       if (empty($group_id) || $is_small)
         $text =
 # TRANSLATORS: this string is used in the context of "Search [...] in Cookbook"
@@ -404,7 +403,7 @@ function result_no_match ()
 
 function search_failed ()
 {
-  global $no_rows,$words;
+  global $no_rows;
   $no_rows = 1 ;
   search_send_header();
   print '<span class="warn">';
@@ -454,7 +453,6 @@ function search_keywords_in_fields($keywords, $fields, $and_or='OR')
 function search_run ($keywords, $type_of_search="soft", $return_error_messages=1)
 {
   global $type, $exact, $crit, $offset, $only_group_id, $max_rows, $sys_dbname;
-  $and_or = $crit;
 
   # Remove useless blank spaces, escape nasty characters.
   $keywords = trim($keywords);

@@ -81,7 +81,6 @@ function member_remove ($user_id, $group_id)
 
   $admin_flags = db_result($result, 0, 'admin_flags');
 
-  $sql = '';
   $result = db_execute("DELETE FROM user_group WHERE user_id=? AND group_id=?",
                        array($user_id, $group_id));
   if ($result)

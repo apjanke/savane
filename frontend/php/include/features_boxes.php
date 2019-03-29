@@ -59,7 +59,6 @@ function show_features_boxes()
   $result = db_query("SELECT type_id,name FROM group_type ORDER BY name");
   # Try to find out how many latest registered groups per group type
   # we should print, depending on how many groups we have.
-  $limit = 10;
   $count = db_numrows($result);
   if ($count > 25)
     $limit = 2;

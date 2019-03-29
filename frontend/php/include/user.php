@@ -296,13 +296,13 @@ function user_set_preference ($preference_name,$value)
       if (db_numrows(db_execute("SELECT NULL FROM user_preferences "
                                 ."WHERE user_id=? AND preference_name=?",
                                 array(user_getid(), $preference_name))) > 0)
-        $result=db_autoexecute('user_preferences',
+        db_autoexecute('user_preferences',
                                array('preference_value' => $value),
                                DB_AUTOQUERY_UPDATE,
                                "user_id=? AND preference_name=?",
                                array(user_getid(), $preference_name));
       else
-        $result=db_autoexecute('user_preferences',
+        db_autoexecute('user_preferences',
                                array('user_id' => user_getid(),
                                      'preference_name' => $preference_name,
                                      'preference_value' => $value),
@@ -321,7 +321,7 @@ function user_unset_preference ($preference_name)
   if (!user_isloggedin())
     return false;
   $preference_name=strtolower(trim($preference_name));
-  $result=db_execute("DELETE FROM user_preferences WHERE user_id=? "
+  db_execute("DELETE FROM user_preferences WHERE user_id=? "
                      ."AND preference_name=? LIMIT 1",
                      array(user_getid(), $preference_name));
   # Update the Preference cache if it was setup by a user_get_preference.

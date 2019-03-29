@@ -162,7 +162,6 @@ function trackers_conf_copy ($group_id, $artifact, $from_group_id)
 # TRANSLATORS: the argument is space-separated list of field ids.
                _("Field values %s copied"), $itemsdone));
 
-  $result_field_value_from_group =
     db_execute("SELECT * FROM ".$artifact."_field_value WHERE group_id=?",
                array($from_group_id));
   $itemsdone = print_items ($result_field_usage_from_group,

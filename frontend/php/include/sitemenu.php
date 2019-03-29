@@ -32,8 +32,6 @@ function menu_print_sidebar($params)
 
 function sitemenu ($params)
 {
-  global $HTML;
-
   # Define variables.
   if (!isset($params['title']))
     $params['title'] = '';
@@ -163,7 +161,7 @@ function menu_search()
 
 function sitemenu_search()
 {
-  global $HTML,$group_id;
+  global $HTML;
   $HTML->menuhtml_top(_("Search"));
   print '       <li class="menusearch">';
   print search_box("", "menu");

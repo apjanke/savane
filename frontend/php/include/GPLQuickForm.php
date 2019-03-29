@@ -435,7 +435,7 @@ class GPLQuickForm
 
     foreach($this->rules as $rule)
       {
-        list ($name, $error_message, $type, $type_param, $side) = $rule;
+        list ($name, $error_message, $type, $type_param) = $rule;
         if (is_array($name))
           {
             $name_array = $name;
@@ -447,7 +447,6 @@ class GPLQuickForm
 
         if ($elt_is_valid[$name])
           {
-            $rule_is_valid = false;
             if (!is_array($name))
               {
                 $value = $elt->getValue();

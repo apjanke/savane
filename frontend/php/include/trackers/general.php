@@ -78,7 +78,7 @@ function trackers_convert_to_url_arg($varname, $var)
 
 function trackers_header($params)
 {
-  global $group_id,$is_bug_page,$DOCUMENT_ROOT,$advsrch;
+  global $group_id,$is_bug_page;
 
   # Used so the search box will add the necessary element to the pop-up box.
   # yeupou, 2005-09-11: is that still useful?
@@ -101,7 +101,7 @@ function trackers_header($params)
 
 function trackers_header_admin($params)
 {
-  global $group_id,$is_bug_page,$DOCUMENT_ROOT;
+  global $group_id,$is_bug_page;
 
   # Used so the search box will add the necessary element to the pop-up box.
   $is_bug_page=1;
@@ -229,7 +229,6 @@ function trackers_field_display ($field_name,
   - text_any: text associated with the any value_id to display in the select box
   - allowed_transition_only: print only transition allowed.  */
 
-  global $sys_datefmt;
   $output = '';
 
   if ($label)
@@ -993,7 +992,7 @@ function trackers_build_notification_list($item_id, $group_id, $changes,
 function trackers_mail_followup ($item_id,$more_addresses=false,$changes=false,
                                  $force_exclude_list=false, $artifact=0)
 {
-  global $sys_datefmt, $int_probablyspam, $sys_dbname;
+  global $int_probablyspam, $sys_dbname;
 
   # If presumed to be a spam, no notifications.
   if ($int_probablyspam)
@@ -1382,8 +1381,6 @@ function trackers_insert_cc($item_id,$cc,$added_by,$comment,$date)
 
 function trackers_add_cc($item_id,$group_id,$email,$comment)
 {
-  global $feedback,$ffeedback;
-
   $user_id = (user_isloggedin() ? user_getid(): 100);
 
   $arr_email = utils_split_emails($email);
@@ -1416,8 +1413,6 @@ function trackers_add_cc($item_id,$group_id,$email,$comment)
 
 function trackers_delete_cc($group_id=false,$item_id=false,$item_cc_id=false)
 {
-  global $feedback,$ffeedback;
-
   # Extract data about the CC.
   $res1 = db_execute("SELECT * from ".ARTIFACT."_cc WHERE bug_cc_id=?",
                      array($item_cc_id));
@@ -1671,7 +1666,6 @@ function trackers_build_match_expression($field, &$to_match)
   $res = db_execute("SHOW COLUMNS FROM ".ARTIFACT." LIKE ?", array($field));
   $type = db_result($res,0,'Type');
 
-  $expr = '';
   $params = array();
 
   if (preg_match('/text|varchar|blob/i', $type))
@@ -1855,8 +1849,6 @@ function trackers_mail_followup_cernspecifichack ($group_id, $bug_href,
    $result,$content_type, $item_id, $more_addresses=false, $changes=false,
    $force_exclude_list=false)
 {
-  global $sys_datefmt;
-
   # MUST BE DEFINED HERE, dont ask me why.
   $subject = utils_unconvert_htmlspecialchars(db_result($result,0,'summary'));
 
@@ -2165,7 +2157,6 @@ This item URL is:";
       if ($changes)
         {
           #Process special cases first: follow-up comment.
-          $fmt = "%s: %23s -> %-23s\n";
           $was_followup = false;
           if ($changes['details'])
             {

@@ -113,13 +113,12 @@ function test_gpg_encryption ($gpg_name, $temp_dir, &$output)
   fwrite($pipes[0], $message);
   fclose($pipes[0]);
   $encrypted_message = stream_get_contents($pipes[1]);
-  $gpg_stderr = stream_get_contents($pipes[2]);
+  stream_get_contents($pipes[2]);
   fclose($pipes[1]); fclose($pipes[2]);
   $gpg_result = proc_close($gpg_proc);
   $gpg_error = "";
   if($gpg_result != 0 or $encrypted_message === FALSE or $encrypted_message === "")
     {
-      $encrypted_message = "";
       if($gpg_result == 1)
         $gpg_error = _("Encryption failed.");
       else if($gpg_result == 2)

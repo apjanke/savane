@@ -134,7 +134,7 @@ function my_item_count($total, $new)
 function my_item_list ($role="assignee", $threshold="5", $openclosed="open",
                        $uid=0, $condensed=0)
 {
-  global $item_data, $group_data, $items_per_groups, $maybe_missed_rows;
+  global $items_per_groups, $maybe_missed_rows;
   $items_per_groups = array();
 
   $maybe_missed_rows = 0;
@@ -169,7 +169,7 @@ function my_item_list ($role="assignee", $threshold="5", $openclosed="open",
 function my_item_list_buildsql ($tracker, $role="assignee", $threshold="5",
                                 $openclosed="open", $uid=false)
 {
-  global $item_data, $group_data, $sql_limit, $usergroups, $usergroups_groupid;
+  global $sql_limit, $usergroups_groupid;
   global $sys_dbname;
   global $items_per_groups, $usersquads;
 
@@ -449,7 +449,7 @@ function my_item_list_buildsql ($tracker, $role="assignee", $threshold="5",
 # Extract items data from database, put in hashes
 function my_item_list_extractdata ($sql_result, $tracker)
 {
-  global $item_data, $group_data, $items_per_groups, $sql_limit;
+  global $item_data, $items_per_groups, $sql_limit;
   global $maybe_missed_rows;
 
   # Run the query
@@ -462,7 +462,6 @@ function my_item_list_extractdata ($sql_result, $tracker)
   # If there are results, grab data
   if ($sql_result && $rows > 0)
     {
-      $items_exist = 1;
       for ($j=0; $j<$rows; $j++)
         {
           # Create item unique name beginning by the date to ease

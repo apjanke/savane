@@ -29,7 +29,6 @@ function exit_error($title, $text=0)
   exit_header();
 
   global $HTML;
-  global $feedback;
 
   $content = $title;
   if ($text)

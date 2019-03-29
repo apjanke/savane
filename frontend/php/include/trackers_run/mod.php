@@ -755,7 +755,6 @@ managers.").'</p>
               || $GLOBALS['reassign_change_artifact'] == $art)
               $checked = ' selected="selected"';
           $ret = '<option value="'.$art.'"'.$checked.'>'.$content."</option>\n";
-          $checked = '';
           return $ret;
         }
       $tracker_select = '<select title="'._("Tracker to reassign to")

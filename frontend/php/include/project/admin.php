@@ -27,7 +27,6 @@ function show_grouphistory ($group_id)
 {
                 # show the group_history rows that are relevant to
                 # this group_id
-  global $sys_datefmt;
   $result=group_get_history($group_id);
   $rows=db_numrows($result);
 

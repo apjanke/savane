@@ -171,7 +171,6 @@ class Layout extends SavaneError
 
   function generic_header_start ($params)
   {
-    global $G_USER, $G_SESSION;
 
 # Avoid any cache by setting an expire time in the past, without
 # distinction.

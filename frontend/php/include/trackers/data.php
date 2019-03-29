@@ -274,7 +274,7 @@ for="'.$tracker_name.'_private_exclude_address"'._("Exclude List:")
 
 function trackers_data_post_notification_settings($group_id, $tracker_name)
 {
-  global $feedback, $sys_dbname;
+  global $sys_dbname;
 
   $local_feedback = "";
 # build the variable names related to elements always present in the form
@@ -568,7 +568,6 @@ function trackers_data_get_field_predefined_values ($field, $group_id=false,
                               .$status_cond." ORDER BY order_id,value ASC",
                               array_merge(array($field_id),
                                           $status_cond_params));
-      $rows=db_numrows($res_value);
     }
   return($res_value);
 }
@@ -754,8 +753,6 @@ function trackers_data_is_select_box($field, $by_field_id=false)
 
 function trackers_data_is_username_field($field, $by_field_id=false)
 {
-  global $BF_USAGE_BY_ID;
-
   if ($by_field_id)
     $field = trackers_data_get_field_name($field);
 
@@ -932,7 +929,6 @@ function trackers_data_get_display_size($field, $by_field_id=false)
 # bug table (SQL definition).
 function trackers_data_get_default_value($field, $by_field_id=false)
 {
-  global $BF_USAGE_BY_ID,$BF_USAGE_BY_NAME;
   if ($by_field_id)
     {
       $field = trackers_data_get_field_name($field);
@@ -994,7 +990,7 @@ function trackers_data_copy_default_values($field, $group_id, $by_field_id=false
   if ($group_id == 100)
     return;
   # First delete the exisiting value if any.
-  $res = db_execute("DELETE FROM ".ARTIFACT."_field_value "
+  db_execute("DELETE FROM ".ARTIFACT."_field_value "
                     ."WHERE bug_field_id=? AND group_id=?",
                     array($field_id, $group_id));
 
@@ -1078,8 +1074,6 @@ function trackers_data_is_default_value ($item_fv_id)
 function trackers_data_create_value ($field, $group_id, $value, $description,
                                      $order_id,$status='A',$by_field_id=false)
 {
-  global $feedback,$ffeedback;
-
   if (preg_match ("/^\s*$/", $value))
     {
       fb(_("Empty field value not allowed"), 0);
@@ -1136,9 +1130,6 @@ function trackers_data_create_value ($field, $group_id, $value, $description,
 function trackers_data_update_value ($item_fv_id,$field,$group_id,$value,
                                      $description,$order_id,$status='A')
 {
-
-  global $feedback,$ffeedback;
-
   if (preg_match ("/^\s*$/", $value))
     {
       fb(_("Empty field value not allowed"), 0);
@@ -1191,7 +1182,6 @@ function trackers_data_update_value ($item_fv_id,$field,$group_id,$value,
 # group 100.
 function trackers_data_reset_usage($field_name,$group_id)
 {
-  global $feedback;
   $field_id = trackers_data_get_field_id($field_name);
   if ($group_id != 100)
     {
@@ -1569,7 +1559,7 @@ function trackers_data_add_history ($field_name,
             $new_value = trackers_encode_value ($new_value);
           if ($prev_old_value != $old_value
               || $prev_new_value != $new_value)
-          $res = db_autoexecute($artifact."_history", 
+          db_autoexecute($artifact."_history",
                                 array('new_value' => $new_value,
                                       'old_value' => $old_value),
                                 DB_AUTOQUERY_UPDATE,
@@ -1655,7 +1645,6 @@ function trackers_data_handle_update ($group_id,
     }
 
   # Extract field transition possibilities:
-  $field_transition = array();
   $field_transition = trackers_data_get_transition($group_id);
   # We will store in an array the transition_id accepted, to check
   # other fields updates
@@ -1926,7 +1915,6 @@ function trackers_data_handle_update ($group_id,
 
   # Enter new dependencies.
   $artifacts = array("support", "bugs", "task", "patch");
-  $address = '';
   while (list(, $dependent_on) = each($artifacts))
     {
       $art = $dependent_on;
@@ -2044,9 +2032,6 @@ function trackers_data_reassign_item ($item_id,
       $row_data = db_fetch_array($res_data);
 
       # Duplicate the report
-      if (!$reassign_change_project)
-        $reassign_change_project = $group_id;
-
       if (!$reassign_change_artifact)
         {
           fb(_("Unable to find out to which artifact the item is to be
@@ -2277,8 +2262,6 @@ original item report information."), $row_cc['email']), 1);
 
 function trackers_data_update_dependent_items ($depends_on, $item_id, $artifact)
 {
-  global $feedback,$ffeedback;
-
   # Check if the dependency does not already exists.
   $result = db_execute("SELECT item_id FROM ".ARTIFACT."_dependencies
      WHERE item_id=?

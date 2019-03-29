@@ -22,7 +22,7 @@
 
 function show_features_boxes()
 {
-  GLOBAL $HTML;
+  global $HTML;
   $return = '';
 
   # General stats.

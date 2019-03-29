@@ -311,7 +311,7 @@ function html_feedback_bottom()
 
 function html_image ($src,$args,$display=1)
 {
-  GLOBAL $img_attr;
+  global $img_attr;
   $return = ('<img src="'.$GLOBALS['sys_home'].'images/'.SV_THEME.'.theme/'
              .$src.'"');
   reset($args);
@@ -368,7 +368,7 @@ function html_image ($src,$args,$display=1)
    Optionally take a second array of links for the titles. */
 function html_build_list_table_top ($title_arr, $links_arr=false, $table=true)
 {
-  GLOBAL $HTML;
+  global $HTML;
   $return = '';
 
   if ($table)
@@ -401,7 +401,7 @@ function html_build_list_table_top ($title_arr, $links_arr=false, $table=true)
 
 function html_get_alt_row_color ($i)
 {
-  GLOBAL $HTML;
+  global $HTML;
   if ($i % 2 == 0)
     return 'boxitemalt';
   return 'boxitem';

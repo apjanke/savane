@@ -48,7 +48,7 @@ class Layout extends SavaneError
 # Constuctor
   function __construct()
   {
-    GLOBAL $bgpri;
+    global $bgpri;
 # Constructor for parent class...
     SavaneError::__construct();
 

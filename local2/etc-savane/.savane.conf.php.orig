@@ -65,41 +65,13 @@ EOD;
 
 if (!file_exists($db_file)) 
   {
-	# Create the file with sub values:
-
-	$text=<<<'EOD'
-<?php
-/*
-   This file contains DB/USER/PASSWORD to access the GNU Savannah
-   development database.
-
-   To get access to such database, please contant the GNU Savannah
-   developers by writing to savannah-hackers-public@gnu.org .
-
-   Once you have the DB/USER/PASSWORD, please update
-   the PHP variables below.
-
-   This file must be a valid PHP script.
-
-   If you have any questions, contact savannah-hackers-public@gnu.org.
-*/
-$sys_dbhost="";
-$sys_dbname="";
-$sys_dbuser="";
-$sys_dbpasswd="";
-?>
-EOD;
-
-	$r = file_put_contents($db_file,$text);
-	if ($r === FALSE) {
-		die("savannah-dev-error: failed to create PW file '$db_file'");
-	}
-
+	# Create the file with stub values:
+	if (!copy($db_file.".orig", $db_file))
+		die("savannah-dev-error: failed to create db conf file '$db_file'");
 
 	## Now that the stub file exists, tell the user what to do.
 	print $first_run_message;
 	exit(0);
-
   }
 else 
   {

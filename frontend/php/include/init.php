@@ -120,7 +120,13 @@ else
   {
     # Go back to default location.
     if (file_exists('/etc/savane/.savane.conf.php'))
-      include('/etc/savane/.savane.conf.php');
+      {
+        include('/etc/savane/.savane.conf.php');
+      }
+    else
+      {
+        error_log("No .savane.conf.php config file found.");
+      }
   }
 
 // Detect where we are, unless it's explicitly specified in the

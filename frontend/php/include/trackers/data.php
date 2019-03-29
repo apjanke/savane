@@ -1511,15 +1511,15 @@ function trackers_data_add_history ($field_name,
 
   # If type has a value add it into the sql statement (this is only for
   # the follow up comments (details field)).
-  $val_type = 'NULL';
+  $val_type = null;
   if ($type)
     {
       $val_type = $type;
     }
   else
     {
-        # No comment type specified for a followup comment
-        # so force it to None (100).
+      # No comment type specified for a followup comment
+      # so force it to None (100).
       if ($field_name == 'details')
         $val_type = 100;
     }
@@ -2733,11 +2733,20 @@ function trackers_data_delete_file($group_id, $item_id, $file_id)
     }
 
   # Now delete the attachment
-  if (unlink($sys_trackers_attachments_dir . '/' . $file_id))
+  $result = false;
+  $attachment_file = $sys_trackers_attachments_dir . '/' . $file_id;
+  if (file_exists($attachment_file))
     {
-      $result = db_execute("DELETE FROM trackers_file WHERE item_id=?
-                            AND file_id=?",
-                           array($item_id, $file_id));
+      if (unlink($attachment_file))
+        {
+          $result = db_execute("DELETE FROM trackers_file WHERE item_id=?
+                                    AND file_id=?",
+              array($item_id, $file_id));
+        }
+    }
+  else
+    {
+      error_log("warning: expected attachment file does not exist: $attachment_file");
     }
 
   if (!$result)

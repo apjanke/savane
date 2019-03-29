@@ -1226,6 +1226,7 @@ function trackers_attach_file($item_id,
 
   if (!is_writable($sys_trackers_attachments_dir))
     {
+      error_log("ERROR: trackers attachments dir $sys_trackers_attachments_dir is not writable");
       fb(sprintf(_("The upload directory '%s' is not writable."),
                  $sys_trackers_attachments_dir), 1);
       return false;
@@ -1245,6 +1246,7 @@ function trackers_attach_file($item_id,
   $current_upload_size_comment = '';
   if ($current_upload_size_kb < 0)
     {
+      error_log("ERROR: current upload size is < 0. Possible malicious activity. Aborting.");
 # TRANSLATORS: the argument is file name.
       fb(sprintf(_("Unexpected error, disregarding file %s attachment"),
                  $input_file_name), 1);
@@ -1269,8 +1271,9 @@ function trackers_attach_file($item_id,
   $filesize_kb = round(filesize($input_file) / 1024);
   $filesize_mb = round($filesize_kb / 1024);
   $uploadsize_kb = $filesize_kb + $current_upload_size_kb;
-  $upload_max_mb = round($GLOBALS['sys_upload_max'] / 1024);
-  if ($uploadsize_kb > $upload_max_mb)
+  $upload_max_kb = $GLOBALS['sys_upload_max'];
+  $upload_max_mb = round($upload_max_kb / 1024);
+  if ($uploadsize_kb > $upload_max_kb)
     {
       fb(sprintf(ngettext("File %s not attached: its size is %s megabyte.",
                           "File %s not attached: its size is %s megabytes.",

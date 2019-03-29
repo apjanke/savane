@@ -196,7 +196,7 @@ if (!is_readable ($configfile))
         . "this part cannot be checked.";
 else
 {
-  include $configfile;
+  include_once $configfile;
   $variables = array (
         # Name  / required
                       'sys_default_domain',

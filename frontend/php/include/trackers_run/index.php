@@ -98,7 +98,8 @@ $sober = false;
 
 $address = '';
 
-$func = $func || 'browse';
+
+$func = $func or 'browse';
 if ($preview)
   $submitreturn = 1;
 switch ($func) {

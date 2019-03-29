@@ -21,9 +21,11 @@ echo "Creating Savane data directories at $root..."
 # it's just a convention that apjanke made up.
 mkdir -p "$root/var"
 mkdir -p "$root/var/uploads"
-mkdir -p "$root/inc"
+mkdir -p "$root/etc/site-specific-content"
 mkdir -p "$root/appdatadir"
 mkdir -p "$root/appdatadir/trackers_attachments"
+
+cp -R etc/site-specific-content/* "$root/etc/site-specific-content"
 
 cat <<EOSTR
 Created Savane data directories at $root.
@@ -33,6 +35,9 @@ Now add this to your local2/etc-savane/.savane.conf.php file:
 \$sys_appdatadir = "$root/appdatadir";
 \$sys_upload_dir = "$root/var/uploads";
 \$sys_trackers_attachments_dir = "\$sys_appdatadir/trackers_attachments";
+\$sys_incdir = "$root/etc/site-specific-content";
+
+Make sure you replace the existing "\$sys_incdir" setting in that file.
 
 (Run "make localconf" if local2/etc-savane/.savane.conf.php does not exist.)
 

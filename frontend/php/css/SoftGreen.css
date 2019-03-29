@@ -99,7 +99,7 @@ h4 {
  *
  **********************************************************************/
 
-.realbody {  border-spacing: 4; border: 0; }
+.realbody {  border-spacing: 4px; border: 0; }
 .main { 
 	background-color: white;
 	vertical-align: top;  

@@ -93,7 +93,7 @@ h4 {
  *
  **********************************************************************/
 
-.realbody {  border-spacing: 4; border: 0; color: #333333; }
+.realbody {  border-spacing: 4px; border: 0; color: #333333; }
 .main { vertical-align: top;  
 	margin-left: 160px; border-spacing: 0; border: 0; }
 

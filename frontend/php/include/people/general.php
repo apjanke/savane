@@ -522,6 +522,7 @@ function people_project_jobs_rows($group_id)
 # or all open jobs when $show_any is true.
 function people_show_jobs($categories, $types, $show_any)
 {
+  global $sys_dbname;
   #show open jobs for this category
   $category_ids = '';
   $type_ids = '';
@@ -560,7 +561,7 @@ function people_show_jobs($categories, $types, $show_any)
      people_job_category.name AS category_name
      FROM (people_job JOIN people_job_category ON
            people_job.category_id=people_job_category.category_id)
-       JOIN groups ON people_job.group_id=groups.group_id
+       JOIN $sys_dbname.groups ON people_job.group_id=groups.group_id
      WHERE  groups.is_public = 1 AND people_job.status_id=1 ".
      $category_ids . $type_ids . " ORDER BY date DESC", $sql_args);
   return people_show_job_list($result);

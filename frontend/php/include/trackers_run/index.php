@@ -944,7 +944,6 @@ project and submit the form."),
       }
    */
 
- case 'browse' :      
  default :
    {
 ### Browse thru the bug database

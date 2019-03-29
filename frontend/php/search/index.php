@@ -25,8 +25,8 @@ require_once('../include/init.php');
 
 extract(sane_import('request',
   array('only_group_id', 'type', 'words', 'type_of_search',
-	'func', 'exact',
-	'offset', 'max_rows',
+        'func', 'exact',
+        'offset', 'max_rows',
 )));
 
 # No words? Ask for them
@@ -71,17 +71,17 @@ if ($type_of_search == 'soft')
         print "\n";
 
         for ( $i = 0; $i < $rows; $i++ )
-	  {
-	    $res_type = db_execute("SELECT name FROM group_type WHERE type_id=?",
-				   array(db_result($result, $i, 'type')));
+          {
+            $res_type = db_execute("SELECT name FROM group_type WHERE type_id=?",
+                                   array(db_result($result, $i, 'type')));
 
-	    print '<tr class="'. html_get_alt_row_color($i)
+            print '<tr class="'. html_get_alt_row_color($i)
                   .'"><td><a href="../projects/'.db_result($result, $i,
                                                            'unix_group_name')
               .'">'. db_result($result, $i, 'group_name').'</a></td>
 <td>'.db_result($result,$i,'short_description').'</td>
 <td>'.db_result($res_type, 0, 'name')."</td>\n</tr>\n";
-	  }
+          }
         print "</table>\n";
         print '<p>'
 ._('Note that <strong>private</strong> projects are not shown on this page.')
@@ -147,7 +147,7 @@ elseif ($type_of_search == 'bugs'
     else
       {
         if ( $rows_returned > $GLOBALS['max_rows'])
-	  $rows = $GLOBALS['max_rows'];
+          $rows = $GLOBALS['max_rows'];
 
         search_send_header();
         print_search_heading();
@@ -164,31 +164,31 @@ elseif ($type_of_search == 'bugs'
 
         $j = 0;
         for ( $i = 0; $i < $rows; $i++ )
-	  {
+          {
             # Do even show private item.
-	    if (db_result($result, $i, 'privacy') == "2"
-	        && !member_check_private(0, $group_id)
-	        && db_result($result,$i,'user_name') != user_getname())
-	      {
-	        dbg("Private item.");
-	      }
-	    else
-	      {
-	        $url = $GLOBALS['sys_home'].$type_of_search
+            if (db_result($result, $i, 'privacy') == "2"
+                && !member_check_private(0, $group_id)
+                && db_result($result,$i,'user_name') != user_getname())
+              {
+                dbg("Private item.");
+              }
+            else
+              {
+                $url = $GLOBALS['sys_home'].$type_of_search
                        ."/?func=detailitem&amp;item_id=".db_result($result, $i,
                                                                    "bug_id");
 
-	        print '<tr class="'.html_get_alt_row_color($j).'">'
-		  . '<td><a href="'.$url.'">#'.db_result($result, $i, "bug_id")
+                print '<tr class="'.html_get_alt_row_color($j).'">'
+                  . '<td><a href="'.$url.'">#'.db_result($result, $i, "bug_id")
                   .'</a></td>
 <td><a href="'.$url.'">'.db_result($result, $i, "summary").'</a></td>
 <td><a href="'.$url.'">'.group_getname(db_result($result, $i, "group_id"))
 .'</a></td>
 <td>'.utils_user_link(db_result($result, $i, "user_name"))."</td>
 <td>".utils_format_date(db_result($result,$i,"date"))."</td>\n</tr>\n";
-	        $j++;
-	      }
-	  }
+                $j++;
+              }
+          }
         print "</table>\n";
       }
   }

@@ -53,31 +53,31 @@ if ($conn && empty($sys_group_id))
       # Check if there is a database.
       $result = db_query("SHOW TABLES LIKE 'groups'");
       if (!db_numrows($result))
-	{
-	  # No valid database
-	  fb(sprintf(no_i18n(
+        {
+          # No valid database
+          fb(sprintf(no_i18n(
 "Installation incomplete: while the connection to the SQL server is
 ok, the database '%s' was not found. Please, create it according to
 the documentation shipped with your Savane package"),
              $GLOBALS['sys_dbname']), 1);
-	}
+        }
       else if (db_result(db_query("SELECT count(*) AS count FROM user"),
                          0, 'count') < 2)
-	{ // 2 = 1 default "None" user + 1 normal user
-	  fb(no_i18n(
+        { // 2 = 1 default "None" user + 1 normal user
+          fb(no_i18n(
 "Installation incomplete: you must now create for yourself a user
 account. Once it is done, you will have to login and register the
 local administration project"), 1);
-	}
+        }
       else
-	{
-	  # Not logged-in, probably no user account
-	  fb(sprintf(no_i18n(
+        {
+          # Not logged-in, probably no user account
+          fb(sprintf(no_i18n(
 "Installation incomplete: you have to login and register the local
 administration project (or maybe '%s', from the
 'sys_unix_group_name' configuration parameter, is not the right
 project name?)"), $sys_unix_group_name), 1);
-	}
+        }
     }
   else
     {    

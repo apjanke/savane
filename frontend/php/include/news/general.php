@@ -86,76 +86,76 @@ function news_show_latest ($group_id,$limit=10,$show_summaries="true",
   else
     {
       for ($i=0; $i<$rows; $i++)
-	{
-	  # We want the number of message in this forum
-	  $tres_count = db_execute("SELECT group_forum_id FROM forum "
+        {
+          # We want the number of message in this forum
+          $tres_count = db_execute("SELECT group_forum_id FROM forum "
                                    ."WHERE group_forum_id=?",
-				   array(db_result($result,$i,'forum_id')));
-	  $trow_count = db_numrows($tres_count);
-	  if ($show_summaries != "false")
-	    {
-	      # Get the story
-	      $story = rtrim(db_result($result,$i,'details'));
+                                   array(db_result($result,$i,'forum_id')));
+          $trow_count = db_numrows($tres_count);
+          if ($show_summaries != "false")
+            {
+              # Get the story
+              $story = rtrim(db_result($result,$i,'details'));
 
-	      # if the news item is large (>500 characters),
-	      # only show about 250 characters of the story
-	      $strlen_story = strlen($story);
-	      if ($strlen_story > 500)
-	        {
-	          # if there is a linebreak close to the 250 character
-	          # mark, we use it to truncate the news item, so that
-	          # the markup will not be confused.
-	          # We accept the range from 240 to 350 characters, else
-	          # the news item will be split on whitespace.
-	          # See bug #7634
-	          $linebreak = strpos($story, "\n", min($strlen_story, 240));
-	          if ($linebreak !== false and $linebreak < 350)
-	            {
-	              $truncate = $linebreak;
-	            }
-	          else
-	            {
-	              $truncate = strrpos(substr($story, 0, 250), ' ');
-	              if ($truncate === false)
-	                {
-	                  $truncate = 250;
-	                }
-	            }
-	          $summ_txt = substr($story, 0, $truncate);
-		  $summ_txt .= " ...";
-		  $summ_txt = markup_full($summ_txt);
-	          $summ_txt .= sprintf("%s["._("Read more")."]%s",
+              # if the news item is large (>500 characters),
+              # only show about 250 characters of the story
+              $strlen_story = strlen($story);
+              if ($strlen_story > 500)
+                {
+                  # if there is a linebreak close to the 250 character
+                  # mark, we use it to truncate the news item, so that
+                  # the markup will not be confused.
+                  # We accept the range from 240 to 350 characters, else
+                  # the news item will be split on whitespace.
+                  # See bug #7634
+                  $linebreak = strpos($story, "\n", min($strlen_story, 240));
+                  if ($linebreak !== false and $linebreak < 350)
+                    {
+                      $truncate = $linebreak;
+                    }
+                  else
+                    {
+                      $truncate = strrpos(substr($story, 0, 250), ' ');
+                      if ($truncate === false)
+                        {
+                          $truncate = 250;
+                        }
+                    }
+                  $summ_txt = substr($story, 0, $truncate);
+                  $summ_txt .= " ...";
+                  $summ_txt = markup_full($summ_txt);
+                  $summ_txt .= sprintf("%s["._("Read more")."]%s",
                             '<br /><a href="'
                             .$GLOBALS['sys_home'].'forum/forum.php?forum_id='
                             .db_result($result,$i,'forum_id').'">', '</a>');
-		}
-	      else
-	        {
-		  # this is a short news item. just display it.
-		  $summ_txt = markup_full($story);
-		}
-	      $proj_name = db_result($result,$i,'group_name');
-	    }
-	  else
-	    {
-	      $proj_name='';
-	      $summ_txt='';
-	    }
+                }
+              else
+                {
+                  # this is a short news item. just display it.
+                  $summ_txt = markup_full($story);
+                }
+              $proj_name = db_result($result,$i,'group_name');
+            }
+          else
+            {
+              $proj_name='';
+              $summ_txt='';
+            }
       $reply = sprintf(ngettext("%s reply", "%s replies", $trow_count),
                        $trow_count);
       $return .=
         news_new_subbox($i+1)
-	.'<a href="'.$GLOBALS['sys_home'].'forum/forum.php?forum_id='
+        .'<a href="'.$GLOBALS['sys_home'].'forum/forum.php?forum_id='
         .db_result($result,$i,'forum_id').'"><strong>'
         .db_result($result,$i,'summary').'</strong></a>';
       if ($show_summaries != "false")
-	{ $return .= '<br />&nbsp;&nbsp;&nbsp;&nbsp;'; }
+        { $return .= '<br />&nbsp;&nbsp;&nbsp;&nbsp;'; }
       $return .= ' <span class="smaller"><em>'._("posted by").' <a href="'
-	.$GLOBALS['sys_home'].'users/'. db_result($result,$i,'user_name') .'">'
+        .$GLOBALS['sys_home'].'users/'. db_result($result,$i,'user_name') .'">'
         . db_result($result,$i,'user_name')
-	.'</a>, '. utils_format_date(db_result($result,$i,'date')) .' - '
-	.$reply.'</em></span>'.$summ_txt;
-	}
+        .'</a>, '. utils_format_date(db_result($result,$i,'date')) .' - '
+        .$reply.'</em></span>'.$summ_txt;
+        }
     }
 
   if ($start_from != "nolinks")
@@ -164,19 +164,19 @@ function news_show_latest ($group_id,$limit=10,$show_summaries="true",
       # No link is a trick to skip archives + submit news links
 
       if ($group_id != $GLOBALS['sys_group_id'])
-	{
-	  # You can only submit news from a project now.
-	  # You used to be able to submit general news.
-	  $return .= news_new_subbox(0)
-	     .'<br /> <a href="'.$GLOBALS['sys_home'].'news/submit.php?group_id='
-	     .$group_id.'"><span class="smaller">['._("Submit News")
+        {
+          # You can only submit news from a project now.
+          # You used to be able to submit general news.
+          $return .= news_new_subbox(0)
+             .'<br /> <a href="'.$GLOBALS['sys_home'].'news/submit.php?group_id='
+             .$group_id.'"><span class="smaller">['._("Submit News")
              .']</span></a>';
-	}
+        }
 
       $return .= news_new_subbox(0)
-	 .'<br /> <a href="'.$GLOBALS['sys_home'].'news/?group_id='
+         .'<br /> <a href="'.$GLOBALS['sys_home'].'news/?group_id='
          .$group_id.'"><span class="smaller">['
-	 .sprintf(ngettext("%d news in archive", "%d news in archive",
+         .sprintf(ngettext("%d news in archive", "%d news in archive",
                            $news_total), $news_total)
          .']</span></a>';
     }

@@ -61,19 +61,19 @@ See run-local-dev.sh' file to see how this file is used
 
 /* Create stub internationalization functions, if needed. */
 if (!function_exists("bindtextdomain")) {
-	function bindtextdomain ( )
-	{
-		return "";
-	}
+        function bindtextdomain ( )
+        {
+                return "";
+        }
 
-	function textdomain ()
-	{
-		return "";
-	}
-	function _($a)
-	{
-		return $a;
-	}
+        function textdomain ()
+        {
+                return "";
+        }
+        function _($a)
+        {
+                return $a;
+        }
 }
 
 
@@ -83,19 +83,19 @@ $path = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 # This is set in run-local-dev.sh script.
 $phpdir = getenv('SAVANE_PHPROOT');
 if (empty($phpdir)) {
-	die("savannah-dev-error: SAVANE_PHPROOT not empty in ".__FILE__);
+        die("savannah-dev-error: SAVANE_PHPROOT not empty in ".__FILE__);
 }
 if (!is_dir($phpdir)) {
-	die("savannah-dev-error: SAVANE_PHPROOT points to a non-directory '$phpdir");
+        die("savannah-dev-error: SAVANE_PHPROOT points to a non-directory '$phpdir");
 }
 
 if (substr($path,0, 10) === "/projects/") {
-	include "$phpdir/projects";
-	return true;
+        include "$phpdir/projects";
+        return true;
 }
 if (substr($path,0, 10) === "/users/") {
-	include "$phpdir/users";
-	return true;
+        include "$phpdir/users";
+        return true;
 }
 
 return false;

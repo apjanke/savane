@@ -33,29 +33,29 @@ function trackers_transition_get_update($group_id)
   if ($field_transition_result && db_numrows($field_transition_result) > 0)
     {
       while ($this_transition = db_fetch_array($field_transition_result))
-	{
-	  $field_id = $this_transition['field_id'];
+        {
+          $field_id = $this_transition['field_id'];
 
-	  if (!array_key_exists($field_id, $field_transition))
-	    { $field_transition[$field_id] = array(); }
+          if (!array_key_exists($field_id, $field_transition))
+            { $field_transition[$field_id] = array(); }
 
-	  $from = $this_transition['from_value_id'];
-	  if ($from == "0")
-	    { $from = "any"; }
-	  if (!array_key_exists($from, $field_transition[$field_id]))
-	    { $field_transition[$field_id][$from] = array(); }
+          $from = $this_transition['from_value_id'];
+          if ($from == "0")
+            { $from = "any"; }
+          if (!array_key_exists($from, $field_transition[$field_id]))
+            { $field_transition[$field_id][$from] = array(); }
 
-	  $to = $this_transition['to_value_id'];
-	  if (!array_key_exists($to, $field_transition[$field_id][$from]))
-	    { $field_transition[$field_id][$from][$to] = array();  }
+          $to = $this_transition['to_value_id'];
+          if (!array_key_exists($to, $field_transition[$field_id][$from]))
+            { $field_transition[$field_id][$from][$to] = array();  }
 
-	  $field_transition[$field_id][$from][$to]['transition_id'] =
+          $field_transition[$field_id][$from][$to]['transition_id'] =
             $this_transition['transition_id'];
-	  $field_transition[$field_id][$from][$to]['allowed'] =
+          $field_transition[$field_id][$from][$to]['allowed'] =
             $this_transition['is_allowed'];
-	  $field_transition[$field_id][$from][$to]['notification_list'] =
+          $field_transition[$field_id][$from][$to]['notification_list'] =
             $this_transition['notification_list'];
-	}
+        }
     }
   return $field_transition;
 }
@@ -90,10 +90,10 @@ function trackers_transition_update_other_field ($transition_id, $field_name,
               FROM trackers_field_transition_other_field_update
               WHERE transition_id=? AND update_field_name=?",
             array($transition_id, $field_name))) > 0)
-	{
-	  fb(_("Other Field update deleted"));
-	  return true;
-	}
+        {
+          fb(_("Other Field update deleted"));
+          return true;
+        }
 
       fb_dberror();
       return false;
@@ -114,17 +114,17 @@ function trackers_transition_update_other_field ($transition_id, $field_name,
   if ($id)
     {
       $sql_res = db_execute(
-	"UPDATE trackers_field_transition_other_field_update
+        "UPDATE trackers_field_transition_other_field_update
          SET update_value_id=? WHERE other_field_update_id=?",
-	array($value_id, $id));
+        array($value_id, $id));
     }
   else
     {
       $sql_res = db_autoexecute('trackers_field_transition_other_field_update',
         array (
-	  'transition_id' => $transition_id,
-	  'update_field_name' => $field_name,
-	  'update_value_id' => $value_id
+          'transition_id' => $transition_id,
+          'update_field_name' => $field_name,
+          'update_value_id' => $value_id
         ), DB_AUTOQUERY_INSERT);
     }
   if (db_affected_rows($sql_res))
@@ -151,74 +151,74 @@ function trackers_transition_update_item ($item_id, $transition_id_array,
   if (is_array($transition_id_array))
     {
       while (list(,$transition_id) = each($transition_id_array))
-	{
-	  # Make sure we have a valid entry
-	  if (!$transition_id)
-	    { continue; }
+        {
+          # Make sure we have a valid entry
+          if (!$transition_id)
+            { continue; }
 
-	  # Get list of register updated for this transition
-	  $registered = trackers_transition_get_other_field_update($transition_id);
+          # Get list of register updated for this transition
+          $registered = trackers_transition_get_other_field_update($transition_id);
 
           # No result? skip it
-	  if (!$registered)
-	    { continue; }
-	  else
-	    {
-	      # Run the list of registered updates for this transition
-	      while ($update = db_fetch_array($registered))
-		{
+          if (!$registered)
+            { continue; }
+          else
+            {
+              # Run the list of registered updates for this transition
+              while ($update = db_fetch_array($registered))
+                {
                   # Skip it if it already on the list to be changed
-		  if ((is_array($changes)
+                  if ((is_array($changes)
                       && !array_key_exists($update['update_field_name'],
                                            $changes))
                       && !array_key_exists($update['update_field_name'],
                                            $toupdate))
-		    {
-		      # Add to the list of planned updates
-		      $toupdate[$update['update_field_name']] =
+                    {
+                      # Add to the list of planned updates
+                      $toupdate[$update['update_field_name']] =
                         $update['update_value_id'];
-		      # If we close the item, update the closed_date field
-		      if  ($update['update_field_name'] == 'status_id'
-			   && $update['update_value_id'] == '3')
-			{
-			   $toupdate['close_date'] = time();
-			}
-		    }
-		}
-	    }
-	}
+                      # If we close the item, update the closed_date field
+                      if  ($update['update_field_name'] == 'status_id'
+                           && $update['update_value_id'] == '3')
+                        {
+                           $toupdate['close_date'] = time();
+                        }
+                    }
+                }
+            }
+        }
 
       # Now update fields
       $upd_list = array();
       $exists = false;
       while (list($field,$value) = each($toupdate))
-	{
-	  if ($value)
-	    {
-	      trackers_data_add_history($field,
-					'transition-other-field-update',
-					$value,
-					$item_id);
-	      # Put some feedback: do not mention internal fields like
-	      # 'closed on'
-	      if ($field != 'close_date')
-		{
-		  fb(
+        {
+          if ($value)
+            {
+              trackers_data_add_history($field,
+                                        'transition-other-field-update',
+                                        $value,
+                                        $item_id);
+              # Put some feedback: do not mention internal fields like
+              # 'closed on'
+              if ($field != 'close_date')
+                {
+                  fb(
 # TRANSLATORS: the argument is field name.
           sprintf(_("Automatic update of %s due to transitions settings"),
                   trackers_data_get_label($field)));
-		}
-	      $upd_list[$field] = $value;
-	      $exists = true;
-	    }
-	}
+                }
+              $upd_list[$field] = $value;
+              $exists = true;
+            }
+        }
 
       if ($exists)
-	{
-	  # Update database silently, we may have no rows to update
-	  db_autoexecute(ARTIFACT, $upd_list, DB_AUTOQUERY_UPDATE,
-			 "bug_id=?", array($item_id));
-	}
+        {
+          # Update database silently, we may have no rows to update
+          db_autoexecute(ARTIFACT, $upd_list, DB_AUTOQUERY_UPDATE,
+                         "bug_id=?", array($item_id));
+        }
     }
   return true;
 }

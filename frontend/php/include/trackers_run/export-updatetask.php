@@ -44,11 +44,11 @@ $comment = "Job removed per request of his owner, ".user_getrealname()."
 ".$export_id.".xml is no longer available";
 
 trackers_data_add_history('details',
-			  htmlspecialchars($comment),
-			  '',
-			  $task_id,
-			  false,
-			  'task');
+                          htmlspecialchars($comment),
+                          '',
+                          $task_id,
+                          false,
+                          'task');
 $changes['details']['add'] = $comment;
 $changes['details']['type'] = '100';
 

@@ -151,12 +151,12 @@ if ($update) {
   // Not-name-maching params
   extract(sane_import('post',
     array('cookbook_user_','bugs_user_',
-	  'news_user_','task_user_',
-	  'patch_user_','support_user_',
+          'news_user_','task_user_',
+          'patch_user_','support_user_',
 
           'bugs_restrict_event1','cookbook_restrict_event1',
-	  'news_restrict_event1','task_restrict_event1',
-	  'patch_restrict_event1','support_restrict_event1')));
+          'news_restrict_event1','task_restrict_event1',
+          'patch_restrict_event1','support_restrict_event1')));
 
   $result = db_autoexecute('group_type',
     array(
@@ -318,7 +318,7 @@ frontend related to the homepage management.').'</p>
 ');
 
   html_select_typedir_box("dir_type_homepage",
-			  $row_grp['dir_type_homepage']);
+                          $row_grp['dir_type_homepage']);
   print specific_showinput(
 no_i18n("Homepage Dir (path on the filesystem) [BACKEND SPECIFIC]:"),
  '<input type="text" name="dir_homepage" id="dir_homepage" value="'
@@ -356,7 +356,7 @@ backend) or if you want to allow projects to configure the related menu entry
  .(($row_grp['can_use_'.$vcs_offix]==1) ? ' checked="checked"' : '').' />',
   "can_use_".$vcs_offix);
   html_select_typedir_box("dir_type_".$vcs_offix,
-			  $row_grp['dir_type_'.$vcs_offix]);
+                          $row_grp['dir_type_'.$vcs_offix]);
   print specific_showinput(
 no_i18n("Repository Dir (path on the filesystem) [BACKEND SPECIFIC]:"),
  '<input type="text" name="dir_'.$vcs_offix.'" id="dir_'.$vcs_offix.'" value="'
@@ -392,7 +392,7 @@ related menu entry (see below).').'</p>
  .(($row_grp['can_use_download']==1) ? ' checked="checked"' : '').' />',
   "can_use_download");
   html_select_typedir_box("dir_type_download",
-			  $row_grp['dir_type_download']);
+                          $row_grp['dir_type_download']);
   print specific_showinput(
 no_i18n("Repository Dir (path on the filesystem) [BACKEND SPECIFIC]:"),
   '<input type="text" name="dir_download" id="dir_download"
@@ -601,7 +601,7 @@ projects administrators.').'</p>';
       # interest to generalize it
       global $i, $row_grp;
       if ($increment)
-	$i++;
+        $i++;
       print '<li class="'.utils_get_alt_row_color($i).'">';
       html_build_checkbox("is_menu_configurable_".$val,
                           $row_grp["is_menu_configurable_".$val]);
@@ -612,69 +612,69 @@ projects administrators.').'</p>';
     }
 
   specific_checkbox("homepage",
-		    no_i18n("the homepage link can be modified"));
+                    no_i18n("the homepage link can be modified"));
 
   specific_checkbox("extralink_documentation",
-		    no_i18n("the documentation &ldquo;extra&rdquo; link can be modified"));
+                    no_i18n("the documentation &ldquo;extra&rdquo; link can be modified"));
 
   specific_checkbox("download",
-		    no_i18n("the download area link can be modified"));
+                    no_i18n("the download area link can be modified"));
   $row_grp["is_menu_configurable_download_dir"] =
         $row_grp["is_configurable_download_dir"];
   specific_checkbox("download_dir",
-		    no_i18n("the download _directory_ can be modified -- beware, if
+                    no_i18n("the download _directory_ can be modified -- beware, if
 the backend is running and creating download dir, it can be used maliciously.
 don't activate this feature unless you truly know what you're doing"),0);
 
   specific_checkbox("support",
-		    no_i18n("the support link can be modified"));
+                    no_i18n("the support link can be modified"));
 
   specific_checkbox("bugs",
-		    no_i18n("the bug tracker link can be modified"));
+                    no_i18n("the bug tracker link can be modified"));
 
   specific_checkbox("task",
-		    no_i18n("the task tracker link can be modified"));
+                    no_i18n("the task tracker link can be modified"));
 
   specific_checkbox("patch",
-		    no_i18n("the patch tracker link can be modified"));
+                    no_i18n("the patch tracker link can be modified"));
 
   specific_checkbox("forum",
-		    no_i18n("the forum link can be modified"));
+                    no_i18n("the forum link can be modified"));
 
   specific_checkbox("mail",
-		    no_i18n("the mailing list link can be modified"));
+                    no_i18n("the mailing list link can be modified"));
 
   specific_checkbox("cvs",
-		    no_i18n("the cvs link can be modified"));
+                    no_i18n("the cvs link can be modified"));
   specific_checkbox("cvs_viewcvs",
-		    no_i18n("the viewcvs link can be modified"),0);
+                    no_i18n("the viewcvs link can be modified"),0);
   specific_checkbox("cvs_viewcvs_homepage",
-		    no_i18n("the viewcvs link for homepage code can be modified"),0);
+                    no_i18n("the viewcvs link for homepage code can be modified"),0);
 
   specific_checkbox("arch",
-		    no_i18n("the GNU Arch link can be modified"));
+                    no_i18n("the GNU Arch link can be modified"));
   specific_checkbox("arch_viewcvs",
-		    no_i18n("the GNU Arch viewcvs link can be modified"),0);
+                    no_i18n("the GNU Arch viewcvs link can be modified"),0);
 
   specific_checkbox("svn",
-		    no_i18n("the Subversion link can be modified"));
+                    no_i18n("the Subversion link can be modified"));
   specific_checkbox("svn_viewcvs",
-		    no_i18n("the Subversion viewcvs link can be modified"),0);
+                    no_i18n("the Subversion viewcvs link can be modified"),0);
 
   specific_checkbox("git",
-		    no_i18n("the Git link can be modified"));
+                    no_i18n("the Git link can be modified"));
   specific_checkbox("git_viewcvs",
-		    no_i18n("the Git viewcvs link can be modified"),0);
+                    no_i18n("the Git viewcvs link can be modified"),0);
 
   specific_checkbox("hg",
-		    no_i18n("the Mercurial link can be modified"));
+                    no_i18n("the Mercurial link can be modified"));
   specific_checkbox("hg_viewcvs",
-		    no_i18n("the Mercurial viewcvs link can be modified"),0);
+                    no_i18n("the Mercurial viewcvs link can be modified"),0);
 
   specific_checkbox("bzr",
-		    no_i18n("the Bazaar link can be modified"));
+                    no_i18n("the Bazaar link can be modified"));
   specific_checkbox("bzr_viewcvs",
-		    no_i18n("the Bazaar viewcvs link can be modified"),0);
+                    no_i18n("the Bazaar viewcvs link can be modified"),0);
 
   print $HTML->box_bottom(1);
 

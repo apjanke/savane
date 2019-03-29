@@ -83,7 +83,7 @@ function stats_getprojects($type_id="", $is_public="",$period="")
   return stats_get_generic(
     db_execute("SELECT count(*) AS count FROM $sys_dbname.groups WHERE status='A'
                 $type_id_sql $is_public_sql $period_sql",
-	       $params));
+               $params));
 }
 
 function stats_getusers($period="")
@@ -122,13 +122,13 @@ function stats_getitems($tracker, $only_open="",$period="")
   return stats_get_generic(
     db_execute("SELECT count(*) AS count FROM $tracker "
                . "WHERE group_id<>'100' AND spamscore < 5"
-	       . " $only_open_sql $period_sql", $params));
+               . " $only_open_sql $period_sql", $params));
 }
 
 function stats_getthemeusers($theme="")
 {
   return stats_get_generic(db_execute("SELECT count(*) AS count FROM user "
                                      ."WHERE status='A' AND theme=?",
-				      array($theme)));
+                                      array($theme)));
 }
 ?>

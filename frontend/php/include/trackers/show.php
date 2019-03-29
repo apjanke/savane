@@ -24,13 +24,13 @@
 require_once(dirname(__FILE__).'/cookbook.php');
 
 function show_item_list ($result_arr,
-			 $offset,
-			 $total_rows,
-			 $field_arr, #4
-			 $title_arr,
-			 $width_arr,
-			 $url,
-			 $nolink=false)
+                         $offset,
+                         $total_rows,
+                         $field_arr, #4
+                         $title_arr,
+                         $width_arr,
+                         $url,
+                         $nolink=false)
 {
   global $group_id,$chunksz,$morder;
 
@@ -40,9 +40,9 @@ function show_item_list ($result_arr,
     {
       $links_arr = array();
       while (list(,$field) = each($field_arr))
-	{
-	  $links_arr[] = $url.'&amp;order='.$field.'#results';
-	}
+        {
+          $links_arr[] = $url.'&amp;order='.$field.'#results';
+        }
     }
   # Show extra rows for <-- Prev / Next -->
 
@@ -51,30 +51,30 @@ function show_item_list ($result_arr,
   if ($total_rows > $chunksz)
     {
       if ($offset > 0)
-	{
-	  $nav_bar .=
-	     '<span class="xsmall"><a href="'.$url
+        {
+          $nav_bar .=
+             '<span class="xsmall"><a href="'.$url
              .'&amp;offset=0#results"><img src="'.$GLOBALS['sys_home'].'images/'
              .SV_THEME.'.theme/arrows/first.png" border="0" alt="'
              .'" />'._("Begin").'</a>'
-	     .'&nbsp;&nbsp;&nbsp;&nbsp;'
-	     .'<a href="'.$url.'&amp;offset='.($offset-$chunksz)
-	     .'#results"><img src="'.$GLOBALS['sys_home'].'images/'.SV_THEME
+             .'&nbsp;&nbsp;&nbsp;&nbsp;'
+             .'<a href="'.$url.'&amp;offset='.($offset-$chunksz)
+             .'#results"><img src="'.$GLOBALS['sys_home'].'images/'.SV_THEME
              .'.theme/arrows/previous.png" border="0" alt="'
              .'" />'._("Previous Results").'</a></span>';
-	}
+        }
       else
-	{
-	  $nav_bar .=
-	     '<span class="xsmall"><img src="'.$GLOBALS['sys_home']
+        {
+          $nav_bar .=
+             '<span class="xsmall"><img src="'.$GLOBALS['sys_home']
              .'images/'.SV_THEME.'.theme/arrows/firstgrey.png" border="0" alt="'
              .'" /><em>'._("Begin").'</em>'
-	     .'&nbsp;&nbsp;&nbsp;&nbsp;'
-	     .'<img src="'.$GLOBALS['sys_home'].'images/'.SV_THEME
+             .'&nbsp;&nbsp;&nbsp;&nbsp;'
+             .'<img src="'.$GLOBALS['sys_home'].'images/'.SV_THEME
              .'.theme/arrows/previousgrey.png" border="0" alt="'
              .'" /><em>'._("Previous Results")
              .'</em></span>';
-	}
+        }
     }
 
   $offset_last = min($offset+$chunksz-1, $total_rows-1);
@@ -91,33 +91,33 @@ function show_item_list ($result_arr,
   if ($total_rows > $chunksz)
     {
       if ( ($offset+$chunksz) < $total_rows )
-	{
-	  $offset_end = ($total_rows - ($total_rows % $chunksz));
-	  if ($offset_end == $total_rows)
-	    { $offset_end -= $chunksz; }
+        {
+          $offset_end = ($total_rows - ($total_rows % $chunksz));
+          if ($offset_end == $total_rows)
+            { $offset_end -= $chunksz; }
 
-	  #fb("$offset_end offset_end");
+          #fb("$offset_end offset_end");
 
-	  $nav_bar .=
-	     '<span class="xsmall"><a href="'.$url.'&amp;offset='.($offset+$chunksz).
-	     '#results">'._("Next Results").'<img src="'.$GLOBALS['sys_home']
+          $nav_bar .=
+             '<span class="xsmall"><a href="'.$url.'&amp;offset='.($offset+$chunksz).
+             '#results">'._("Next Results").'<img src="'.$GLOBALS['sys_home']
              .'images/'.SV_THEME.'.theme/arrows/next.png" border="0" alt="'
              .'" /></a>'.'&nbsp;&nbsp;&nbsp;&nbsp;'
-	     .'<a href="'.$url.'&amp;offset='.($offset_end)
-	     .'#results">'._("End").'<img src="'.$GLOBALS['sys_home'].'images/'
+             .'<a href="'.$url.'&amp;offset='.($offset_end)
+             .'#results">'._("End").'<img src="'.$GLOBALS['sys_home'].'images/'
              .SV_THEME.'.theme/arrows/last.png" border="0" alt="'
              .'" /></a></span>';
-	}
+        }
       else
-	{
-	  $nav_bar .= '<span class="xsmall"><em>'._("Next Results")
+        {
+          $nav_bar .= '<span class="xsmall"><em>'._("Next Results")
              .'</em><img src="'.$GLOBALS['sys_home'].'images/'
              .SV_THEME.'.theme/arrows/nextgrey.png" border="0" alt="'
              .'" />'.'&nbsp;&nbsp;&nbsp;&nbsp;'
-	     .'<em>'._("End").'</em><img src="'.$GLOBALS['sys_home']
+             .'<em>'._("End").'</em><img src="'.$GLOBALS['sys_home']
              .'images/'.SV_THEME.'.theme/arrows/lastgrey.png" border="0" alt="'
              .'" /></span>';
-	}
+        }
     }
   $nav_bar .= "</h2>\n";
 
@@ -137,72 +137,72 @@ function show_item_list ($result_arr,
             .'">'."\n";
 
       for ($j=0; $j<$nb_of_fields; $j++)
-	{
+        {
            # If we are in digest mode, add the digest checkbox
-	  if ($field_arr[$j] == "digest")
-	    {
-	      # Dirty workaround to have boxes selected by default in the
-	      # form_input
-	      print '<td class="center">'
+          if ($field_arr[$j] == "digest")
+            {
+              # Dirty workaround to have boxes selected by default in the
+              # form_input
+              print '<td class="center">'
                     .form_input("checkbox", "items_for_digest[]",
                                 "$thisitem_id\" checked=\"checked")."</td>\n";
-	      continue;
-	    }
+              continue;
+            }
 
-	  $value = $result_arr[$thisitem_id][$field_arr[$j]];
-	  if ($width_arr[$j])
-	    {
-	      $width = 'width="'.$width_arr[$j].'%"';
-	    }
-	  else
-	    {
-	      $width = '';
-	    }
+          $value = $result_arr[$thisitem_id][$field_arr[$j]];
+          if ($width_arr[$j])
+            {
+              $width = 'width="'.$width_arr[$j].'%"';
+            }
+          else
+            {
+              $width = '';
+            }
 
-	  if (trackers_data_is_date_field($field_arr[$j]) )
-	    {
-	      if ($value)
-		{
-		  if ($field_arr[$j] == 'planned_close_date' and $value < time())
-		    { $highlight_date = ' class="highlight"'; }
-		  else
-		    { $highlight_date = ''; }
-		  print "<td $width$highlight_date>";
-		  print utils_format_date($value, 'natural');
-		  print "</td>\n";
-		}
-	      else
-		{ print "<td align=\"middle\" $width>-</td>\n"; }
+          if (trackers_data_is_date_field($field_arr[$j]) )
+            {
+              if ($value)
+                {
+                  if ($field_arr[$j] == 'planned_close_date' and $value < time())
+                    { $highlight_date = ' class="highlight"'; }
+                  else
+                    { $highlight_date = ''; }
+                  print "<td $width$highlight_date>";
+                  print utils_format_date($value, 'natural');
+                  print "</td>\n";
+                }
+              else
+                { print "<td align=\"middle\" $width>-</td>\n"; }
 
-	    }
-	  else if ($field_arr[$j] == 'bug_id')
-	    {
+            }
+          else if ($field_arr[$j] == 'bug_id')
+            {
 
-	      if ($nolink)
-		{ print "<td $width>#$value</td>\n"; }
-	      else
+              if ($nolink)
+                { print "<td $width>#$value</td>\n"; }
+              else
                 {
                   print "<td $width>";
                   print '<a href="?'.$value.'">';
                   print '&nbsp;#'.$value .'</a></td>'."\n";
                 }
 
-	    }
-	  else if (trackers_data_is_username_field($field_arr[$j]))
-	    {
+            }
+          else if (trackers_data_is_username_field($field_arr[$j]))
+            {
               if ($nolink)
                 print "<td $width>$value</td>\n";
               else
                 print "<td $width>".utils_user_link($value)."</td>\n";
-	    }
-	  else if (trackers_data_is_select_box($field_arr[$j]))
-	    {
+            }
+          else if (trackers_data_is_select_box($field_arr[$j]))
+            {
               print "<td $width>"
                     .trackers_data_get_cached_field_value($field_arr[$j],
                                                           $group_id, $value)
                     .'</td>'."\n";
-	    }
-	  else
+            }
+          else
             {
               if ($nolink)
                 print "<td $width>". $value .'&nbsp;</td>'."\n";
@@ -212,7 +212,7 @@ function show_item_list ($result_arr,
                     .$value .'</a></td>'."\n";
                 }
             }
-	}
+        }
       print "</tr>\n";
     }
   print "</table>\n";
@@ -222,8 +222,8 @@ function show_item_list ($result_arr,
 
 # Do the same a item list but in sober output.
 function show_item_list_sober ($result_arr,
-			       $total_rows,
-			       $url)
+                               $total_rows,
+                               $url)
 {
   global $group_id, $sys_group_id, $sys_name;
 
@@ -287,153 +287,153 @@ function show_item_list_sober ($result_arr,
       $context_content = '';
       reset($possible_audiences);
       while (list($audience,$audience_label) = each($possible_audiences))
-	{
-	  if (!ctype_alnum($audience))
+        {
+          if (!ctype_alnum($audience))
             util_die('show_item_list_sober: invalid audience <em>'
                      .htmlspecialchars($audience).'</em>');
           # Get recipes contextual data
-	  # (no limit argument, expecting people not to use terrible scales)
+          # (no limit argument, expecting people not to use terrible scales)
 
-	  if ($audience == 'nonmembers')
-	    {
-	      $sql_audience = $sql_nonmembers;
-	    }
-	  else
-	    {
-	      $sql_audience = $sql_members;
-	    }
+          if ($audience == 'nonmembers')
+            {
+              $sql_audience = $sql_nonmembers;
+            }
+          else
+            {
+              $sql_audience = $sql_members;
+            }
 
-	  # Special deal for the item unbound
-	  if ($audience != 'unbound' && $context != 'unbound')
-	    {
-	      # Normal case, binds for both context and audience
-	      $sql_context = "SELECT * FROM cookbook_context2recipe
+          # Special deal for the item unbound
+          if ($audience != 'unbound' && $context != 'unbound')
+            {
+              # Normal case, binds for both context and audience
+              $sql_context = "SELECT * FROM cookbook_context2recipe
                               WHERE (group_id=? OR group_id=?)
                               AND context_$context=1 $sql_audience";
-	    }
-	  else if ($audience == 'unbound' && $context != 'unbound')
-	    {
-	      # Bind only for the context
-	      $sql_context = "SELECT * FROM cookbook_context2recipe
+            }
+          else if ($audience == 'unbound' && $context != 'unbound')
+            {
+              # Bind only for the context
+              $sql_context = "SELECT * FROM cookbook_context2recipe
                               WHERE (group_id=? OR group_id=?)
                               AND context_$context='1' $sql_unboundaudience";
-	    }
-	  else if ($context == 'unbound' && $audience != 'unbound')
-	    {
-	      # Bind only for the audience
-	      $sql_context = "SELECT * FROM cookbook_context2recipe
+            }
+          else if ($context == 'unbound' && $audience != 'unbound')
+            {
+              # Bind only for the audience
+              $sql_context = "SELECT * FROM cookbook_context2recipe
                               WHERE (group_id=? OR group_id=?)
                               $sql_audience $sql_unboundcontext";
-	    }
-	  else if ($context == 'unbound' && $audience == 'unbound')
-	    {
-	      # Not binded at all
-	      $sql_context = "SELECT * FROM cookbook_context2recipe
+            }
+          else if ($context == 'unbound' && $audience == 'unbound')
+            {
+              # Not binded at all
+              $sql_context = "SELECT * FROM cookbook_context2recipe
                               WHERE (group_id=? OR group_id=?)
                               $sql_unboundcontext $sql_unboundaudience";
-	    }
+            }
 
-	  $sql_context_params = array($group_id, $sys_group_id);
-	  $result_context = db_execute($sql_context, $sql_context_params);
-	  $result_rows = db_numrows($result_context);
+          $sql_context_params = array($group_id, $sys_group_id);
+          $result_context = db_execute($sql_context, $sql_context_params);
+          $result_rows = db_numrows($result_context);
 
-	  if ($result_rows)
-	    {
-	      # We want to show items sorted by alphabetical order.
-	      # We will first put the result in a an array
-	      # we will sort the array and use it to print out results.
-	      # We store the summary in lower case, to avoid having a case
-	      # sensitive sort.
-	      $thisaudience_results = array();
-	      for ($i = 0; $i < $result_rows; $i++)
-		{
-		  $thisitem_id = db_result($result_context, $i, 'recipe_id');
-		  # Check if $thisitem_id exists in $result_array before adding
-		  # to $thisaudience_results.
- 		  if(array_key_exists($thisitem_id, $result_arr))
- 		  { $thisaudience_results[$thisitem_id] =
- 		    strtolower($result_arr[$thisitem_id]["summary"]); }
-		}
-	      asort($thisaudience_results);
-	      $audience_content = '';
-	      while (list($thisitem_id,$summary) = each($thisaudience_results))
-		{
-		  # Ignore if not approved
-		  if ($result_arr[$thisitem_id]["resolution_id"] != '1')
-		    { continue; }
+          if ($result_rows)
+            {
+              # We want to show items sorted by alphabetical order.
+              # We will first put the result in a an array
+              # we will sort the array and use it to print out results.
+              # We store the summary in lower case, to avoid having a case
+              # sensitive sort.
+              $thisaudience_results = array();
+              for ($i = 0; $i < $result_rows; $i++)
+                {
+                  $thisitem_id = db_result($result_context, $i, 'recipe_id');
+                  # Check if $thisitem_id exists in $result_array before adding
+                  # to $thisaudience_results.
+                  if(array_key_exists($thisitem_id, $result_arr))
+                  { $thisaudience_results[$thisitem_id] =
+                    strtolower($result_arr[$thisitem_id]["summary"]); }
+                }
+              asort($thisaudience_results);
+              $audience_content = '';
+              while (list($thisitem_id,$summary) = each($thisaudience_results))
+                {
+                  # Ignore if not approved
+                  if ($result_arr[$thisitem_id]["resolution_id"] != '1')
+                    { continue; }
 
-		  # Ignore if seen before (probably because it an item for
-		  # for everybody and we are listing members or non-members
-		  # items)
-		  if (isset($seen_before[$thisitem_id]))
-		    { continue; }
+                  # Ignore if seen before (probably because it an item for
+                  # for everybody and we are listing members or non-members
+                  # items)
+                  if (isset($seen_before[$thisitem_id]))
+                    { continue; }
 
-		  # Record that we seen it
-		  $seen_before[$thisitem_id] = true;
+                  # Record that we seen it
+                  $seen_before[$thisitem_id] = true;
 
-		  # Detect if it is a site wide doc item. Ignore that if we
-		  # are on the site admin group
-		  $is_site_doc = false;
-		  $url_extra_arg = '';
-		  if ($group_id != $sys_group_id)
-		    {
-		      if ($result_arr[$thisitem_id]["group_id"] == $sys_group_id)
-			{
-			  $is_site_doc = true;
-			  $url_extra_arg = '&amp;comingfrom='.$group_id;
-			}
-		    }
+                  # Detect if it is a site wide doc item. Ignore that if we
+                  # are on the site admin group
+                  $is_site_doc = false;
+                  $url_extra_arg = '';
+                  if ($group_id != $sys_group_id)
+                    {
+                      if ($result_arr[$thisitem_id]["group_id"] == $sys_group_id)
+                        {
+                          $is_site_doc = true;
+                          $url_extra_arg = '&amp;comingfrom='.$group_id;
+                        }
+                    }
 
-		  $audience_content .= '<li>';
+                  $audience_content .= '<li>';
                   # Show specific background color only for maximum priority
-		  $priority = $result_arr[$thisitem_id]["priority"];
-		  if ($priority > 4)
-		    {
-		      $audience_content .= '<span class="'
+                  $priority = $result_arr[$thisitem_id]["priority"];
+                  if ($priority > 4)
+                    {
+                      $audience_content .= '<span class="'
                         .utils_get_priority_color(
                            $result_arr[$thisitem_id]["priority"]).'">';
-		    }
+                    }
 
-		  # In this link, we need to mention from where we come from
-		  # so it is possible to know if we are actually inside a
-		  # group cookbook if ever we look at a site wide documentation
-		  # (We use the long item url, with "detailitem" because we may
-		  # have extra arguments to include that would mess the short
-		  # item url interpretation)
-		  $audience_content .= utils_link($GLOBALS['sys_home']
+                  # In this link, we need to mention from where we come from
+                  # so it is possible to know if we are actually inside a
+                  # group cookbook if ever we look at a site wide documentation
+                  # (We use the long item url, with "detailitem" because we may
+                  # have extra arguments to include that would mess the short
+                  # item url interpretation)
+                  $audience_content .= utils_link($GLOBALS['sys_home']
                                                   .'cookbook/?func=detailitem'
                                                   .$url_extra_arg
                                                   .'&amp;item_id='
                                                   .$thisitem_id,
                                          $result_arr[$thisitem_id]["summary"]);
-		  if ($priority > 4)
-		    {
-		      $audience_content .= '</span>';
-		    }
+                  if ($priority > 4)
+                    {
+                      $audience_content .= '</span>';
+                    }
 
-		  # If it comes from the site docs, mention it
-		  if ($is_site_doc)
-		    $audience_content .= '&nbsp;&nbsp;<span class="smaller">('
+                  # If it comes from the site docs, mention it
+                  if ($is_site_doc)
+                    $audience_content .= '&nbsp;&nbsp;<span class="smaller">('
 # TRANSLATORS: the argument is site name (like Savannah).
                       .sprintf(_("From %s User Docs"), $sys_name).')</span>';
-		  $audience_content .= "</li>\n";
-		}
+                  $audience_content .= "</li>\n";
+                }
 
-	      # If there was valid results, save the subcontext
-	      if (!$audience_content)
-		{ continue; }
+              # If there was valid results, save the subcontext
+              if (!$audience_content)
+                { continue; }
 
-	      $context_content .= '<li><span class="smaller">'
+              $context_content .= '<li><span class="smaller">'
                                   .sprintf(("%s:"), $audience_label).'</span>';
-	      $context_content .= "<ul>\n";
-	      $context_content .= $audience_content;
-	      $context_content .= "</ul>\n";
-	      $context_content .= "</li>\n";
-	    }
-	}
+              $context_content .= "<ul>\n";
+              $context_content .= $audience_content;
+              $context_content .= "</ul>\n";
+              $context_content .= "</li>\n";
+            }
+        }
       # If there was valid results, print the context
       if (!$context_content)
-	{ continue; }
+        { continue; }
 
       print '
   <h2>'.html_anchor(sprintf(("%s:"), $context_label), $context).'</h2>
@@ -458,14 +458,14 @@ function show_item_history ($item_id,$group_id, $no_limit=false)
      # yeupou--gnu.org 2004-09-17: currently we provide no way to get the
      # full history. We will see if users request it.
       if (!$no_limit)
-	{
-	  if ($rows > 25)
-	    { $rows = 25; }
+        {
+          if ($rows > 25)
+            { $rows = 25; }
 
-	  $title = sprintf(ngettext("Follows %s latest change.",
+          $title = sprintf(ngettext("Follows %s latest change.",
                                     "Follow %s latest changes.", $rows), $rows);
-	  print "\n".'<p>'.$title."</p>\n";
-	}
+          print "\n".'<p>'.$title."</p>\n";
+        }
 
       $title_arr=array();
       $title_arr[]=_("Date");
@@ -481,7 +481,7 @@ function show_item_history ($item_id,$group_id, $no_limit=false)
       $previous_date = null;
       $previous_user = null;
       for ($i=0; $i < $rows; $i++)
-	{
+        {
           $field = db_result($result, $i, 'field_name');
 
           # If the stored label is "realdetails", it means it is the details
@@ -490,14 +490,14 @@ function show_item_history ($item_id,$group_id, $no_limit=false)
           if ($field == "realdetails")
             { $field = "details"; }
 
-	  $field_label = trackers_data_get_label($field);
+          $field_label = trackers_data_get_label($field);
 
           # if field_label is empty, no label was found, return as it is stored
           if (!$field_label)
             { $field_label = $field; }
 
-	  $value_id =  db_result($result, $i, 'old_value');
-	  $new_value_id =  db_result($result, $i, 'new_value');
+          $value_id =  db_result($result, $i, 'old_value');
+          $new_value_id =  db_result($result, $i, 'new_value');
 
           $date = db_result($result, $i, 'date');
           $user = db_result($result, $i, 'user_name');
@@ -521,56 +521,56 @@ function show_item_history ($item_id,$group_id, $no_limit=false)
           $previous_date = $date;
           $previous_user = $user;
 
-	  # Updated Field
-	  print '<td class="smaller" align="center">'.$field_label.'</td>';
+          # Updated Field
+          print '<td class="smaller" align="center">'.$field_label.'</td>';
 
-	  # Previous value
-	  print '<td class="smaller" align="right">';
-	  if (trackers_data_is_select_box($field))
-	    {
-	      # Its a select box look for value in clear
+          # Previous value
+          print '<td class="smaller" align="right">';
+          if (trackers_data_is_select_box($field))
+            {
+              # Its a select box look for value in clear
               # (If we hit case of transition automatique update, show it in
               # specific way)
               if ($value_id == "transition-other-field-update")
                 print "-"._("Automatic update due to transitions settings")."-";
               else
                 print trackers_data_get_value($field, $group_id, $value_id);
-	    }
-	  else if (trackers_data_is_date_field($field))
-	    {
-	      # For date fields do some special processing.
-	      print utils_format_date($value_id, 'natural');
-	    }
-	  else
-	    {
-	      # It's a text zone then display directly
- 	      print markup_basic($value_id);
-	    }
+            }
+          else if (trackers_data_is_date_field($field))
+            {
+              # For date fields do some special processing.
+              print utils_format_date($value_id, 'natural');
+            }
+          else
+            {
+              # It's a text zone then display directly
+              print markup_basic($value_id);
+            }
 
            print '</td>
 <td class="smaller" align="center"><img src="'
                  .$GLOBALS['sys_home'].'images/'.SV_THEME
                  .'.theme/arrows/next.png" border="0" alt="=>" />'."</td>\n"
                  .'<td class="smaller" align="left">';
-	  # New value
-	  if (trackers_data_is_select_box($field))
-	    {
-	      # It's a select box look for value in clear
-	      print trackers_data_get_value($field, $group_id, $new_value_id);
-	    }
-	  else if (trackers_data_is_date_field($field))
-	    {
-	      # For date fields do some special processing.
-	      print utils_format_date($new_value_id, 'natural');
-	    }
-	  else
-	    {
-	      # It's a text zone then display directly.
-	      print markup_basic($new_value_id);
-	    }
-	  print "</td>\n";
-	  print "</tr>\n";
-	}
+          # New value
+          if (trackers_data_is_select_box($field))
+            {
+              # It's a select box look for value in clear
+              print trackers_data_get_value($field, $group_id, $new_value_id);
+            }
+          else if (trackers_data_is_date_field($field))
+            {
+              # For date fields do some special processing.
+              print utils_format_date($new_value_id, 'natural');
+            }
+          else
+            {
+              # It's a text zone then display directly.
+              print markup_basic($new_value_id);
+            }
+          print "</td>\n";
+          print "</tr>\n";
+        }
       print "</table>\n";
     }
   else
@@ -658,27 +658,27 @@ function show_dependent_item ($item_id, $dependson=0)
 
       $numrows_all = db_numrows($res_all);
       for ($i=0; $i < $numrows_all; $i++)
-	{
-	  # Note for later that at least one item was found
-	  $item_exists = 1;
-	  $item_exists_tracker[$art] = 1;
+        {
+          # Note for later that at least one item was found
+          $item_exists = 1;
+          $item_exists_tracker[$art] = 1;
 
-	  # Generate unique key date.tracker#nnn
-	  $key = db_result($res_all, $i, 'date').'.'
-	    .$art.'#'.db_result($res_all,$i,'bug_id');
+          # Generate unique key date.tracker#nnn
+          $key = db_result($res_all, $i, 'date').'.'
+            .$art.'#'.db_result($res_all,$i,'bug_id');
 
           # Store relevant data
-	  $content[$key]['item_id'] = db_result($res_all,$i,'bug_id');
-	  $content[$key]['tracker'] = $art;
-	  $content[$key]['date'] = db_result($res_all,$i,'date');
-	  $content[$key]['summary'] = db_result($res_all,$i,'summary');
-	  $content[$key]['status_id'] = db_result($res_all,$i,'status_id');
-	  $content[$key]['resolution_id'] = db_result($res_all,$i,'resolution_id');
-	  $content[$key]['group_id'] = db_result($res_all,$i,'group_id');
-	  $content[$key]['priority'] = db_result($res_all,$i,'priority');
-	  $content[$key]['privacy'] = db_result($res_all,$i,'privacy');
-	  $content[$key]['submitted_by'] = db_result($res_all,$i,'submitted_by');
-	}
+          $content[$key]['item_id'] = db_result($res_all,$i,'bug_id');
+          $content[$key]['tracker'] = $art;
+          $content[$key]['date'] = db_result($res_all,$i,'date');
+          $content[$key]['summary'] = db_result($res_all,$i,'summary');
+          $content[$key]['status_id'] = db_result($res_all,$i,'status_id');
+          $content[$key]['resolution_id'] = db_result($res_all,$i,'resolution_id');
+          $content[$key]['group_id'] = db_result($res_all,$i,'group_id');
+          $content[$key]['priority'] = db_result($res_all,$i,'priority');
+          $content[$key]['privacy'] = db_result($res_all,$i,'privacy');
+          $content[$key]['submitted_by'] = db_result($res_all,$i,'submitted_by');
+        }
     }
 
   # No item found? Exit here
@@ -715,16 +715,16 @@ function show_dependent_item ($item_id, $dependson=0)
       # this is project specific. If there is no project setup for this
       # then go to the default for the site
       if (!array_key_exists($current_group_id.$tracker.$content[$key]['resolution_id'],
-			    $dstatus))
-	{
-	  $dstatus[$current_group_id.$tracker.$content[$key]['resolution_id']] =
-	    db_result(db_execute("SELECT value FROM ".$tracker
+                            $dstatus))
+        {
+          $dstatus[$current_group_id.$tracker.$content[$key]['resolution_id']] =
+            db_result(db_execute("SELECT value FROM ".$tracker
                                  ."_field_value WHERE bug_field_id='108' "
                                  ."AND (group_id=? OR group_id=100) AND value_id=? "
                                  ."ORDER BY bug_fv_id DESC LIMIT 1",
                                  array($group_id, $content[$key]['resolution_id'])),
                       0, 'value');
-	}
+        }
       $status =
         $dstatus[$current_group_id.$tracker.$content[$key]['resolution_id']];
 
@@ -772,13 +772,13 @@ function show_dependent_item ($item_id, $dependson=0)
        # Print group info if the item is from another group
       $fromgroup = null;
       if ($current_group_id != $group_id)
-	{
-	  if (!array_key_exists($current_group_id, $group_getname))
+        {
+          if (!array_key_exists($current_group_id, $group_getname))
             $group_getname[$current_group_id] =
               group_getname($content[$key]['group_id']).', ';
 
-	  $fromgroup = $group_getname[$current_group_id];
-	}
+          $fromgroup = $group_getname[$current_group_id];
+        }
 
       # Mention the status
       print '&nbsp;<span class="xsmall">('
@@ -797,32 +797,32 @@ function show_dependent_item ($item_id, $dependson=0)
   while (list(, $tracker) = each($artifacts))
     {
       if (!empty($item_exists_tracker[$tracker]))
-	{
-	  switch ($tracker)
-	    {
-	    case "support":
-	      $linktitle = _("support dependencies");
-	      break;
-	    case "bugs":
-	      $linktitle = _("bug dependencies");
-	      break;
-	    case "task":
-	      $linktitle = _("task dependencies");
-	      break;
-	    case "patch":
-	      $linktitle = _("patch dependencies");
-	      break;
-	    default:
+        {
+          switch ($tracker)
+            {
+            case "support":
+              $linktitle = _("support dependencies");
+              break;
+            case "bugs":
+              $linktitle = _("bug dependencies");
+              break;
+            case "task":
+              $linktitle = _("task dependencies");
+              break;
+            case "patch":
+              $linktitle = _("patch dependencies");
+              break;
+            default:
 # TRANSLATORS: the argument is tracker name, unlocalized
 # (this string is a fallback that should never actually be used).
-	      $linktitle = sprintf(_("%s dependencies"), $tracker);
-	    }
+              $linktitle = sprintf(_("%s dependencies"), $tracker);
+            }
           $content .= utils_link($GLOBALS['sys_home'].$tracker.'/?group_id='
                       .$group_id
                       .'&amp;func=digestselectfield&amp;dependencies_of_item='
                       .$item_id.'&amp;dependencies_of_tracker='.ARTIFACT,
                       "$linktitle", 'noprint').', ';
-	}
+        }
     }
   print rtrim($content, ', ').".</p>\n";
 }

@@ -155,11 +155,11 @@ while ($field_name = trackers_list_all_fields())
               .trackers_data_get_label($field_name)."</span></td>\n";
 
         # Checked to set!
-	# Here, we abuse the "show any" possibility of trackers_field_box to
-	# set the "No Update" possibility. It sounded more sensible to abuse
-	# the 'show none', but "none" is a legitimate entry here -one could
-	# want to change the field to none, if the field value exists, while
-	# "any" does never make sense here.
+        # Here, we abuse the "show any" possibility of trackers_field_box to
+        # set the "No Update" possibility. It sounded more sensible to abuse
+        # the 'show none', but "none" is a legitimate entry here -one could
+        # want to change the field to none, if the field value exists, while
+        # "any" does never make sense here.
         if (empty($registered['update_value_id']))
           $registered['update_value_id'] = null;
         if (empty($registered[$field_name]))

@@ -29,8 +29,8 @@ $fields_per_line=2;
 $max_size=40;
 
 $result = db_execute($sql = "SELECT * FROM ".ARTIFACT
-		     ." WHERE bug_id=? AND group_id=?",
-		     array($item_id, $group_id));
+                     ." WHERE bug_id=? AND group_id=?",
+                     array($item_id, $group_id));
 
 if (db_numrows($result) <= 0)
   exit_error(_("No item found with that id."));
@@ -49,18 +49,18 @@ if (db_numrows($result) <= 0)
   if (db_result($result,0,'privacy') == "2")
     {
       if (member_check_private(0, $group_id))
-	{
-	  # Nothing worth being mentioned
-	}
+        {
+          # Nothing worth being mentioned
+        }
       elseif (db_result($result,0,'submitted_by') == user_getid())
-	{
-	  $private_intro = _(
+        {
+          $private_intro = _(
 "This item is private. However, you are allowed to read it as you submitted it.");
-	}
+        }
       else
-	{
-	  exit_error(_("This item is private."));
-	}
+        {
+          exit_error(_("This item is private."));
+        }
     }
 
   # Check if it is possible for the current user to post a comment. If not
@@ -144,20 +144,20 @@ authentication level.");
       # or if not used by this project  then skip it.
       if (trackers_data_is_special($field_name)
           || !trackers_data_is_used($field_name))
-	{ continue; }
+        { continue; }
 
       # print the originator email field only if it was posted by
       # an anonymous user
       if ($field_name == 'originator_email'
-	  && db_result($result,0,'submitted_by') != '100')
-	{ continue; }
+          && db_result($result,0,'submitted_by') != '100')
+        { continue; }
 
       # Never show the special discussion lock field
       if ($field_name == 'discussion_lock')
-	{
-	  $item_discussion_lock = db_result($result,0,$field_name);
-	  continue;
-	}
+        {
+          $item_discussion_lock = db_result($result,0,$field_name);
+          continue;
+        }
 
       # display the bug field
       # if field size is greatest than max_size chars then force it to
@@ -175,76 +175,76 @@ authentication level.");
       # Save the assigned to value for later.
       # Also make the user link for this same field
       if ($field_name == 'assigned_to')
-	{
-	  $item_assigned_to = trackers_field_display($field_name,$group_id,
+        {
+          $item_assigned_to = trackers_field_display($field_name,$group_id,
                                                      $field_value,false,false,
                                                      true);
 
-	  $value = utils_user_link(user_getname($field_value),
+          $value = utils_user_link(user_getname($field_value),
                                    user_getrealname($field_value));
-	}
+        }
 
       # originator email
       if ($field_name == 'originator_email')
-	{
-	  $value = utils_email_basic($value);
-	}
+        {
+          $value = utils_email_basic($value);
+        }
 
       # Fields colors
       $field_class = '';
       $row_class = '';
       if (!empty($previous_form_bad_fields)
           && array_key_exists($field_name, $previous_form_bad_fields))
-	{
+        {
           # We highlight fields that were not properly/completely
-	  # filled.
-	  $field_class = ' class="highlight"';
-	}
+          # filled.
+          $field_class = ' class="highlight"';
+        }
       if ($j % 2 && $field_name != 'details')
-	{
-	  # We keep the original submission with the default
-	  # background color, for lisibility sake
-	  #
-	  # We also use the boxitem background color only one time
-	  # out of two, to keep the page light
-	  $row_class = ' class="'.utils_altrow($j+1).'"';
-	}
+        {
+          # We keep the original submission with the default
+          # background color, for lisibility sake
+          #
+          # We also use the boxitem background color only one time
+          # out of two, to keep the page light
+          $row_class = ' class="'.utils_altrow($j+1).'"';
+        }
 
       if ($sz > $max_size)
-	{
+        {
           # Field getting one line for itself
 
           # Each time change the background color
-	  $j++;
+          $j++;
 
-	  print "\n<tr".$row_class.">"
-	    .'<td valign="middle" '.$field_class.' width="15%">'.$label."</td>\n"
-	    .'<td valign="middle" '.$field_class.' colspan="'
+          print "\n<tr".$row_class.">"
+            .'<td valign="middle" '.$field_class.' width="15%">'.$label."</td>\n"
+            .'<td valign="middle" '.$field_class.' colspan="'
             .(2*$fields_per_line-1).'" width="75%">'
-	    .$value."</td>\n"
-	    ."</tr>\n";
-	  $i=0;
-	}
+            .$value."</td>\n"
+            ."</tr>\n";
+          $i=0;
+        }
       else
-	{
+        {
           # Field getting half of a line for itself
 
-	  if (!($i % $fields_per_line))
-	    {
+          if (!($i % $fields_per_line))
+            {
               # Every one out of two, prepare the background color change.
-   	      # We do that at this moment because we cannot be sure
- 	      # there will be another field on this line.
-	      $j++;
-	    }
+              # We do that at this moment because we cannot be sure
+              # there will be another field on this line.
+              $j++;
+            }
 
-	  print ($i % $fields_per_line ? '':"\n<tr".$row_class.">");
-	  print '<td valign="middle"'.$field_class.' width="15%">'
+          print ($i % $fields_per_line ? '':"\n<tr".$row_class.">");
+          print '<td valign="middle"'.$field_class.' width="15%">'
             .$label."</td>\n"
-	    .'<td valign="middle"'.$field_class.' width="35%">'
+            .'<td valign="middle"'.$field_class.' width="35%">'
             .$value."</td>\n";
-	  $i++;
-	  print ($i % $fields_per_line ? '':"</tr>\n");
-	}
+          $i++;
+          print ($i % $fields_per_line ? '':"</tr>\n");
+        }
     }
   print '</table>';
 
@@ -268,7 +268,7 @@ authentication level.");
     {
       reset($is_deployed);
       while (list($entry,) = each($is_deployed))
-	{ $is_deployed[$entry] = true; }
+        { $is_deployed[$entry] = true; }
     }
 
 # ################################ Post a comment
@@ -284,30 +284,30 @@ authentication level.");
       print html_hidsubpart_header("postcomment", _("Post a Comment"));
 
       if (!$item_discussion_lock)
-	{
-	  print '<p class="noprint"><span class="preinput"> '
+        {
+          print '<p class="noprint"><span class="preinput"> '
                 ._("Add a New Comment").markup_info("rich");
           print form_submit (_('Preview'), 'preview')
                 ."</span><br />&nbsp;&nbsp;&nbsp;\n";
-	  print trackers_field_textarea('comment', htmlspecialchars($comment),
+          print trackers_field_textarea('comment', htmlspecialchars($comment),
                                         0, 0, _("New comment"));
-	  print "</p>\n";
+          print "</p>\n";
 
-	  if (!user_isloggedin())
-	    {
-	      print '<p class="warn"><strong>'
+          if (!user_isloggedin())
+            {
+              print '<p class="warn"><strong>'
                 ._("You are not logged in")."</strong></p>\n<p>";
-	      printf (
+              printf (
 _("Please <a href=\"%s\">log in</a>, so followups can be emailed to you."),
                       $GLOBALS['sys_home'].'account/login.php?uri='
                       .urlencode($_SERVER['REQUEST_URI']));
-	      print "</p>\n";
-	    }
-	}
+              print "</p>\n";
+            }
+        }
       else
-	{
-	  print '<p class="warn">'._("Discussion locked!")."</p>\n";
-	}
+        {
+          print '<p class="warn">'._("Discussion locked!")."</p>\n";
+        }
 
       print "<p>&nbsp;</p>\n";
       print html_hidsubpart_footer();
@@ -390,12 +390,12 @@ _(
 rather than their email addresses.)"), $GLOBALS['sys_name']);
       print '</p>
 <p class="noprint">
-	   <span class="preinput"><label for="add_cc">'
+           <span class="preinput"><label for="add_cc">'
             ._("Add Email Addresses (comma as separator):")
             .'</label></span><br />
 &nbsp;&nbsp;&nbsp;'
             .'<input type="text" id="add_cc" name="add_cc" size="30" /><br />
-	   <span class="preinput"><label for="cc_comment">'._("Comment:")
+           <span class="preinput"><label for="cc_comment">'._("Comment:")
             .'</label></span><br />
 &nbsp;&nbsp;&nbsp;'
             .'<input type="text" id="cc_comment" name="cc_comment" size="40" maxlength="255" />'
@@ -413,14 +413,14 @@ rather than their email addresses.)"), $GLOBALS['sys_name']);
     {
       print html_hidsubpart_header("votes", _("Votes"));
       print '<p>'
-	._("Do you think this task is very important?")
-	.'<br />'
-	._("If so, you can add your encouragement to it.")
-	.'<br />'
-	.sprintf(ngettext("This task has %s encouragement so far.",
-			  "This task has %s encouragements so far.", $votes),
-		 $votes)
-	.'</p>
+        ._("Do you think this task is very important?")
+        .'<br />'
+        ._("If so, you can add your encouragement to it.")
+        .'<br />'
+        .sprintf(ngettext("This task has %s encouragement so far.",
+                          "This task has %s encouragements so far.", $votes),
+                 $votes)
+        .'</p>
 <p class="noprint">';
 
       if (trackers_data_is_showed_on_add("vote")

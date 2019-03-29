@@ -46,7 +46,7 @@ function people_get_category_name($category_id)
   if (!ctype_digit($category_id))
     return 'Invalid ID';
   $result = db_execute("SELECT name FROM people_job_category WHERE category_id=?",
-		       array($category_id));
+                       array($category_id));
   if (!$result || db_numrows($result) < 1)
     {
       return 'Invalid ID';
@@ -153,23 +153,23 @@ function people_show_category_list()
     {
       $j = 0;
       for ($i=0; $i<$rows; $i++)
-	{
-	  $count_res=db_execute("SELECT count(*) AS count FROM people_job
+        {
+          $count_res=db_execute("SELECT count(*) AS count FROM people_job
                                  WHERE category_id=? AND status_id=1",
-				array(db_result($result,$i,'category_id')));
+                                array(db_result($result,$i,'category_id')));
 
-	  # Print only if there are result within the category
-	  if (db_result($count_res,0,'count') > 0)
-	    {
-	      $j++;
-	      $return .= '<li class="'.utils_get_alt_row_color($j)
+          # Print only if there are result within the category
+          if (db_result($count_res,0,'count') > 0)
+            {
+              $j++;
+              $return .= '<li class="'.utils_get_alt_row_color($j)
                          .'"><span class="smaller">&nbsp;&nbsp;- <a href="'
                          .$GLOBALS['sys_home'].'people/?category_id='
-		         .db_result($result,$i,'category_id') .'">'
+                         .db_result($result,$i,'category_id') .'">'
                          .db_result($count_res,0,'count').
-		' '.db_result($result,$i,'name') .'</a></span></li>';
-	    }
-	}
+                ' '.db_result($result,$i,'name') .'</a></span></li>';
+            }
+        }
     }
   if (!$return)
     { return false; }
@@ -241,31 +241,31 @@ function people_add_to_job_inventory($job_id,$skill_id,$skill_level_id,
       $result = db_execute("SELECT * FROM people_job_inventory WHERE job_id=? AND skill_id=?",
                            array($job_id, $skill_id));
       if (!$result || db_numrows($result) < 1)
-	{
-	  #skill isn't already in this inventory
+        {
+          #skill isn't already in this inventory
           $result = db_autoexecute('people_job_inventory',
-	    array(
+            array(
               'job_id' => $job_id,
-	      'skill_id' => $skill_id,
-	      'skill_level_id' => $skill_level_id,
-	      'skill_year_id' => $skill_year_id
+              'skill_id' => $skill_id,
+              'skill_level_id' => $skill_level_id,
+              'skill_year_id' => $skill_year_id
             ), DB_AUTOQUERY_INSERT);
-	  if (!$result || db_affected_rows($result) < 1)
-	    {
-	      fb(
+          if (!$result || db_affected_rows($result) < 1)
+            {
+              fb(
                  # TRANSLATORS: this is an error message.
                  _('Inserting into skill inventory'),1);
-	      print db_error();
-	    }
-	  else
-	    {
-	      fb(_("Added to skill inventory"));
-	    }
-	}
+              print db_error();
+            }
+          else
+            {
+              fb(_("Added to skill inventory"));
+            }
+        }
       else
-	{
-	  fb(_("Skill already in your inventory"),1);
-	}
+        {
+          fb(_("Skill already in your inventory"),1);
+        }
 
     }
   else
@@ -304,24 +304,24 @@ function people_show_job_inventory($job_id)
   else
     {
       for ($i=0; $i < $rows; $i++)
-	{
-	  print '
-			<tr class="'. utils_get_alt_row_color($i) .'">
-				<td>'.db_result($result,$i,'skill_name').'</td>
-				<td>'.db_result($result,$i,'level_name').'</td>
-				<td>'.db_result($result,$i,'year_name').'</td>
+        {
+          print '
+                        <tr class="'. utils_get_alt_row_color($i) .'">
+                                <td>'.db_result($result,$i,'skill_name').'</td>
+                                <td>'.db_result($result,$i,'level_name').'</td>
+                                <td>'.db_result($result,$i,'year_name').'</td>
 </tr>';
 
-	}
+        }
     }
   print '
-		</table>';
+                </table>';
 }
 
 function people_verify_job_group($job_id,$group_id)
 {
   $result = db_execute("SELECT * FROM people_job WHERE job_id=? AND group_id=?",
-		       array($job_id, $group_id));
+                       array($job_id, $group_id));
   if (!$result || db_numrows($result) < 1)
     {
       return false;
@@ -359,8 +359,8 @@ function people_draw_skill_box ($result, $job_id=false, $group_id=false)
   else
     {
       for (; $i < $rows; $i++)
-	{
-	  print '
+        {
+          print '
 <form action="'.htmlentities ($_SERVER['PHP_SELF']).'" method="POST">
 ';
           print html_build_list_table_top ($title_arr);
@@ -386,7 +386,7 @@ function people_draw_skill_box ($result, $job_id=false, $group_id=false)
 </tr></table>
 </form>
 ';
-	}
+        }
 
     }
 
@@ -454,32 +454,32 @@ function people_show_job_list($result, $edit=0)
   else
     {
       for ($i=0; $i < $rows; $i++)
-	{
-	  # get type infos
-	  $res_type = db_execute("SELECT name FROM group_type WHERE type_id=?",
-				 array(db_result($result, $i, 'type')));
+        {
+          # get type infos
+          $res_type = db_execute("SELECT name FROM group_type WHERE type_id=?",
+                                 array(db_result($result, $i, 'type')));
 
-	  if ($edit)
-	    {
-	      $page = 'editjob.php';
-	    }
-	  else
-	    {
-	      $page = 'viewjob.php';
-	    }
-	  $return .= '
+          if ($edit)
+            {
+              $page = 'editjob.php';
+            }
+          else
+            {
+              $page = 'viewjob.php';
+            }
+          $return .= '
 <tr class="'. utils_get_alt_row_color($i)
-	     .'"><td><a href="'.$GLOBALS['sys_home'].'people/'.$page.'?group_id='
-	     .db_result($result,$i,'group_id') .'&job_id='
-	     .db_result($result,$i,'job_id') .'">'
-	     .db_result($result,$i,'title') .'</a></td><td>'
-	     .db_result($result,$i,'category_name') .'</td><td>'
-	     .utils_format_date(db_result($result,$i,'date'), 'natural')
-	     .'</td><td><a href="'.$GLOBALS['sys_home'].'projects/'
+             .'"><td><a href="'.$GLOBALS['sys_home'].'people/'.$page.'?group_id='
+             .db_result($result,$i,'group_id') .'&job_id='
+             .db_result($result,$i,'job_id') .'">'
+             .db_result($result,$i,'title') .'</a></td><td>'
+             .db_result($result,$i,'category_name') .'</td><td>'
+             .utils_format_date(db_result($result,$i,'date'), 'natural')
+             .'</td><td><a href="'.$GLOBALS['sys_home'].'projects/'
              .strtolower(db_result($result,$i,'unix_group_name')).'/">'
-	     .db_result($result,$i,'group_name') .'</a></td><td>'
-	     .db_result($res_type,0,'name') . '</td></tr>';
-	}
+             .db_result($result,$i,'group_name') .'</a></td><td>'
+             .db_result($res_type,0,'name') . '</td></tr>';
+        }
     }
 
   $return .= '</table>
@@ -646,29 +646,29 @@ function people_add_to_skill_inventory($skill_id,$skill_level_id,$skill_year_id)
                            ."AND skill_id=?",
                            array(user_getid(), $skill_id));
       if (!$result || db_numrows($result) < 1)
-	{
-	  #skill not already in inventory
-	  $result=db_autoexecute('people_skill_inventory',
+        {
+          #skill not already in inventory
+          $result=db_autoexecute('people_skill_inventory',
             array(
               'user_id' => user_getid(),
               'skill_id' => $skill_id,
               'skill_level_id' => $skill_level_id,
               'skill_year_id' => $skill_year_id
             ), DB_AUTOQUERY_INSERT);
-	  if (!$result || db_affected_rows($result) < 1)
-	    {
-	      fb(_('ERROR inserting into skill inventory'),1);
-	      print db_error();
-	    }
-	  else
-	    {
-	      fb(_('Added to skill inventory'));
-	    }
-	}
+          if (!$result || db_affected_rows($result) < 1)
+            {
+              fb(_('ERROR inserting into skill inventory'),1);
+              print db_error();
+            }
+          else
+            {
+              fb(_('Added to skill inventory'));
+            }
+        }
       else
-	{
-	  fb(_('ERROR - skill already in your inventory'));
-	}
+        {
+          fb(_('ERROR - skill already in your inventory'));
+        }
     }
   else
     {
@@ -706,14 +706,14 @@ function people_show_skill_inventory($user_id)
   else
     {
       for ($i=0; $i < $rows; $i++)
-	{
-	  print '
+        {
+          print '
 <tr class="'. utils_get_alt_row_color($i) .'">
-	<td>'.db_result($result,$i,'skill_name').'</td>
-	<td>'.db_result($result,$i,'level_name').'</td>
-	<td>'.db_result($result,$i,'year_name').'</td></tr>
+        <td>'.db_result($result,$i,'skill_name').'</td>
+        <td>'.db_result($result,$i,'level_name').'</td>
+        <td>'.db_result($result,$i,'year_name').'</td></tr>
 ';
-	}
+        }
     }
   print '</table>
 ';

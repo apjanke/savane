@@ -1235,7 +1235,7 @@ down), you can also <a href="%1$s">sort by priority</a> or <a href="%2$s">reset
 sort</a>.'),
                          $url.'&amp;order=priority#results',
                          $url.'&amp;order=#results');
-	$form .= sprintf(
+        $form .= sprintf(
 _("You can also <a href=\"%s\">deactivate multicolumn sort</a>."),
                          $url_alternate_sort);
       }
@@ -1248,7 +1248,7 @@ down), you can also <a href="%1$s">sort by priority</a> or <a href="%2$s">reset
 sort</a>.'),
                          $url.'&amp;order=priority#results',
                          $url.'&amp;order=#results');
-	$form .= ' '.sprintf(
+        $form .= ' '.sprintf(
 _("You can also <a href=\"%s\">activate multicolumn sort</a>."),
                          $url_alternate_sort);
       }

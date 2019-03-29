@@ -27,13 +27,13 @@ function http_exit_if_not_modified($mtime)
       // remove trailing garbage from IE
       $pos = strpos($modified_since, ';');
       if ($pos !== false)
-	$modified_since = substr($modified_since, 0, $pos);
+        $modified_since = substr($modified_since, 0, $pos);
       
       $iftime = strtotime($modified_since);
       if ($iftime != -1 && $mtime <= $iftime)
-	{
-	  header('HTTP/1.0 304 Not Modified');
-	  exit;
-	}
+        {
+          header('HTTP/1.0 304 Not Modified');
+          exit;
+        }
     }
 }

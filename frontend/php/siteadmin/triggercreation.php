@@ -66,7 +66,7 @@ while (list(,$field) = each($to_update))
 if ($upd_list)
 {
   $result=db_affected_rows(db_autoexecute('groups', $upd_list, DB_AUTOQUERY_UPDATE,
-					  "group_id=?", array($group_id)));
+                                          "group_id=?", array($group_id)));
 
   if (!$result)
     { 
@@ -90,9 +90,9 @@ $upd_list = array();
 
 # Build the notification list
 $res_admins = db_execute("SELECT user.user_name FROM user,user_group WHERE "
-			 . "user.user_id=user_group.user_id "
+                         . "user.user_id=user_group.user_id "
                          . "AND user_group.group_id=? AND "
-			 . "user_group.admin_flags='A'", array($group_id));
+                         . "user_group.admin_flags='A'", array($group_id));
 if (db_numrows($res_admins) > 0)
 {
   $admin_list = '';
@@ -106,9 +106,9 @@ if (db_numrows($res_admins) > 0)
     {
       $upd_list["new_".$field."_address"] = $admin_list;
       if ($field != "news")
-	{
-	  $upd_list["send_all_".$field] = $value;
-	}
+        {
+          $upd_list["send_all_".$field] = $value;
+        }
     }
 }
 if ($upd_list)

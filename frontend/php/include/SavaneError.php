@@ -23,25 +23,25 @@
 
 class SavaneError {
 
-	var $error_state;
-	var $error_message;
+        var $error_state;
+        var $error_message;
 
-	function __construct() {
-		$this->error_state=false;
-	}
+        function __construct() {
+                $this->error_state=false;
+        }
 
-	function setError($string) {
-		$this->error_state=true;
-		$this->error_message=$string;
-	}
+        function setError($string) {
+                $this->error_state=true;
+                $this->error_message=$string;
+        }
 
-	function getErrorMessage() {
-		return $this->error_message;
-	}
+        function getErrorMessage() {
+                return $this->error_message;
+        }
 
-	function isError() {
-		return $this->error_state;
-	}
+        function isError() {
+                return $this->error_state;
+        }
 
 }
 ?>

@@ -58,10 +58,10 @@ class include_utils extends PHPUnit_TestCase
         => '<a href="http://www.mail-archive.com/bug-grep&#64;gnu.org/msg00068.html">http://www.mail-archive.com/bug-grep&#64;gnu.org/msg00068.html</a>',
            'www.mail-archive.com/bug-grep@gnu.org/msg00068.html'
         => '<a href="http://www.mail-archive.com/bug-grep&#64;gnu.org/msg00068.html">http://www.mail-archive.com/bug-grep&#64;gnu.org/msg00068.html</a>',
-	   'this@is.a-mail-link.org'
-	=> '<a href="mailto:this@is.a-mail-link.org">this@is.a-mail-link.org</a>',
-	   'Link to bug #1234, please'
-	=> 'Link to <a href="bugs/?func=detailitem&amp;item_id=1234" class="italic">bug&nbsp;#1234</a>, please',
+           'this@is.a-mail-link.org'
+        => '<a href="mailto:this@is.a-mail-link.org">this@is.a-mail-link.org</a>',
+           'Link to bug #1234, please'
+        => 'Link to <a href="bugs/?func=detailitem&amp;item_id=1234" class="italic">bug&nbsp;#1234</a>, please',
            'Other <html> tags should not be touched'
         => 'Other <html> tags should not be touched',
            'Even if in "<quotes>"'
@@ -73,7 +73,7 @@ class include_utils extends PHPUnit_TestCase
         foreach ($urls as $testdata => $expected)
           {
             $this->assertEquals($expected, utils_make_links($testdata));
-	  }
+          }
       }
   }
 ?>

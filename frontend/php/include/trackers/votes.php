@@ -25,14 +25,14 @@ function trackers_votes_user_remains_count ($user_id)
 {
   $total = 100;
   $result = db_execute("SELECT howmuch FROM user_votes WHERE user_id = ?",
-		       array($user_id));
+                       array($user_id));
 
   if (db_numrows($result))
     {
       while ($row = db_fetch_array($result))
-	{
-	  $total = $total - $row['howmuch'];
-	}
+        {
+          $total = $total - $row['howmuch'];
+        }
     }
 
   # Total < 0 does not make sense
@@ -50,7 +50,7 @@ function trackers_votes_user_giventoitem_count ($user_id, $tracker, $item_id)
   $total = 0;
   $result = db_execute("SELECT howmuch FROM user_votes WHERE user_id=?
                         AND tracker=? AND item_id=? LIMIT 1",
-		       array($user_id, $tracker, $item_id));
+                       array($user_id, $tracker, $item_id));
 
   if (db_numrows($result))
     {
@@ -82,7 +82,7 @@ function trackers_votes_update ($item_id, $group_id=0, $new_vote, $tracker=null)
     {
       $res_getgroupid = db_execute("SELECT group_id FROM ".$tracker
                                    ." WHERE bug_id=?",
-				   array($item_id));
+                                   array($item_id));
       $group_id = db_result($res_getgroupid, 0, 'group_id');
     }
 
@@ -97,20 +97,20 @@ function trackers_votes_update ($item_id, $group_id=0, $new_vote, $tracker=null)
                                                                $tracker,
                                                                $item_id);
       if ($registered_vote)
-	{
-	  db_execute("DELETE FROM user_votes WHERE user_id=?
+        {
+          db_execute("DELETE FROM user_votes WHERE user_id=?
                       AND tracker=? AND item_id=? LIMIT 1",
-		     array(user_getid(), $tracker, $item_id));
-	  $res_get = db_execute("SELECT vote FROM ".$tracker
+                     array(user_getid(), $tracker, $item_id));
+          $res_get = db_execute("SELECT vote FROM ".$tracker
                                 ." WHERE bug_id=? AND group_id=?",
-				array($item_id, $group_id));
-	  $real_new_vote = db_result($res_get, 0, 'vote') - $registered_vote;
-	  db_execute("UPDATE ".$tracker
+                                array($item_id, $group_id));
+          $real_new_vote = db_result($res_get, 0, 'vote') - $registered_vote;
+          db_execute("UPDATE ".$tracker
                      ." SET vote=? WHERE bug_id=? AND group_id=?",
-		     array($real_new_vote, $item_id, $group_id));
+                     array($real_new_vote, $item_id, $group_id));
 
-	  fb(_("Vote erased"));
-	}
+          fb(_("Vote erased"));
+        }
       return false;
     }
   else
@@ -125,69 +125,69 @@ function trackers_votes_update ($item_id, $group_id=0, $new_vote, $tracker=null)
 
       # If new vote equal to the current vote, nothing to do
       if (!$diff_vote)
-	{
-	  return true;
-	}
+        {
+          return true;
+        }
 
       # Check whether the user have not specified more votes than he actually
       # got available
       $remains = trackers_votes_user_remains_count(user_getid());
       if ($remains < $diff_vote)
-	{
+        {
           # If so, set the diff_vote and new_vote as the maximum possible
           $diff_vote = $remains;
-	  $new_vote = $diff_vote + $registered_vote;
-	}
+          $new_vote = $diff_vote + $registered_vote;
+        }
 
       # If the vote is new, we do a SQL INSERT, otherwise a SQL UPDATE
       # in the user_votes table
       if (!$registered_vote)
-	{
-	  $res_insert = db_autoexecute('user_votes',
+        {
+          $res_insert = db_autoexecute('user_votes',
             array(
- 	      'user_id' => user_getid(),
+              'user_id' => user_getid(),
               'tracker' => $tracker,
-	      'item_id' => $item_id,
-	      'howmuch' => $new_vote
+              'item_id' => $item_id,
+              'howmuch' => $new_vote
             ), DB_AUTOQUERY_INSERT);
 
-	  trackers_add_cc($item_id,
-			  $group_id,
-			  user_getname(),
-			  "-VOT-");
-	}
+          trackers_add_cc($item_id,
+                          $group_id,
+                          user_getname(),
+                          "-VOT-");
+        }
       else
-	{
-	  $res_insert = db_execute("UPDATE user_votes SET howmuch=?
+        {
+          $res_insert = db_execute("UPDATE user_votes SET howmuch=?
               WHERE user_id=? AND tracker=? AND item_id=?",
-	    array($new_vote, user_getid(), $tracker, $item_id));
-	}
+            array($new_vote, user_getid(), $tracker, $item_id));
+        }
 
       if (db_affected_rows($res_insert) < 1)
-	{
-	  # In case of problem, kept unmodified the item proper info
-	  fb(_("Unable to record the vote, please report to admins"), 1);
-	  return false;
-	}
+        {
+          # In case of problem, kept unmodified the item proper info
+          fb(_("Unable to record the vote, please report to admins"), 1);
+          return false;
+        }
 
       # Add the new vote to the item proper info table
       $res_get = db_execute("SELECT vote FROM ".$tracker
                             ." WHERE bug_id=? AND group_id=?",
-			    array($item_id, $group_id));
+                            array($item_id, $group_id));
       $real_new_vote = db_result($res_get, 0, 'vote') + $diff_vote;
       $res_update = db_execute("UPDATE ".$tracker
                                ." SET vote=? WHERE bug_id=? AND group_id=?",
-			       array($real_new_vote, $item_id, $group_id));
+                               array($real_new_vote, $item_id, $group_id));
       if (db_affected_rows($res_update) < 1)
-	{
-	  # In case of problem, kept unmodified the item proper info
-	  fb(_("Unable to finally record the vote, please report to admins"), 1);
-	  return false;
-	}
+        {
+          # In case of problem, kept unmodified the item proper info
+          fb(_("Unable to finally record the vote, please report to admins"), 1);
+          return false;
+        }
 
       # If we arrive here, everything went properly
       if ($diff_vote > 0)
-	{ $diff_vote = "+$diff_vote"; }
+        { $diff_vote = "+$diff_vote"; }
       fb(_("Vote recorded")." ($diff_vote)");
       return true;
     }

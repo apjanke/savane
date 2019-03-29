@@ -64,30 +64,30 @@ class Group extends SavaneError
       $this->group_id=$id;
       $this->db_result=db_execute("SELECT * FROM $sys_dbname.groups WHERE group_id=?", array($id));
       if (db_numrows($this->db_result) < 1)
-	{
-	  #function in class we extended
-	  $this->setError('Group Not Found');
-	  $this->data_array=array();
-	}
+        {
+          #function in class we extended
+          $this->setError('Group Not Found');
+          $this->data_array=array();
+        }
       else
-	{
-	  #set up an associative array for use by other functions
-	  $this->data_array=db_fetch_array($this->db_result);
-	  // find group_type informations
-	  $type = $this->data_array['type'];
-	  $this->type_id = $type;
-	  $this->db_type_result = db_execute("SELECT * FROM group_type
+        {
+          #set up an associative array for use by other functions
+          $this->data_array=db_fetch_array($this->db_result);
+          // find group_type informations
+          $type = $this->data_array['type'];
+          $this->type_id = $type;
+          $this->db_type_result = db_execute("SELECT * FROM group_type
                                               WHERE type_id=?", array($type));
-	  if (db_numrows($this->db_type_result) < 1)
-	    {
-	      $this->type_data_array=array();
-	    }
-	  else
-	    {
-	      // set up an associative array for
-	      $this->type_data_array=db_fetch_array($this->db_type_result);
-	    }
-	}
+          if (db_numrows($this->db_type_result) < 1)
+            {
+              $this->type_data_array=array();
+            }
+          else
+            {
+              // set up an associative array for
+              $this->type_data_array=db_fetch_array($this->db_type_result);
+            }
+        }
     }
 
   # Return database result handle for direct access
@@ -132,28 +132,28 @@ class Group extends SavaneError
 
   function getTypeUrl($artifact)
     { return str_replace ("%PROJECT", $this->getUnixName(),
-			  $this->type_data_array['url_'.$artifact]);
+                          $this->type_data_array['url_'.$artifact]);
     }
 
   function getTypeDir($artifact)
     { return str_replace ("%PROJECT", $this->getUnixName(),
-			  $this->type_data_array['dir_'.$artifact]);
+                          $this->type_data_array['dir_'.$artifact]);
     }
 
   function CanUse($artifact)
     {
       # tolerates "bugs" to say "bug"
       if ($artifact == "bugs")
-	{ $artifact = "bug"; }
+        { $artifact = "bug"; }
       return isset($this->type_data_array['can_use_'.$artifact])
-	? $this->type_data_array['can_use_'.$artifact]
-	: false;
+        ? $this->type_data_array['can_use_'.$artifact]
+        : false;
     }
 
   function CanModifyUrl($artifact)
     { return isset($this->type_data_array['is_menu_configurable_'.$artifact])
-	? $this->type_data_array['is_menu_configurable_'.$artifact]
-	: false;
+        ? $this->type_data_array['is_menu_configurable_'.$artifact]
+        : false;
     }
 
   function CanModifyDir($artifact)
@@ -161,8 +161,8 @@ class Group extends SavaneError
 
   function getTypePermissions($flags)
     { return isset($this->type_data_array[$flags.'_flags'])
-	? $this->type_data_array[$flags.'_flags']
-	: null; }
+        ? $this->type_data_array[$flags.'_flags']
+        : null; }
 
   function getTypeRestrictions($flags)
     { return $this->type_data_array[$flags.'_rflags']; }
@@ -176,37 +176,37 @@ class Group extends SavaneError
 
   function getTypeMailingListListinfoUrl($list="%LIST")
     { return str_replace("%PROJECT", $this->getUnixName(),
-			  str_replace("%LIST", $list,
+                          str_replace("%LIST", $list,
                             $this->type_data_array['url_mailing_list_listinfo']));
     }
 
   function getTypeMailingListArchivesUrl($list="%LIST")
     { return str_replace("%PROJECT", $this->getUnixName(),
-			  str_replace("%LIST", $list,
+                          str_replace("%LIST", $list,
                             $this->type_data_array['url_mailing_list_archives']));
     }
 
   function getTypeMailingListArchivesPrivateUrl($list="%LIST")
     { return str_replace("%PROJECT", $this->getUnixName(),
-			  str_replace("%LIST", $list,
+                          str_replace("%LIST", $list,
                             $this->type_data_array['url_mailing_list_archives_private']));
     }
 
   function getTypeMailingListAdminUrl($list="%LIST")
     { return str_replace("%PROJECT", $this->getUnixName(),
-			  str_replace("%LIST", $list,
+                          str_replace("%LIST", $list,
                             $this->type_data_array['url_mailing_list_admin']));
     }
 
   function getTypeMailingListSubscribeUrl($list="%LIST")
     { return str_replace("%PROJECT", $this->getUnixName(),
-			  str_replace("%LIST", $list,
+                          str_replace("%LIST", $list,
                             $this->type_data_array['url_mailing_list_subscribe']));
     }
 
   function getTypeMailingListUnsubscribeUrl($list="%LIST")
     { return str_replace("%PROJECT", $this->getUnixName(),
-			  str_replace("%LIST", $list,
+                          str_replace("%LIST", $list,
                             $this->type_data_array['url_mailing_list_unsubscribe']));
     }
 
@@ -216,7 +216,7 @@ class Group extends SavaneError
    */
   function getTypeMailingListAddress($list="%LIST")
     { return str_replace("%PROJECT", $this->getUnixName(),
-			  str_replace("%LIST", $list,
+                          str_replace("%LIST", $list,
                             $this->type_data_array['mailing_list_address']));
     }
 
@@ -227,19 +227,19 @@ class Group extends SavaneError
   function getTypeMailingListFormat($list="%NAME", $index=null)
     {
       if (!isset($index))
-	{
-	  // return raw format (multiple formats separated by commas)
-	  return str_replace("%PROJECT", $this->getUnixName(),
-			     str_replace("%NAME", $list,
+        {
+          // return raw format (multiple formats separated by commas)
+          return str_replace("%PROJECT", $this->getUnixName(),
+                             str_replace("%NAME", $list,
                                $this->type_data_array['mailing_list_format']));
-	}
+        }
       else
-	{
-	  // return format with number $index
-	  $formats = preg_split('/,/', $this->type_data_array['mailing_list_format']);
-	  return str_replace("%PROJECT", $this->getUnixName(),
-			     str_replace("%NAME", $list, $formats[$index]));
-	}
+        {
+          // return format with number $index
+          $formats = preg_split('/,/', $this->type_data_array['mailing_list_format']);
+          return str_replace("%PROJECT", $this->getUnixName(),
+                             str_replace("%NAME", $list, $formats[$index]));
+        }
     }
 
   function canuseForum()
@@ -271,13 +271,13 @@ class Group extends SavaneError
   # Statuses include I,H,A,D
   function getStatus()
     {  return $this->data_array['status']; }
-	
+        
   function isActive()
     {
       if ($this->getStatus()=='A')
-	{ return true; }
+        { return true; }
       else
-	{ return false; }
+        { return false; }
     }
 
   #short description as entered on the group admin page
@@ -386,18 +386,18 @@ class Group extends SavaneError
       # As a matter of fact, this function will be rarely used, as
       # directories are backend specific.
       if ($this->data_array['dir_'.$artifact] != "")
-	{ return $this->data_array['dir_'.$artifact]; }
+        { return $this->data_array['dir_'.$artifact]; }
       else
-	{ return $this->getTypeDir($artifact); }
+        { return $this->getTypeDir($artifact); }
     }
 
 
   function Uses($artifact)
     {
       if ($this->data_array['use_'.$artifact] != "")
-	{ return $this->data_array['use_'.$artifact]; }
+        { return $this->data_array['use_'.$artifact]; }
       else
-	{ return $this->CanUse($artifact); }
+        { return $this->CanUse($artifact); }
     }
 
   function UsesForHomepage($artifact)
@@ -408,16 +408,16 @@ class Group extends SavaneError
       #   - must be set as homepage SCM for the group type
       #   - the projet url must be empty or equal to the group setting
       if ($this->Uses("homepage") &&
-	  $this->type_data_array['homepage_scm'] == $artifact &&
-	  ($this->data_array['url_homepage'] == "" ||
-	   $this->data_array['url_homepage'] == $this->getTypeUrl('homepage')))
-	{
-	  return true;
-	}
+          $this->type_data_array['homepage_scm'] == $artifact &&
+          ($this->data_array['url_homepage'] == "" ||
+           $this->data_array['url_homepage'] == $this->getTypeUrl('homepage')))
+        {
+          return true;
+        }
       else
-	{
-	  return false;
-	}
+        {
+          return false;
+        }
     }
 
 
@@ -433,11 +433,11 @@ class Group extends SavaneError
   function usesMail()
     {
       if ($this->data_array['use_mail'] != "")
-	{ return $this->data_array['use_mail']; }
+        { return $this->data_array['use_mail']; }
       else
-	{ return $this->CanUse("mailing_list"); }
+        { return $this->CanUse("mailing_list"); }
     }
-	
+        
   # #### Mail notification related ####
 
   function getNewBugAddress() {
@@ -466,7 +466,7 @@ class Group extends SavaneError
 
 
   #  boolean flags to determine whether or not to send
-  #	an email on every bug/patch/support update
+  #     an email on every bug/patch/support update
   function sendAllBugUpdates() {
     return $this->data_array['send_all_bugs'];
   }
@@ -542,12 +542,12 @@ function group_getpermissions ($group_id, $flags)
   if ($flags)
     {
       if (!preg_match('/^[a-z]+$/', $flags))
-	die('group_getpermissions: unvalid argument flags');
+        die('group_getpermissions: unvalid argument flags');
       $res = db_execute("SELECT {$flags}_flags FROM groups_default_permissions
                          WHERE group_id=?",
-			array($group_id));
+                        array($group_id));
       if (db_numrows($res) > 0)
-	return db_result($res, 0, $flags."_flags");
+        return db_result($res, 0, $flags."_flags");
     }
   return null;
 }
@@ -558,11 +558,11 @@ function group_getrestrictions ($group_id, $flags, $event=1)
   if ($flags)
     {
       if (!preg_match('/^[a-z]+$/', $flags))
-	die('group_getrestrictions: unvalid argument flags');
+        die('group_getrestrictions: unvalid argument flags');
       $res = db_execute("SELECT {$flags}_rflags FROM groups_default_permissions
                          WHERE group_id=?", array($group_id));
       if (db_numrows($res) > 0)
-	$flag = db_result($res, 0, $flags."_rflags");
+        $flag = db_result($res, 0, $flags."_rflags");
 
        # flag = (comment post restrictions)*100 + (newitem post restrictions)
        #        with post restrictions = 2 ... allow post by ANONYMOUS
@@ -570,15 +570,15 @@ function group_getrestrictions ($group_id, $flags, $event=1)
        #                               = 5 ... allow post by MEMBERS
 
       if ($event == 1)
-	{
+        {
           # trying to post a NEW item
-	  $flag = ($flag % 100);
-	}
+          $flag = ($flag % 100);
+        }
       if ($event == 2)
-	{
+        {
           # trying to post a COMMENT
-	  $flag = (int)($flag / 100);
-	}
+          $flag = (int)($flag / 100);
+        }
 
       # We really want group restrictions here, not group type ones if missing
       return $flag;
@@ -603,16 +603,16 @@ function group_getrestrictions_explained ($group_id, $artifact, $event=1)
   if (!$flag)
     {
       if ($event == 2)
-	{
+        {
           # post comment, fetching the restriction for post item
-	  $flag = group_getrestrictions($group_id, $artifact, 1);
-	}
+          $flag = group_getrestrictions($group_id, $artifact, 1);
+        }
 
       if ($event == 1 || !$flag)
-	{
-	  # post item or post comment with no group restriction to fallback on
-	  $flag = group_gettyperestrictions($group_id, $artifact);
-	}
+        {
+          # post item or post comment with no group restriction to fallback on
+          $flag = group_gettyperestrictions($group_id, $artifact);
+        }
 
     }
 
@@ -657,16 +657,16 @@ function group_restrictions_check ($group_id, $artifact, $event=1)
   if (!$flag)
     {
       if ($event == 2)
-	{
+        {
           # post comment, fetching the restriction for post item
-	  $flag = group_getrestrictions($group_id, $artifact, 1);
-	}
+          $flag = group_getrestrictions($group_id, $artifact, 1);
+        }
 
       if ($event == 1 || !$flag)
-	{
-	  # post item or post comment with no group restriction to fallback on
-	  $flag = group_gettyperestrictions($group_id, $artifact);
-	}
+        {
+          # post item or post comment with no group restriction to fallback on
+          $flag = group_gettyperestrictions($group_id, $artifact);
+        }
     }
 
   # Anonymous required? always ok
@@ -693,7 +693,7 @@ FROM group_history,user
 WHERE group_history.mod_by = user.user_id
 AND group_id = ? ORDER BY group_history.date DESC", array($group_id));
 }
-	
+        
 /*
   Handle the insertion of history for these parameters
 */
@@ -701,10 +701,10 @@ function group_add_history ($field_name,$old_value,$group_id)
 {
   return db_autoexecute('group_history',
     array('group_id' => $group_id,
-	  'field_name' => $field_name,
-	  'old_value' => $old_value,
-	  'mod_by' => user_getid(),
-	  'date' => time()),
+          'field_name' => $field_name,
+          'old_value' => $old_value,
+          'mod_by' => user_getid(),
+          'date' => time()),
     DB_AUTOQUERY_INSERT);
 }
 
@@ -752,20 +752,20 @@ function group_get_artifact_url ($artifact, $hostname=1)
   else
     {
       if ($hostname)
-	{
-	  if ($GLOBALS['project']->getTypeBaseHost())
-	    { $host = $GLOBALS['project']->getTypeBaseHost();	}
-	  else
-	    { $host = $_SERVER['HTTP_HOST']; }
-	
-	  return "http://".$host.$GLOBALS['sys_home'].$artifact.'/?group='
+        {
+          if ($GLOBALS['project']->getTypeBaseHost())
+            { $host = $GLOBALS['project']->getTypeBaseHost();   }
+          else
+            { $host = $_SERVER['HTTP_HOST']; }
+        
+          return "http://".$host.$GLOBALS['sys_home'].$artifact.'/?group='
                  .$GLOBALS['project']->getUnixName();
-	}
+        }
       else
-	{
-	  return $GLOBALS['sys_home'].$artifact.'/?group='
+        {
+          return $GLOBALS['sys_home'].$artifact.'/?group='
                  .$GLOBALS['project']->getUnixName();
-	}
+        }
     }
 
 }
@@ -778,21 +778,21 @@ function group_set_preference ($group_id, $preference_name, $value)
       $preference_name=strtolower(trim($preference_name));
       $result = db_execute("SELECT NULL FROM group_preferences
                             WHERE group_id=? AND preference_name=?",
-			   array($group_id, $preference_name));
+                           array($group_id, $preference_name));
       if (db_numrows($result) < 1)
-	{
-	  $result = db_autoexecute('group_preferences',
-				   array('group_id' => $group_id,
-					 'preference_name' => $preference_name,
-					 'preference_value' => $value),
-				   DB_AUTOQUERY_INSERT);
-	}
+        {
+          $result = db_autoexecute('group_preferences',
+                                   array('group_id' => $group_id,
+                                         'preference_name' => $preference_name,
+                                         'preference_value' => $value),
+                                   DB_AUTOQUERY_INSERT);
+        }
       else
-	{
-	  $result = db_execute("UPDATE group_preferences SET preference_value=? "
-			       . " WHERE group_id=? AND preference_name=?",
-			       array($value, $group_id, $preference_name));
-	}
+        {
+          $result = db_execute("UPDATE group_preferences SET preference_value=? "
+                               . " WHERE group_id=? AND preference_name=?",
+                               array($value, $group_id, $preference_name));
+        }
       return true;
 
     }
@@ -810,9 +810,9 @@ function group_get_preference ($group_id, $preference_name)
 
     $result=db_execute("SELECT preference_value FROM group_preferences
                         WHERE group_id=? AND preference_name=?",
-		       array($group_id, $preference_name));
+                       array($group_id, $preference_name));
     if (db_numrows($result) < 1)
-      { return false;	}
+      { return false;   }
     else
       { return db_result($result, 0, 'preference_value'); }
 }

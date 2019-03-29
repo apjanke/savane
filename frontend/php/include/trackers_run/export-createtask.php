@@ -120,7 +120,7 @@ trackers_mail_followup($item_id, $address, false);
 # Update the export table to make it aware of the relevant task
 $result = db_execute("UPDATE trackers_export SET status='P', task_id=?
                       WHERE export_id=? LIMIT 1",
-		     array($item_id, $export_id));
+                     array($item_id, $export_id));
 
 session_redirect($GLOBALS['sys_home'].$from."/export.php?group="
                  .rawurlencode($group)."&feedback="

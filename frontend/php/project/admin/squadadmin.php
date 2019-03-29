@@ -48,78 +48,78 @@ if (!$squad_id)
   if ($update)
     {
       if (form_check($form_id))
-	{
-	  if (!$form_loginname)
-	    { fb(_("You must supply a username."),1); }
-	  if (!$form_realname)
-	    { fb(_("You must supply a non-empty real name."),1); }
+        {
+          if (!$form_loginname)
+            { fb(_("You must supply a username."),1); }
+          if (!$form_realname)
+            { fb(_("You must supply a non-empty real name."),1); }
 
-	  if ($form_loginname && $form_realname)
-	    {
+          if ($form_loginname && $form_realname)
+            {
               # Try to validate
-	      $valid = true;
-	      
-	      if (!account_namevalid($form_loginname))
-		{
+              $valid = true;
+              
+              if (!account_namevalid($form_loginname))
+                {
                   # feedback included by the check function
-		  $valid = false;
-		}
+                  $valid = false;
+                }
 
-	      if ($valid && db_numrows(db_execute("SELECT user_id FROM user WHERE "
-						  . "user_name LIKE ?",
-						  array($groupx.'-'
+              if ($valid && db_numrows(db_execute("SELECT user_id FROM user WHERE "
+                                                  . "user_name LIKE ?",
+                                                  array($groupx.'-'
                                                         .$form_loginname))) > 0)
-		{
-		  fb(_("That username already exists."),1);
-		  $valid = false;
-		}
-	      
-	      if ($valid && db_numrows(db_execute("SELECT group_list_id "
+                {
+                  fb(_("That username already exists."),1);
+                  $valid = false;
+                }
+              
+              if ($valid && db_numrows(db_execute("SELECT group_list_id "
                                                   . "FROM mail_group_list WHERE "
-						  . "list_name LIKE ?",
-						  array($group.'-'
+                                                  . "list_name LIKE ?",
+                                                  array($group.'-'
                                                         .$form_loginname))) > 0)
-		{
-		  fb(
+                {
+                  fb(
 _("That username is blocked to avoid conflict with mailing-list addresses."),1);
-		  $valid = false;
-		}
+                  $valid = false;
+                }
 
 
-	      if ($valid)
-		{
+              if ($valid)
+                {
                  # If at this point parameters are still valid, create the squad
-		  $result = db_autoexecute('user',
+                  $result = db_autoexecute('user',
                     array(
                       'user_name' => strtolower($group."-".$form_loginname),
-		      'user_pw' => 'ignored',
-		      'realname' => $form_realname,
-		      'email' => $GLOBALS['sys_mail_replyto'].'@'
+                      'user_pw' => 'ignored',
+                      'realname' => $form_realname,
+                      'email' => $GLOBALS['sys_mail_replyto'].'@'
                                  .$GLOBALS['sys_mail_domain'],
-		      'add_date' => time(),
-		      'status' => 'SQD',
-		      'email_hide' => 1,
-		    ), DB_AUTOQUERY_INSERT);
-		  if (db_affected_rows($result) > 0)
-		    { 
-		      fb(_("Squad created"));
-		      $created_squad_id = db_insertid($result);
-		      
+                      'add_date' => time(),
+                      'status' => 'SQD',
+                      'email_hide' => 1,
+                    ), DB_AUTOQUERY_INSERT);
+                  if (db_affected_rows($result) > 0)
+                    { 
+                      fb(_("Squad created"));
+                      $created_squad_id = db_insertid($result);
+                      
                       # Now assign the squad to the group
-		      member_add($created_squad_id, $group_id, 'SQD');
+                      member_add($created_squad_id, $group_id, 'SQD');
 
-		      # Unset variables so the form below will be empty
-		      $form_id = null;
-		      $form_loginname = null;
-		      $form_realname = null;
-		      
-		    }
-		  else
-		    { fb(_("Error during squad creation")); }
-		  
-		}
-	    }
-	}
+                      # Unset variables so the form below will be empty
+                      $form_id = null;
+                      $form_loginname = null;
+                      $form_realname = null;
+                      
+                    }
+                  else
+                    { fb(_("Error during squad creation")); }
+                  
+                }
+            }
+        }
     }
 
   # Requested squad deletion, step2
@@ -129,13 +129,13 @@ _("That username is blocked to avoid conflict with mailing-list addresses."),1);
       $delete_result = db_execute("SELECT user.user_name AS user_name,"
         . "user.realname AS realname, "
         . "user.user_id AS user_id "
-	. "FROM user,user_group WHERE "
-	. "user.user_id=? AND user_group.group_id=? "
+        . "FROM user,user_group WHERE "
+        . "user.user_id=? AND user_group.group_id=? "
         . "AND user_group.admin_flags='SQD' "
-	. "ORDER BY user.user_name", array($squad_id_to_delete, $group_id));
+        . "ORDER BY user.user_name", array($squad_id_to_delete, $group_id));
       
       if (!db_numrows($delete_result))
-	{ exit_error(_("Squad not found")); }
+        { exit_error(_("Squad not found")); }
 
       fb(_("Squad deleted"));
       member_remove($squad_id_to_delete, $group_id);
@@ -174,12 +174,12 @@ if you want to assign some items to several members at once.").'</p>
       print '<ul>
 ';
       while ($squad= db_fetch_array($result)) 
-	{
-	  print '<li><a href="?squad_id='.$squad['user_id'].'&amp;group_id='
+        {
+          print '<li><a href="?squad_id='.$squad['user_id'].'&amp;group_id='
                 .$group_id.'">'.$squad['realname'].' &lt;'
                 .$squad['user_name'].'&gt;</a></li>
 ';
-	}
+        }
       print '</ul>
 ';
     }
@@ -241,22 +241,22 @@ else
   if ($update_general)
     {
       if (!$form_realname)
-	{ fb(_("You must supply a non-empty real name."),1); }
+        { fb(_("You must supply a non-empty real name."),1); }
       else
-	{ 
-	  $result_update = db_execute("UPDATE user SET realname=? WHERE user_id=?",
-				      array($form_realname, $squad_id));
-	  if (db_affected_rows($result_update) > 0)
-	    { 
-	      fb(_("Squad name updated")); 
-	      group_add_history('Squad name update',
-				db_result($result, 0, 'realname'),
-				$group_id);
-	      
-	      # Update the result query with the new name
-	      $result = db_execute($sql, array($squad_id, $group_id));
-	    }
-	}
+        { 
+          $result_update = db_execute("UPDATE user SET realname=? WHERE user_id=?",
+                                      array($form_realname, $squad_id));
+          if (db_affected_rows($result_update) > 0)
+            { 
+              fb(_("Squad name updated")); 
+              group_add_history('Squad name update',
+                                db_result($result, 0, 'realname'),
+                                $group_id);
+              
+              # Update the result query with the new name
+              $result = db_execute($sql, array($squad_id, $group_id));
+            }
+        }
     }
   
   # Request squad deletion
@@ -289,12 +289,12 @@ available.').'</p>
   if ($add_to_squad && $user_ids)
     {
       foreach ($user_ids as $user) {
-	if (member_squad_add($user, $squad_id, $group_id)) 
+        if (member_squad_add($user, $squad_id, $group_id)) 
 # TRANSLATORS: the argument is user's name.
-	  { fb(sprintf(_("User %s added to the squad."), user_getname($user))); }
-	else
+          { fb(sprintf(_("User %s added to the squad."), user_getname($user))); }
+        else
 # TRANSLATORS: the argument is user's name.
-	  { fb(sprintf(_("User %s is already part of the squad."),
+          { fb(sprintf(_("User %s is already part of the squad."),
                        user_getname($user)),1); }
       }
     }
@@ -303,12 +303,12 @@ available.').'</p>
   if ($remove_from_squad && $user_ids)
     {
       foreach ($user_ids as $user) {
-	if (member_squad_remove($user, $squad_id, $group_id)) 
+        if (member_squad_remove($user, $squad_id, $group_id)) 
 # TRANSLATORS: the argument is user's name.
-	  { fb(sprintf(_("User %s removed from the squad."), user_getname($user))); }
-	else
+          { fb(sprintf(_("User %s removed from the squad."), user_getname($user))); }
+        else
 # TRANSLATORS: the argument is user's name.
-	  { fb(sprintf(_("User %s is not part of the squad."), user_getname($user)),1); }
+          { fb(sprintf(_("User %s is not part of the squad."), user_getname($user)),1); }
       }
     }
 
@@ -334,12 +334,12 @@ available.').'</p>
 ';
 
   $result_delusers = db_execute("SELECT user.user_id AS user_id, "
-			       . "user.user_name AS user_name, "
-			       . "user.realname AS realname "
-			       . "FROM user,user_squad "
-			       . "WHERE user.user_id=user_squad.user_id "
+                               . "user.user_name AS user_name, "
+                               . "user.realname AS realname "
+                               . "FROM user,user_squad "
+                               . "WHERE user.user_id=user_squad.user_id "
                                . "AND user_squad.squad_id=?"
-			       . " ORDER BY user.user_name", array($squad_id));
+                               . " ORDER BY user.user_name", array($squad_id));
 
   print "<p>"
 ._("To remove members from the squad, select their names and push the button
@@ -354,7 +354,7 @@ below.")."</p>\n";
   while ($thisuser = db_fetch_array($result_delusers)) 
     {
       print '<option value="'.$thisuser['user_id'].'">'.$thisuser['realname']
-	.' &lt;'.$thisuser['user_name'].'&gt;</option>';
+        .' &lt;'.$thisuser['user_name'].'&gt;</option>';
       $already_in_squad[$thisuser['user_id']] = true;
       $exists=true;
     }
@@ -373,13 +373,13 @@ below.")."</p>\n";
 ';
   
   $result_addusers =  db_execute("SELECT user.user_id AS user_id, "
-			       . "user.user_name AS user_name, "
-			       . "user.realname AS realname "
-			       . "FROM user,user_group "
-			       . "WHERE user.user_id=user_group.user_id "
+                               . "user.user_name AS user_name, "
+                               . "user.realname AS realname "
+                               . "FROM user,user_group "
+                               . "WHERE user.user_id=user_group.user_id "
                                . "AND user_group.group_id=? "
-			       . "  AND admin_flags<>'P' AND admin_flags<>'SQD' "
-			       . "ORDER BY user.user_name", array($group_id));
+                               . "  AND admin_flags<>'P' AND admin_flags<>'SQD' "
+                               . "ORDER BY user.user_name", array($group_id));
   
   print "<p>"
 ._("To add members to the squad, select their name and push the button below.")
@@ -394,7 +394,7 @@ below.")."</p>\n";
     {
       # Ignore if previously found as member
       if (array_key_exists($thisuser['user_id'], $already_in_squad))
-	{ continue; }
+        { continue; }
       
       print '<option value="'.$thisuser['user_id'].'">'
             .$thisuser['realname'].' &lt;'.$thisuser['user_name'].'&gt;</option>

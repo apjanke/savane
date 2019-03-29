@@ -62,9 +62,9 @@ print "<h2>Base PHP configuration</h2>\n";
 
 # cf. http://php.net/manual/en/ini.php
 $phptags = array (
-	'register_globals' => 0,
-	'file_uploads' => 1,
-	'magic_quotes_gpc' => 0,
+        'register_globals' => 0,
+        'file_uploads' => 1,
+        'magic_quotes_gpc' => 0,
 );
 
 // Get all php.ini values:
@@ -105,8 +105,8 @@ foreach ( $phptags as $tag => $goodval ) {
 
 # Check against minimum sizes
 $phptags = array (
-	'post_max_size' => '3M',
-	'upload_max_filesize' => '2M',
+        'post_max_size' => '3M',
+        'upload_max_filesize' => '2M',
 );
 ksort($phptags);
 foreach ( $phptags as $tag => $goodval ) {
@@ -150,11 +150,11 @@ $phpfunctions = array (
 
 foreach ( $phpfunctions as $func => $comment ) {
 
-	if (function_exists($func)) {
-		print "function <strong>".$func."()</strong> exist.<br />\n";
-	} else {
-		print "function <strong>".$func."()</strong> does not exist. $comment <br />\n";
-	}
+        if (function_exists($func)) {
+                print "function <strong>".$func."()</strong> exist.<br />\n";
+        } else {
+                print "function <strong>".$func."()</strong> does not exist. $comment <br />\n";
+        }
 }
 
 #==============================================================================
@@ -196,24 +196,24 @@ else
 {
   include $configfile;
   $variables = array (
-	# Name  / required
-		      'sys_default_domain',
-		      'sys_https_host',
-		      'sys_dbhost',
-		      'sys_dbname',
-		      'sys_dbuser',
-		      'sys_dbpasswd',
-		      'sys_www_topdir',
-		      'sys_url_topdir',
-		      'sys_incdir',
-		      'sys_name',
-		      'sys_unix_group_name',
-		      'sys_themedefault',
-		      'sys_mail_domain',
-		      'sys_mail_admin',
-		      'sys_mail_replyto',
-		      'sys_upload_max',
-		      );
+        # Name  / required
+                      'sys_default_domain',
+                      'sys_https_host',
+                      'sys_dbhost',
+                      'sys_dbname',
+                      'sys_dbuser',
+                      'sys_dbpasswd',
+                      'sys_www_topdir',
+                      'sys_url_topdir',
+                      'sys_incdir',
+                      'sys_name',
+                      'sys_unix_group_name',
+                      'sys_themedefault',
+                      'sys_mail_domain',
+                      'sys_mail_admin',
+                      'sys_mail_replyto',
+                      'sys_upload_max',
+                      );
 
   print "<table border=\"1\">\n";
   print "<tr><th>Conf variable</th><th>Current value</th></tr>\n";
@@ -247,11 +247,11 @@ leak are void since this is free software and the source code is
 available to all).";
 
 $phptags = array (
-	'display_errors' => '1',
-	'log_errors' => '1',
-	'error_reporting' => E_ALL|E_STRICT,
-	'allow_url_fopen' => '0',
-	'disable_functions' => 'exec,passthru,popen,shell_exec,system',
+        'display_errors' => '1',
+        'log_errors' => '1',
+        'error_reporting' => E_ALL|E_STRICT,
+        'allow_url_fopen' => '0',
+        'disable_functions' => 'exec,passthru,popen,shell_exec,system',
 );
 
 print "<table border=\"1\">\n";

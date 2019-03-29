@@ -47,7 +47,7 @@ if ($result && db_numrows($result) > 0)
   }
 $result = db_execute("SELECT privacy FROM ".ARTIFACT
                      ." WHERE bug_id=? AND group_id=?",
-		     array($item_id, $group_id));
+                     array($item_id, $group_id));
 if (db_numrows($result) > 0)
   {
     if ((db_result($result,0,'privacy') == '2') &&
@@ -57,7 +57,7 @@ if (db_numrows($result) > 0)
 
 $result = db_execute("SELECT filename,filesize FROM trackers_file 
                       WHERE file_id=? LIMIT 1",
-		     array($file_id));
+                     array($file_id));
 
 if ($result && db_numrows($result) <= 0) 
 # TRANSLATORS: the argument is file id (a number).

@@ -625,13 +625,13 @@ allowed to customize it"),$field));
         if (db_numrows($result) > 0
             and db_result($result, 0, 'transition_default_auth') == "F")
           {
-	    $transition_for_field = _("By default, for this field, the
+            $transition_for_field = _("By default, for this field, the
 transitions not registered are forbidden. This setting can be changed when
 managing this field usage.");
           }
         else
           {
-	    $transition_for_field = _("By default, for this field, the
+            $transition_for_field = _("By default, for this field, the
 transitions not registered are allowed. This setting can be changed when
 managing this field usage.");
           }
@@ -847,7 +847,7 @@ elseif ($update_canned)
       {
 # Escape to print update form.
         print '<p>'
-	  ._("Creating generic messages can save you a lot of time when giving
+          ._("Creating generic messages can save you a lot of time when giving
 common responses.").'</p>
 <p>
 <form action="'.htmlentities ($_SERVER['PHP_SELF']).'" method="post">

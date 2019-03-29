@@ -2049,7 +2049,7 @@ function trackers_data_reassign_item ($item_id,
 
       if (!$reassign_change_artifact)
         {
-	  fb(_("Unable to find out to which artifact the item is to be
+          fb(_("Unable to find out to which artifact the item is to be
 reassigned, exiting."), 1);
           return false;
         }
@@ -2128,7 +2128,7 @@ reassigned, exiting."), 1);
             ), DB_AUTOQUERY_INSERT);
           if (!$result)
             {
-	      fb(_("Unable to duplicate a comment from the original item
+              fb(_("Unable to duplicate a comment from the original item
 report information."), 1);
             }
         }
@@ -2177,7 +2177,7 @@ Following are the information included in the original report:\n\n";
 
       if (!$result)
         {
-	  fb(_("Unable to add a comment with the original item report
+          fb(_("Unable to add a comment with the original item report
 information."), 0);
         }
 
@@ -2195,7 +2195,7 @@ information."), 0);
 
       if (!$result)
         {
-	  fb(sprintf(_("Unable to duplicate an attached file (%s) from the
+          fb(sprintf(_("Unable to duplicate an attached file (%s) from the
 original item report information."), $row_attachment['filename']), 1);
           dbg("sql: $sql");
         }
@@ -2216,7 +2216,7 @@ original item report information."), $row_attachment['filename']), 1);
 
           if (!$result)
             {
-	      fb(sprintf(_("Unable to duplicate a CC address (%s) from the
+              fb(sprintf(_("Unable to duplicate a CC address (%s) from the
 original item report information."), $row_cc['email']), 1);
             }
         }

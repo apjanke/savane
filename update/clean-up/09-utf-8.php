@@ -92,19 +92,19 @@ foreach($tables as $table => $fields)
       $need_update = 0;
       $new_vals = array();
       foreach($fields as $field)
-	{
-	  $conv = @iconv("UTF-8", "UTF-8//IGNORE", $row[$field]);
-	  if ($conv != $row[$field])
-	    {
-	      $new_vals[$field] = $conv;
-	      $need_update = 1;
-	    }
-	}
+        {
+          $conv = @iconv("UTF-8", "UTF-8//IGNORE", $row[$field]);
+          if ($conv != $row[$field])
+            {
+              $new_vals[$field] = $conv;
+              $need_update = 1;
+            }
+        }
       if ($need_update)
-	{
-	  print "Update: $table at row $i [{$row[$pks[$table]]} - " . join(',', array_keys($new_vals)) . "]\n";
-	  db_autoexecute($table, $new_vals, DB_AUTOQUERY_UPDATE,
-			 $pks[$table] . " = ?", array($row[$pks[$table]]));
-	}
+        {
+          print "Update: $table at row $i [{$row[$pks[$table]]} - " . join(',', array_keys($new_vals)) . "]\n";
+          db_autoexecute($table, $new_vals, DB_AUTOQUERY_UPDATE,
+                         $pks[$table] . " = ?", array($row[$pks[$table]]));
+        }
     }
 }

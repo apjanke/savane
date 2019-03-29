@@ -26,8 +26,8 @@ function bookmark_add ($bookmark_url, $bookmark_title='')
 
   $result = db_autoexecute('user_bookmarks',
     array('user_id' => user_getid(),
-	  'bookmark_url' => $bookmark_url,
-	  'bookmark_title' => $bookmark_title),
+          'bookmark_url' => $bookmark_url,
+          'bookmark_title' => $bookmark_title),
     DB_AUTOQUERY_INSERT);
   if (!$result)
     { print db_error(); }
@@ -37,7 +37,7 @@ function bookmark_edit ($bookmark_id, $bookmark_url, $bookmark_title)
 {
   db_autoexecute('user_bookmarks',
     array('bookmark_url' => $bookmark_url,
-	  'bookmark_title' => $bookmark_title),
+          'bookmark_title' => $bookmark_title),
     DB_AUTOQUERY_UPDATE,
     "bookmark_id=? AND user_id=?",
     array($bookmark_id, user_getid()));
@@ -46,6 +46,6 @@ function bookmark_edit ($bookmark_id, $bookmark_url, $bookmark_title)
 function bookmark_delete ($bookmark_id)
 {
   db_execute("DELETE from user_bookmarks WHERE bookmark_id=? AND user_id=?",
-	     array($bookmark_id, user_getid()));
+             array($bookmark_id, user_getid()));
 }
 ?>

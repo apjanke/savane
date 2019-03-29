@@ -27,12 +27,12 @@ if ($handle = opendir("./"))
     while (false !== ($file = readdir($handle)))
       {
         if (substr($file, 0, 5) == "test_")
-	  {
-	    # Create a hash with the filename as the key
-	    # and the test class (without test_ and .php)
-	    # as the value
-	    $tests[$file] = substr($file, 5, -4);
-	  }
+          {
+            # Create a hash with the filename as the key
+            # and the test class (without test_ and .php)
+            # as the value
+            $tests[$file] = substr($file, 5, -4);
+          }
       }
     closedir($handle);
   }

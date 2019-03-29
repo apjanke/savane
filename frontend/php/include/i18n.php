@@ -65,7 +65,7 @@ register_language ("ru", "ru_RU", "русский");
 #register_language ("zh-cn", "zh_CN");
 
 # Get user's preferred languages from UA headers.
-$accept_language = strtolower (str_replace (array (' ', '	'), '',
+$accept_language = strtolower (str_replace (array (' ', '       '), '',
                                             getenv("HTTP_ACCEPT_LANGUAGE")));
 $browser_preferences = explode(",", $accept_language);
 

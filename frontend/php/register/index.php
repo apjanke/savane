@@ -48,7 +48,7 @@ global $sys_dbname;
 # And even if a name clash happens, admins will notice it during approval
   return (db_numrows(db_execute("SELECT group_id FROM $sys_dbname.groups "
                                 ."WHERE unix_group_name LIKE ? AND status <> 'I'",
-				array($form_unix_name))) == 0);
+                                array($form_unix_name))) == 0);
 }
 
 
@@ -58,8 +58,8 @@ $HTML->header(array('title' => sprintf(_("%s hosting request"),
                                        $GLOBALS['sys_name'])));
 
 if (db_numrows(db_execute("SELECT type_id FROM group_type")) < 1) {
-	# group_type is empty; it's not possible to register projects
-	print _("No group type has been set. Admins need to create at least one
+        # group_type is empty; it's not possible to register projects
+        print _("No group type has been set. Admins need to create at least one
 group type. They can make it so visiting the link &ldquo;Group Type
 Admin&rdquo; on the Administration section of the left side menu, while logged
 in as admin.");
@@ -274,21 +274,21 @@ effectively *logged as site administrators* (superuser):
  
   # a mail for the submitter
   sendmail_mail($type_admin_email_address,
-		$user_email,
-		"submission of $form_full_name - $type_base_host",
-		$message_user,
-		0,0,0,
-		$type_admin_email_address);
+                $user_email,
+                "submission of $form_full_name - $type_base_host",
+                $message_user,
+                0,0,0,
+                $type_admin_email_address);
 
 
   # a mail for the moderators staff!
 # Done automatically by the task tracker
 #  sendmail_mail($user_email,
-#		$type_admin_email_address,
-#		"submission of $form_full_name - $type_base_host",
-#		$message_admin,
-#		0,0,0,
-#		$user_email);
+#               $type_admin_email_address,
+#               "submission of $form_full_name - $type_base_host",
+#               $message_admin,
+#               0,0,0,
+#               $user_email);
 
     {
       require_directory("trackers");
@@ -302,14 +302,14 @@ effectively *logged as site administrators* (superuser):
       $vfl['details'] = $message_admin; 
       $vfl['planned_starting_date'] = date("Y")."-".date("m")."-".date("d");
       $vfl['planned_close_date'] = date("Y")."-".date("m")."-".(date("d")+10);
-	
+        
       $address = "";
       $item_id = trackers_data_create_item($GLOBALS['sys_group_id'],$vfl,$address);
       # send an email to notify the admins of the item update
       list($additional_address, $sendall) =
         trackers_data_get_item_notification_info($item_id, ARTIFACT, 1);
       if ((trim($address) != "") && (trim($additional_address) != "")) 
-	{ $address .= ", "; }
+        { $address .= ", "; }
       $address .= $additional_address;
       # exclude the submitter from the notification; he got a specific mail
       # for himself

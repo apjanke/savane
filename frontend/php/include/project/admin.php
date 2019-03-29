@@ -25,8 +25,8 @@
 
 function show_grouphistory ($group_id)
 {
-		# show the group_history rows that are relevant to
-		# this group_id
+                # show the group_history rows that are relevant to
+                # this group_id
   global $sys_datefmt;
   $result=group_get_history($group_id);
   $rows=db_numrows($result);
@@ -34,9 +34,9 @@ function show_grouphistory ($group_id)
   if ($rows > 0) {
 
     echo '
-		<h2>'
+                <h2>'
       ._("Group Change History").'</h2>
-		<p>';
+                <p>';
     $title_arr=array();
     $title_arr[]=_("Field");
     $title_arr[]=_("Value");
@@ -48,14 +48,14 @@ function show_grouphistory ($group_id)
     for ($i=0; $i < $rows; $i++) {
       $field=db_result($result, $i, 'field_name');
       echo '
-			<tr class="'. html_get_alt_row_color($i)
+                        <tr class="'. html_get_alt_row_color($i)
        .'"><td>'.$field.'</td>
 <td>';
 
       if ($field=='removed user') {
-	echo user_getname(db_result($result, $i, 'old_value'));
+        echo user_getname(db_result($result, $i, 'old_value'));
       } else {
-	echo db_result($result, $i, 'old_value');
+        echo db_result($result, $i, 'old_value');
       }
       echo '</td>
 <td>'.utils_format_date(db_result($result, $i, 'date')).'</td>
@@ -63,11 +63,11 @@ function show_grouphistory ($group_id)
     }
 
     echo '
-		</table>';
+                </table>';
 
   } else {
     echo '
-		<h2>'
+                <h2>'
       ._("No Changes Have Been Made to This Group").'</h2>';
   }
 }
@@ -77,10 +77,10 @@ function project_admin_registration_info ($row_grp)
   $res_admin = db_execute("SELECT user.user_id AS user_id,user.user_name "
                         . "AS user_name, user.realname "
                         . "AS realname, user.email AS email "
-			. "FROM user,user_group "
-			. "WHERE user_group.user_id=user.user_id "
+                        . "FROM user,user_group "
+                        . "WHERE user_group.user_id=user.user_id "
                         . "AND user_group.group_id=? AND "
-			. "user_group.admin_flags = 'A'",
+                        . "user_group.admin_flags = 'A'",
                           array($row_grp['group_id']));
 
   print '<p><span class="preinput">'._("Project Admins").':</span><br /> ';

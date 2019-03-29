@@ -34,7 +34,7 @@ function no_i18n($string)
 
 ###### See if we were asked to perform anything
 extract(sane_import('get', array('ban_user_id', 'wash_user_id', 'wash_ip',
-				 'max_rows', 'offset')));
+                                 'max_rows', 'offset')));
 
 if ($ban_user_id)
 {
@@ -63,7 +63,7 @@ if ($wash_user_id)
       # (we may change that in the future, depending on user experience)
       db_execute("UPDATE trackers_spamscore SET affected_user_id='100' "
                  ."WHERE affected_user_id=?",
-		 array($wash_user_id));      
+                 array($wash_user_id));      
       
     }
 }
@@ -128,7 +128,7 @@ else
       # the max, we wont print these more, but below we will add next/prev
       # links
       if ($i > $max_rows)
-	{ break; }
+        { break; }
 
       $res_score = db_execute("SELECT trackers_spamscore.artifact,"
                               ."trackers_spamscore.item_id,"
@@ -141,30 +141,30 @@ else
       $incriminated_content = '';
       $seen_before = array();
       while ($entry_score = db_fetch_array($res_score))
-	{
-	  if (!isset($seen_before[$entry_score['user_name']]))
-	    {
-	      $flagged_by .= utils_user_link($entry_score['user_name']).', ';
-	      $seen_before[$entry_score['user_name']] = true;
-	    }
-	  
-	  if (!isset($seen_before[$entry_score['artifact'].$entry_score['item_id']
+        {
+          if (!isset($seen_before[$entry_score['user_name']]))
+            {
+              $flagged_by .= utils_user_link($entry_score['user_name']).', ';
+              $seen_before[$entry_score['user_name']] = true;
+            }
+          
+          if (!isset($seen_before[$entry_score['artifact'].$entry_score['item_id']
                      .'C'.$entry_score['comment_id']]))
-	    {
-	      # only put the string "here" for each item, otherwise it gets
-	      # overlong when we have to tell comment #nnn of item #nnnn
-	      $incriminated_content .= utils_link($GLOBALS['sys_home']
+            {
+              # only put the string "here" for each item, otherwise it gets
+              # overlong when we have to tell comment #nnn of item #nnnn
+              $incriminated_content .= utils_link($GLOBALS['sys_home']
                                     .$entry_score['artifact'].'/?item_id='
                                     .$entry_score['item_id']
                                     .'&amp;func=viewspam&amp;comment_internal_id='
                                     .$entry_score['comment_id'].'#spam'
                                     .$entry_score['comment_id'],
-						 no_i18n("here")).', ';	 
-	      $seen_before[$entry_score['artifact'].$entry_score['item_id']
+                                                 no_i18n("here")).', ';  
+              $seen_before[$entry_score['artifact'].$entry_score['item_id']
                            .'C'.$entry_score['comment_id']] = true;
-	    }
-	  
-	}
+            }
+          
+        }
       $flagged_by = rtrim($flagged_by, ', ');
       $incriminated_content = rtrim($incriminated_content, ', ');
       
@@ -204,7 +204,7 @@ removal to be done instantly.").'</p>
 
 $result = db_execute("SELECT ip FROM trackers_spamban WHERE 1 GROUP BY ip "
                      ."ORDER BY ip LIMIT ?,?",
-		     array($offset,$max_rows+1));
+                     array($offset,$max_rows+1));
 if (!db_numrows($result)) 
 {
   print '<p>'.no_i18n("No IP banned").'</p>';
@@ -224,14 +224,14 @@ else
       # the max, we wont print these more, but below we will add next/prev
       # links
       if ($i > $max_rows)
-	{ break; }
+        { break; }
 
       if ($i > 1)
-	{ print ', '; }
+        { print ', '; }
 
       print utils_link(htmlentities ($_SERVER['PHP_SELF'])
                        .'?wash_ip='.$entry['ip'].'#ip_results',
-		       $entry['ip'].' <img src="'.$GLOBALS['sys_home'].'images/'
+                       $entry['ip'].' <img src="'.$GLOBALS['sys_home'].'images/'
                        .SV_THEME.'.theme/bool/ok.png" alt="'.no_i18n("Wash IP").'" />');
       
     }

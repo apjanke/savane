@@ -35,38 +35,38 @@ site_admin_header(array('title'=>no_i18n("Check Last Logins"),
                   'context'=>'admhome'));
 
 $res_logins = db_query("SELECT session.user_id AS user_id,"
-	. "session.ip_addr AS ip_addr,"
-	. "session.time AS time,"
-	. "user.user_name AS user_name FROM session,user "
-	. "WHERE session.user_id=user.user_id AND "
-	. "session.user_id>0 AND session.time>0 ORDER BY session.time "
+        . "session.ip_addr AS ip_addr,"
+        . "session.time AS time,"
+        . "user.user_name AS user_name FROM session,user "
+        . "WHERE session.user_id=user.user_id AND "
+        . "session.user_id>0 AND session.time>0 ORDER BY session.time "
         . "DESC LIMIT 250");
 
 if (db_numrows($res_logins) < 1) {
-	$feedback = no_i18n("No records found, there must be an error somewhere.");
+        $feedback = no_i18n("No records found, there must be an error somewhere.");
 
 } else {
 
-	print '<p>'.no_i18n("Follow most recent logins:").'</p>
+        print '<p>'.no_i18n("Follow most recent logins:").'</p>
 ';
 
-	$title_arr=array();
-	$title_arr[]=no_i18n("User Name");
-	$title_arr[]=no_i18n("Ip");
-	$title_arr[]=no_i18n("Date");
-	print html_build_list_table_top ($title_arr);
+        $title_arr=array();
+        $title_arr[]=no_i18n("User Name");
+        $title_arr[]=no_i18n("Ip");
+        $title_arr[]=no_i18n("Date");
+        print html_build_list_table_top ($title_arr);
 
-	$inc=0;
-	while ($row_logins = db_fetch_array($res_logins)) {
-		print '<tr class="'.utils_get_alt_row_color($inc++).'">';
-		print "<td>$row_logins[user_name]</td>";
-		print "<td>$row_logins[ip_addr]</td>";
-		print "<td>" . utils_format_date($row_logins['time'])
+        $inc=0;
+        while ($row_logins = db_fetch_array($res_logins)) {
+                print '<tr class="'.utils_get_alt_row_color($inc++).'">';
+                print "<td>$row_logins[user_name]</td>";
+                print "<td>$row_logins[ip_addr]</td>";
+                print "<td>" . utils_format_date($row_logins['time'])
                       . "</td>\n";
-		print '</tr>
+                print '</tr>
 ';
-	}
-	print '</table>
+        }
+        print '</table>
 ';
 }
 $HTML->footer(array());

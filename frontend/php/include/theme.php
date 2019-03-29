@@ -63,23 +63,23 @@ function theme_list ()
     {
       # Ignore symlinks
       if (is_link($GLOBALS['sys_www_topdir']."/css/$file"))
-	{ continue; }
+        { continue; }
 
       # take only correct css files
       if (!preg_match("/^(.*)\.css$/", $file, $matches))
-	{ continue; }
+        { continue; }
 
       # base.css and printer.css are always ignored
       # (as of nov 2006, there are in the subdirectory internal, so this
       # is only here for backward compat)
       if ($matches[1] == "base" ||
-	  $matches[1] == "printer" ||
-	  $matches[1] == "msie-dirtyhacks")
-	{ continue; }
+          $matches[1] == "printer" ||
+          $matches[1] == "msie-dirtyhacks")
+        { continue; }
 
       # forbidden themes are also ignored
       if (preg_match($GLOBALS['forbid_theme_regexp'], strtolower($matches[1])))
-	{ continue; }
+        { continue; }
 
       $theme[] = $matches[1];
     }
@@ -137,55 +137,55 @@ if (isset($_COOKIE['SV_THEME']))
       # the user selected random theme
       # we set randomly a theme and a cookie for a day
       if (isset($_COOKIE['SV_THEME_RANDOM']))
-	{
-	  if (!defined('SV_THEME'))
-	    define('SV_THEME', $_COOKIE['SV_THEME_RANDOM']);
-	}
+        {
+          if (!defined('SV_THEME'))
+            define('SV_THEME', $_COOKIE['SV_THEME_RANDOM']);
+        }
       else
-	{
-	  $theme = theme_list();
-	  mt_srand ((double)microtime()*1000000);
-	  $num = mt_rand(0,count($theme)-1);
-	  $random_theme = $theme[$num];
-	  setcookie('SV_THEME_RANDOM', $random_theme, time() + 60*60*24,
+        {
+          $theme = theme_list();
+          mt_srand ((double)microtime()*1000000);
+          $num = mt_rand(0,count($theme)-1);
+          $random_theme = $theme[$num];
+          setcookie('SV_THEME_RANDOM', $random_theme, time() + 60*60*24,
                     $GLOBALS['sys_home']);
-	  if (!defined('SV_THEME'))
-	    define('SV_THEME', $random_theme);
-	}
+          if (!defined('SV_THEME'))
+            define('SV_THEME', $random_theme);
+        }
     }
   elseif ($_COOKIE['SV_THEME'] == 'rotate')
     {
       # the user want a rotation between themes
       if (isset($_COOKIE['SV_THEME_ROTATE']))
-	{
-	  if (!defined('SV_THEME'))
-	    define('SV_THEME', $_COOKIE['SV_THEME_ROTATE']);
-	}
+        {
+          if (!defined('SV_THEME'))
+            define('SV_THEME', $_COOKIE['SV_THEME_ROTATE']);
+        }
       else
-	{
-	  $theme = theme_list();
+        {
+          $theme = theme_list();
 
-	  # we get a number and set a cookie with this number
-	  # if this number exist, +1 to his value
-	  if (!isset($_COOKIE['SV_THEME_ROTATE_NUMERIC']))
-	    { $num = '0'; }
-	  else
-	    {
-	      $num = $_COOKIE['SV_THEME_ROTATE_NUMERIC']+1;
-	      # if the num is a value superior of the number of themes
-	      # we reset to 0
-	      if ($num==count($theme))
-		{ $num = '0'; }
-	    }
-	  setcookie('SV_THEME_ROTATE_NUMERIC', $num, time() + 60*60*24*365,
+          # we get a number and set a cookie with this number
+          # if this number exist, +1 to his value
+          if (!isset($_COOKIE['SV_THEME_ROTATE_NUMERIC']))
+            { $num = '0'; }
+          else
+            {
+              $num = $_COOKIE['SV_THEME_ROTATE_NUMERIC']+1;
+              # if the num is a value superior of the number of themes
+              # we reset to 0
+              if ($num==count($theme))
+                { $num = '0'; }
+            }
+          setcookie('SV_THEME_ROTATE_NUMERIC', $num, time() + 60*60*24*365,
                     $GLOBALS['sys_home']);
-	  # we associate this number with a theme
-	  $rotate_theme = $theme[$num];
-	  setcookie('SV_THEME_ROTATE', $rotate_theme, time() + 60*60*24,
+          # we associate this number with a theme
+          $rotate_theme = $theme[$num];
+          setcookie('SV_THEME_ROTATE', $rotate_theme, time() + 60*60*24,
                     $GLOBALS['sys_home']);
-	  if (!defined('SV_THEME'))
-	    define('SV_THEME', $rotate_theme);
-	}
+          if (!defined('SV_THEME'))
+            define('SV_THEME', $rotate_theme);
+        }
     }
   else
     {
@@ -195,17 +195,17 @@ if (isset($_COOKIE['SV_THEME']))
       # look for invalid / outdated cookies
       // TODO; stop using a constant for SV_THEME
       if (!file_exists($GLOBALS['sys_www_topdir']."/css/".$cookie_theme.".css"))
-	{
-	  if (!defined('SV_THEME')) // defined by the /my/admin/ page
-	    define('SV_THEME', $GLOBALS['sys_themedefault']);
-	  setcookie('SV_THEME', SV_THEME, time() + 60*60*24*365,
+        {
+          if (!defined('SV_THEME')) // defined by the /my/admin/ page
+            define('SV_THEME', $GLOBALS['sys_themedefault']);
+          setcookie('SV_THEME', SV_THEME, time() + 60*60*24*365,
                     $GLOBALS['sys_home']);
-	}
+        }
       else
-	{
-	  if (!defined('SV_THEME')) // defined by the /my/admin/ page
-	    define('SV_THEME', $cookie_theme);
-	}
+        {
+          if (!defined('SV_THEME')) // defined by the /my/admin/ page
+            define('SV_THEME', $cookie_theme);
+        }
     }
 }
 else

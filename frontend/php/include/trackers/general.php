@@ -1179,7 +1179,7 @@ function trackers_attach_several_files($item_id, $group_id, &$changes)
   extract(sane_import('post', array('file_description')));
   foreach ($files as $file)
     {
-      if ($file['SavaneError'] != UPLOAD_ERR_OK)
+      if ($file['error'] != UPLOAD_ERR_OK)
         continue;
 
       $file_id = trackers_attach_file($item_id,

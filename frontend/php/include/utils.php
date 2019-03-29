@@ -67,7 +67,7 @@ function utils_check_path ($path)
 {
   if (strpos ($path, "../") !== FALSE)
     {
-      exit_error(_('SavaneError'),
+      exit_error(_('Error'),
 # TRANSLATORS: the argument is file path.
                  sprintf(_('Malformed file path %s'), $path));
     }

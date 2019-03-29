@@ -294,7 +294,7 @@ switch ($func) {
             $filenames[] = "input_file$i";
           $files = sane_import('files', $filenames);
           foreach ($files as $file) {
-            if ($file['SavaneError'] == UPLOAD_ERR_OK) {
+            if ($file['error'] == UPLOAD_ERR_OK) {
               fb(sprintf(_("Warning: do not forget to re-attach your file '%s'"), $file['name'], 1));
 
             }
@@ -434,7 +434,7 @@ project and submit the form."),
             $filenames[] = "input_file$i";
           $files = sane_import('files', $filenames);
           foreach ($files as $file) {
-            if ($file['SavaneError'] == UPLOAD_ERR_OK)
+            if ($file['error'] == UPLOAD_ERR_OK)
               fb(sprintf(_("Warning: do not forget to re-attach your file '%s'"),
                   $file['name']));
           }

@@ -13,3 +13,4 @@ www
 lib/MYMETA.json
 lib/MYMETA.yml
 local2/etc-savane/savane-dev-db.php
+local2/etc-savane/.savane.conf.php

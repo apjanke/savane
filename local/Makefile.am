@@ -234,8 +234,8 @@ local-db-setup-small: local-savane-make-conf-administration \
 		    local-db-create-savane-db
 	$(MAKE) internal-load-database-dump DUMPFILE=savane-demo-db.small.sql.bz2
 
-# Creates a new MySQL database, loading a medium  portion from the real GNU Savannah database.
-# It will have just few dozen GNU projects, and few thousands of users.
+# Creates a new MySQL database, loading a medium portion from the real GNU Savannah database.
+# It will have just a few dozen GNU projects, and few thousands of users.
 # NOTE: when this target completes, the MySQL server is running.
 .PHONY: local-db-setup-medium
 local-db-setup-medium: local-savane-make-conf-administration \

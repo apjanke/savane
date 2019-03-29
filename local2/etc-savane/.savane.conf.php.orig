@@ -85,7 +85,7 @@ else
 	require_once($db_file);
 
 	## If ALL variables are empty, it's likely
-	## this is still one of first times the user run the website,
+	## this is still one of first times the user has run the website, and
 	## the file was created but never updated. Show the message again.
 	if (empty($sys_dbhost) && empty($sys_dbname) && empty($sys_dbuser) && empty($sys_dbpasswd)) {
 		print $first_run_message;
@@ -106,7 +106,6 @@ else
 $use_pwqcheck = FALSE;
 
 
-
 #
 # Name of the configuration project.
 # Must be the name of a valid (existing) project/group in the database.
@@ -121,9 +120,9 @@ $sys_unix_group_name="siteadmin";
 
 ##
 ## The included text/php files, customized for each hosting company.
-## On gnu savannah, the real files are on frontend0:/etc/savane/content .
+## On GNU savannah, the real files are on frontend0:/etc/savane/content.
 ##
-## Here, we find take them from the git repository.
+## Here, we take them from the git repository.
 ## This is an ugly hard-coded hack... to be improved...
 $dev_content_dir = dirname(__FILE__).'/../../etc/site-specific-content';
 if (!is_dir($dev_content_dir)) {
@@ -134,9 +133,9 @@ $sys_incdir="$dev_content_dir";
 
 
 ##
-## Another ugly hack, for savannah local development only:
+## Another ugly hack, for Savannah local development only:
 ## The $sys_www_topdir variable is determined in ./frontend/php/include/init.php.
-## On savannah's production server, it is detected automatically.
+## On Savannah's production server, it is detected automatically.
 ##
 ## When running with local php's built-in server, we need to set it explicitly.
 ## The 'SAVANE_PHPROOT' envvar is set in 'run-local-dev.sh'.
@@ -153,8 +152,10 @@ $sys_www_topdir="$phpdir";
 
 
 # Name of the website - appears in many page titles.
-$sys_name="GNU Savannah(Local)";
+$sys_name="GNU Savannah (Local)";
 
+# Turn this on if you want to see SQL logs and error stacktraces in the
+# web pages.
 #$sys_debug_on=true;
 
 # No redirect to brother website

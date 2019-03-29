@@ -2599,12 +2599,12 @@ function trackers_data_get_notification_with_labels($user_id)
 
 function trackers_data_get_notification_roles()
 {
-  return db_query('SELECT * FROM trackers_notification_role ORDER BY rank ASC');
+  return db_query('SELECT * FROM trackers_notification_role ORDER BY "rank" ASC');
 }
 
 function trackers_data_get_notification_events()
 {
-  return db_query('SELECT * FROM trackers_notification_event ORDER BY rank ASC');
+  return db_query('SELECT * FROM trackers_notification_event ORDER BY "rank" ASC');
 }
 
 function trackers_data_delete_notification($user_id)

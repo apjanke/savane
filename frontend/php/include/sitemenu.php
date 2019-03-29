@@ -227,16 +227,6 @@ function sitemenu_thispage($page_title, $page_toptab=0, $page_group=0)
 
   $HTML->menuhtml_top(_("This Page"));
 
-  if (count ($GLOBALS['locale_names']) > 1)
-    {
-      $extraurl = sitemenu_extraurl(true);
-      if ($extraurl)
-        $extraurl = "?$extraurl";
-      $HTML->menu_entry($GLOBALS['sys_home'].'i18n.php?lang_uri='
-                        .urlencode($_SERVER['REQUEST_URI'].$extraurl),
-                        _("Language"), 1, _("Choose website language"));
-    }
-
   $extraurl = sitemenu_extraurl();
 
   $HTML->menu_entry($_SERVER['SCRIPT_NAME']."?reload=1".$extraurl,
@@ -517,7 +507,18 @@ _("Superuser rights are required to perform site admin tasks"));
                     1,
 _("Account configuration: authentication, cosmetics preferences..."));
 
- if (user_is_super_user())
+  if (count ($GLOBALS['locale_names']) > 1)
+    {
+      $extraurl = sitemenu_extraurl(true);
+      if ($extraurl)
+        $extraurl = "?$extraurl";
+      $HTML->menu_entry($GLOBALS['sys_home'].'i18n.php?lang_uri='
+          .urlencode($_SERVER['REQUEST_URI'].$extraurl),
+          _("Language"), 1, _("Choose website language"));
+    }
+
+
+  if (user_is_super_user())
     {
       $HTML->menu_entry($GLOBALS['sys_home']
                         .'account/su.php?action=logout&amp;uri='

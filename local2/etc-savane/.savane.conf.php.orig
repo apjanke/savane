@@ -40,13 +40,13 @@ $first_run_message=<<<"EOD"
 <pre>
 Hello Savannah Developer!
 
-It seems this is the first time you run the savane PHP code.
+It seems this is the first time you are running the Savane PHP code.
 
-The code need to access a savane mock-up database.
+The code needs to access a Savane mock-up database.
 
-To request access to such database, please write to
+To request access to such a database, please write to
   savannah-hackers-public@gnu.org
-and ask for username/password.
+and ask for a username/password.
 
 Once you receive them, please edit the following file
 (locally on your computer):
@@ -56,11 +56,15 @@ Once you receive them, please edit the following file
 Set the hostname, database, username and password,
 then reload the website.
 
+See https://savannah.gnu.org/maintenance/RunningSavaneLocally
+for more info.
+
 If you have any questions, contact savannah-hackers-public@gnu.org .
 </pre>
 EOD;
 
-if (!file_exists($db_file)) {
+if (!file_exists($db_file)) 
+  {
 	# Create the file with sub values:
 
 	$text=<<<'EOD'
@@ -72,7 +76,7 @@ if (!file_exists($db_file)) {
    To get access to such database, please contant the GNU Savannah
    developers by writing to savannah-hackers-public@gnu.org .
 
-   Once you have the DB/USER/PASSWORDS, please update
+   Once you have the DB/USER/PASSWORD, please update
    the PHP variables below.
 
    This file must be a valid PHP script.
@@ -96,8 +100,9 @@ EOD;
 	print $first_run_message;
 	exit(0);
 
-}
-else {
+  }
+else 
+  {
 	## The DB/USER/PW file exists - read it, and ensure it contains
 	## the needed variables.
 	$sys_dbhost="";
@@ -124,7 +129,7 @@ else {
 		die("savannah-dev-error: '\$sys_dbuser' is not set in '$db_file'");
 	if (empty($sys_dbpasswd))
 		die("savannah-dev-error: '\$sys_dbpasswd' is not set in '$db_file'");
-}
+  }
 
 $use_pwqcheck = FALSE;
 
@@ -132,15 +137,13 @@ $use_pwqcheck = FALSE;
 
 #
 # Name of the configuration project.
-# Must be a name of a valid (existing) project/group in the database.
+# Must be the name of a valid (existing) project/group in the database.
 # This name must match the "unix_group_name" value of the project.
 #
 # NOTE:
 #  In GNU Savannah's production database, this project is called 'administration'.
 #  In the sample database in './db/mysql/bootstrap.sql', the project is
 #    called 'siteadmin'.
-#  In this template file, use a variable - it will be replaced by running
-#   'make' (see Makefile.am for details).
 $sys_unix_group_name="siteadmin";
 
 

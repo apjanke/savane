@@ -24,3 +24,12 @@ database:
 
 dist-hook:
 	find $(distdir) -type d -name '.svn' -o -name '*~' | xargs -r rm -rf
+
+# TODO: This _should_ be done as part of the default "make" target,
+# but I can't figure out how to get that to work. -apjanke
+EXTRA_PROGRAMS = localconf
+localconf_SOURCES = local2/etc-savane/.savane.conf.php.orig
+.PHONY: localconf
+localconf:
+	cp local2/etc-savane/.savane.conf.php.orig local2/etc-savane/.savane.conf.php
+	cp local2/etc-savane/savane-dev-db.php.orig local2/etc-savane/savane-dev-db.php

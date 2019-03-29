@@ -1,0 +1,25 @@
+<?php
+/*
+   This file contains DB/USER/PASSWORD to access the GNU Savannah
+   development database.
+
+   To get access to such database, please contant GNU Savannah
+   developers by writing to savannah-hackers-public@gnu.org .
+
+   Once you have the DB/USER/PASSWORD, please update
+   the PHP variables below.
+
+   This file must be a valid PHP script.
+
+   See https://savannah.gnu.org/maintenance/RunningSavaneLocally for
+   more information.
+
+   If you have any questions, contact savannah-hackers-public@gnu.org .
+*/
+
+$sys_dbhost="";
+$sys_dbname="";
+$sys_dbuser="";
+$sys_dbpasswd="";
+
+?>

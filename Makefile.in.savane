@@ -1,6 +1,6 @@
 BASE_CONF_COMMAND=backend/install/sv_update_conf.pl --recreate --http-user=$(WWW_SERVER_USER) --confdir=$(SV_CONF) --default-domain=`hostname -f` --www-topdir=`pwd`/frontend/php --incdir=\$$sys_www_topdir/../../etc/site-specific-content
 
-all: update-path
+all: update-path local-conf
 	if [ ! -e www ]; then ln -s frontend/php www; fi
 	cd po && make
 	cd db && make
@@ -44,6 +44,10 @@ clean: reset-path
 conf:
 	if [ $(SV_CONF_INTERACTIVE) == "yes" ] ; then $(BASE_CONF_COMMAND) ; else $(BASE_CONF_COMMAND) --non-interactive ; fi
 	make update-path
+
+local-conf:
+	echo Creating local configuration...
+	cp local2/etc-savane/.svane.conf.php.orig local2/etc-savane/.svane.conf.php
 
 local.inc: conf
 

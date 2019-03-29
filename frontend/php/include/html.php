@@ -885,15 +885,15 @@ function html_build_checkbox ($name, $is_checked=0, $title="")
 # Catch all header functions.
 function html_header($params)
 {
-  global $HTML, $feedback;
+  global $HTML;
   print $HTML->header($params);
-  print html_feedback_top($feedback);
+  print html_feedback_top();
 }
 
 function html_footer($params)
 {
-  global $HTML, $feedback;
-  print html_feedback_bottom($feedback);
+  global $HTML;
+  print html_feedback_bottom();
   $HTML->footer($params);
 }
 

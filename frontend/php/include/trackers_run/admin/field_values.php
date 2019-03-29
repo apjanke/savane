@@ -744,7 +744,7 @@ elseif ($update_value)
 "This field value applies to %s items of your tracker.", $count)." ", $count);
         printf(
 _("If you hide this field value, the related items will have no value in the
-field '%s'."), $field)."</p>\n";
+field '%s'.")."</p>\n", $field);
       }
     print '
     <div class="center">

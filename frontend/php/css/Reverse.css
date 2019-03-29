@@ -44,7 +44,7 @@ a:hover { text-decoration: underline; color: #ffdb3d; }
 a:active { color: #ff9393; }
 
 .unavailable { font-style: italic; color: #565656; }
-}
+
 .unavailable:hover { font-style: italic; color: #cc1b00; }
 
 

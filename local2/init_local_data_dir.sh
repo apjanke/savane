@@ -7,6 +7,12 @@
 root="$1"
 if [[ -z "$root" ]]; then
 	echo &>2 "error: you must supply a directory to create"
+	exit 1
+fi
+
+if [[ -e "$root" ]]; then
+	echo &>2 "error: directory already exists, not clobbering: $root"
+	exit 1
 fi
 
 echo "Creating Savane data directories at $root..."

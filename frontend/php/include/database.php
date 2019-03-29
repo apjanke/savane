@@ -324,7 +324,7 @@ function db_result($qhandle,$row,$field)
 
 function db_numfields($lhandle)
 {
-  return mysql_numfields($lhandle);
+  return mysql_num_fields($lhandle);
 }
 
 function db_fieldname($lhandle,$fnumber)

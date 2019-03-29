@@ -26,7 +26,7 @@ register_globals_off();
 extract(sane_import('get', array('file_id', 'item_file_id')));
 
 # Backward compat?
-$file_id = $file_id or $item_file_id;
+$file_id = $file_id || $item_file_id;
 
 # check if the provided file_id is a valid numerical id
 if (empty($file_id) or !ctype_digit($file_id))

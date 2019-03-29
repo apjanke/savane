@@ -125,7 +125,6 @@ _("That username is blocked to avoid conflict with mailing-list addresses."),1);
   # Requested squad deletion, step2
   if ($update_delete_step2 && $deletionconfirmed == "yes")
     {
-      $squad_id_to_delete = $squad_id_to_delete;
       $delete_result = db_execute("SELECT user.user_name AS user_name,"
         . "user.realname AS realname, "
         . "user.user_id AS user_id "

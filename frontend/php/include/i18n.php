@@ -85,7 +85,6 @@ while (list(, $lng) = each ($browser_preferences))
     if (isset ($arr[1]))
       {
         $lng = $arr[0];
-        $arr[1] = $arr[1];
         if (substr($arr[1], 0, 2) === 'q=')
           $q = substr($arr[1], 2);
         else continue; # The second half doesn't define quality; skip the item.

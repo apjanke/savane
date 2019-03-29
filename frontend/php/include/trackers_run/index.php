@@ -100,7 +100,7 @@ $sober = false;
 
 $address = '';
 
-$func = $func or 'browse';
+$func = $func || 'browse';
 if ($preview)
   $submitreturn = 1;
 switch ($func)

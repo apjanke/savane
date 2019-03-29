@@ -96,7 +96,6 @@ if ($update)
   # First test content: to avoid people entering white space and being in
   # trouble at a later point, first check if we can find something else than
   # white space.
-    $form_subject_line = $form_subject_line;
     if (preg_replace("/ /", "", $form_subject_line))
       {
         # Some characters cannot be allowed

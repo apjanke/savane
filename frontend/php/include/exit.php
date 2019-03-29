@@ -96,7 +96,7 @@ function exit_log($message)
 }
 
 # Standardize the HTTP error head
-# (not cgi compliant, but Savane not supposed to run with PHP as CGI but
+# (not CGI compliant, but Savane is not supposed to run with PHP as CGI but
 # as apache module).
 function exit_header($status=false)
 {
@@ -107,6 +107,7 @@ function exit_header($status=false)
     $status = "404 Not Found";
 
   header($_SERVER['SERVER_PROTOCOL'].' '.$status);
+  return true;
 }
 
 # Exit unless group uses mailing lists.

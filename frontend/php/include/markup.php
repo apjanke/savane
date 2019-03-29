@@ -575,7 +575,7 @@ function _markup_inline($line)
 
   if (strlen($line) == 0)
     {
-      return;
+      return null;
     }
 
   # Regexp of protocols supported in hyperlinks (should be protocols that

@@ -137,7 +137,7 @@ function format_item_details ($item_id, $group_id, $ascii=false,
   # Only one comment: it is the original submission, skip it in ascii mode
   # because it will be already included elsewhere.
   if (count($data) < 2 && $ascii)
-    return;
+    return null;
 
   # Header first
   if ($ascii)

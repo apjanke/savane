@@ -354,7 +354,10 @@ function html_image ($src,$args,$display=1)
 
   $return .= (' />');
   if ($display)
-    print $return;
+    {
+      print $return;
+      return null;
+    }
   else
     return $return;
 }

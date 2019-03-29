@@ -29,7 +29,7 @@ function calendar_month_name ($month)
       return
 # TRANSLATORS: names of months are used in selection boxes
 # like '%1$s %2$s %3$s'.
-             _("January"); break;
+      _("January"); break;
     case '2':
       return
 # TRANSLATORS: names of months are used in selection boxes
@@ -85,6 +85,8 @@ function calendar_month_name ($month)
 # TRANSLATORS: names of months are used in selection boxes
 # like '%1$s %2$s %3$s'.
       _("December"); break;
+    default:
+      die("Invalid month number: $month");
     }
 }
 
@@ -93,20 +95,22 @@ function calendar_every_weekday_name ($weekday)
   # Start monday, not sunday...
   switch ($weekday)
     {
-    case '1':
-      return _("every Monday"); break;
-    case '2':
-      return _("every Tuesday"); break;
-    case '3':
-      return _("every Wednesday"); break;
-    case '4':
-      return _("every Thursday"); break;
-    case '5':
-      return _("every Friday"); break;
-    case '6':
-      return _("every Saturday"); break;
-    case '7':
-      return _("every Sunday"); break;
+      case '1':
+        return _("every Monday"); break;
+      case '2':
+        return _("every Tuesday"); break;
+      case '3':
+        return _("every Wednesday"); break;
+      case '4':
+        return _("every Thursday"); break;
+      case '5':
+        return _("every Friday"); break;
+      case '6':
+        return _("every Saturday"); break;
+      case '7':
+        return _("every Sunday"); break;
+      default:
+        die("Invalid weekday number: $weekday");
     }
 }
 

@@ -1496,7 +1496,7 @@ function trackers_data_add_history ($field_name,
 
   # If field is not to be kept in bug change history then do nothing.
   if (!$force && !trackers_data_get_keep_history($field_name))
-    return;
+    return null;
 
   if (!user_isloggedin())
     $user=100;

@@ -73,7 +73,7 @@ function send_pending_user_email($group_id, $user_id, $user_message)
 
   if (db_numrows($res_grp) < 1)
     {
-      return 0;
+      return;
     }
   $row_grp = db_fetch_array($res_grp);
   $res_admins = db_execute("SELECT user.user_name FROM user,user_group WHERE "
@@ -83,7 +83,7 @@ function send_pending_user_email($group_id, $user_id, $user_message)
 
   if (db_numrows($res_admins) < 1)
     {
-      return 0;
+      return;
     }
   # Send one email per admin, in one command line comma-separated.
   $admin_list = '';

@@ -125,14 +125,17 @@ class Layout extends SavaneError
 # Box Top, equivalent to html_box1_top().
   function box1_top ($title,$echoout=1,$subclass="")
   {
-    $return = '<table class="box'.$subclass.'">
+    $return = '<table class="box' . $subclass . '">
                 <tr>
-                        <td colspan="2" class="boxtitle">'.$title.'</td>
+                        <td colspan="2" class="boxtitle">' . $title . '</td>
                 </tr>
                 <tr>
                         <td colspan="2" class="boxitem">';
     if ($echoout)
-      print $return;
+      {
+        print $return;
+        return null;
+      }
     else
       return $return;
   }
@@ -158,7 +161,10 @@ class Layout extends SavaneError
                 </tr>
         </table>';
     if ($echoout)
-      print $return;
+      {
+        print $return;
+        return null;
+      }
     else
       return $return;
   }

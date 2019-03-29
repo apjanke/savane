@@ -212,7 +212,7 @@ function db_autoexecute($table, $dict, $mode=DB_AUTOQUERY_INSERT,
     case '2':
       $sql_fields = '';
       $values = array();
-      while (list($field,$value) = each($dict))
+      foreach ($dict as $field => $value)
         {
           $sql_fields .= "`$field`=?,";
           $values[] = $value;

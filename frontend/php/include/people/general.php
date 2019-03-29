@@ -60,6 +60,7 @@ function people_get_category_name($category_id)
 # Show job selection controls.
 function people_show_table()
 {
+  global $sys_dbname;
   $return = '<h2>'._("Category").'</h2>';
   $form_is_empty = 1;
 
@@ -94,7 +95,7 @@ function people_show_table()
 <h2>'._("Project type").'</h2>';
   $result=db_query("SELECT group_type.type_id, group_type.name,
                     COUNT(people_job.job_id) AS count FROM
-                    group_type JOIN (groups JOIN people_job ON
+                    group_type JOIN ($sys_dbname.groups JOIN people_job ON
                                      groups.group_id = people_job.group_id)
                     ON group_type.type_id = groups.type
                     WHERE status_id = 1 GROUP BY type_id ORDER BY type_id");

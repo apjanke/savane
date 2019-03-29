@@ -81,10 +81,9 @@ elseif ($func == "digestselectfield")
 
     print "\n\n<p>";
     printf(ngettext("You selected %s item for this digest.",
-                    "You selected %s items for this digest.", $count),
-           $count)
+                    "You selected %s items for this digest.", $count)
 ._("Now you must unselect fields you do not want to be included in the digest.")
-."</p>\n";
+."</p>\n", $count);
 
     $i = 0;
   # Select fields

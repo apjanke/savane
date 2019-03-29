@@ -62,7 +62,7 @@ function trackers_bastardinclude($page, $is_admin_page='0')
 # Generate URL arguments from a variable wether scalar or array
 function trackers_convert_to_url_arg($varname, $var)
 {
-
+  $ret = "";
   if (is_array($var))
     {
       reset($var);
@@ -451,7 +451,7 @@ function trackers_field_textarea($field_name,$value='',$cols=0,$rows=0, $title=f
 
 # Return a select box populated with field values for this project.
 # If box_name is given, then impose this name in the select box
-# of the  HTML form otherwise use the field_name.
+# of the HTML form, otherwise use the field_name.
 function trackers_field_box ($field_name,
                              $box_name='',
                              $group_id,
@@ -620,7 +620,7 @@ function trackers_extract_field_list($post_method=true)
     $superglobal =& $_GET;
 
   reset($superglobal);
-  while ( list($key, $val) = each($superglobal))
+  foreach ($superglobal as $key => $val)
     {
       if (preg_match("/^(.*)_(day|month|year)fd$/", $key, $found))
         {
@@ -1180,7 +1180,7 @@ function trackers_attach_several_files($item_id, $group_id, &$changes)
   extract(sane_import('post', array('file_description')));
   foreach ($files as $file)
     {
-      if ($file['error'] != UPLOAD_ERR_OK)
+      if ($file['SavaneError'] != UPLOAD_ERR_OK)
         continue;
 
       $file_id = trackers_attach_file($item_id,
@@ -1884,6 +1884,7 @@ It relates to:\n\t\t".ARTIFACT." #".$item_id.", project "
 
           # Process most of the fields
           reset($changes);
+          $out = "";
           while (list($field,$h) = each($changes))
             {
               # If both removed and added items are empty skip - Sanity check
@@ -2016,7 +2017,7 @@ URL:\n  <".$bug_href.">\n\n";
       # No followup comment -> return now.
       if ($rows > 0)
         {
-          unset($out);
+          $out = "";
           $out .= "    _______________________________________________________\n
 Follow-up Comments:\n\n";
 
@@ -2069,7 +2070,7 @@ Follow-up Comments:\n\n";
       # No file attached -> return now.
       if ($rows > 0)
         {
-          unset($out);
+          $out = "";
           $out .=
 "    _______________________________________________________\n\n"
                   ."Carbon-Copy List:\n\n";
@@ -2108,7 +2109,7 @@ Follow-up Comments:\n\n";
       # No file attached -> return now.
       if ($rows > 0)
         {
-          unset($out);
+          $out = "";
           $out .=
 "    _______________________________________________________\n
 File Attachments:\n\n";

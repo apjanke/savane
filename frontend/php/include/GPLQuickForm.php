@@ -337,6 +337,9 @@ class GPLQuickForm
     $this->jsWarnings_post = $post;
   }
 
+  /**
+   * @throws Exception
+   */
   public function addElement()
   {
     $arg_list = func_get_args();

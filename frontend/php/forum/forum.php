@@ -317,7 +317,7 @@ if it was a custom set just posted && logged in, set pref if it's changed.  */
   }
 else
   {
-    forum_header(array('title'=>_('Error')));
+    forum_header(array('title'=>_('SavaneError')));
     print '<p>'._('Error - choose a forum first').'</p>';
     forum_footer(array());
   }

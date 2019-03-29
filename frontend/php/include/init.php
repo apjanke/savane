@@ -326,7 +326,7 @@ function get_module_include_dir($script_name, $true_artifact=0, $true_dir=0)
 }
 
 # HTML layout class, may be overriden by the Theme class.
-require_once(dirname(__FILE__).'/Layout.class');
+require_once(dirname(__FILE__) . '/Layout.php');
 
 $HTML = new Layout();
 # Start user session.

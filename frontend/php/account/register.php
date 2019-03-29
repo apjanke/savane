@@ -182,7 +182,7 @@ if ($form_is_valid)
                            DB_AUTOQUERY_INSERT);
 
     if (!$result)
-      exit_error('error',db_error());
+      exit_error('SavaneError',db_error());
     else
       {
         $newuserid = db_insertid($result);

@@ -28,7 +28,7 @@
 
 
 # base error library for new objects
-require_once(dirname(__FILE__).'/Error.class');
+require_once(dirname(__FILE__) . '/SavaneError.php');
 # left-hand and top menu nav library (requires context to be set)
 require_once(dirname(__FILE__).'/sitemenu.php');
 require_once(dirname(__FILE__).'/pagemenu.php');
@@ -39,18 +39,18 @@ require_once(dirname(__FILE__).'/theme.php');
 # various utilities - broken_msie...
 require_once(dirname(__FILE__).'/utils.php');
 
-class Layout extends Error
+class Layout extends SavaneError
 {
 
 ########################################## BASIC HTML
   var $bgpri = array();
 
 # Constuctor
-  function Layout ()
+  function __construct()
   {
     GLOBAL $bgpri;
 # Constructor for parent class...
-    $this->Error();
+    SavaneError::__construct();
 
 # Setup the priority color array one time only.
     $bgpri[1] = 'priora';

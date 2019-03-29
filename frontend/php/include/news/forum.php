@@ -372,7 +372,7 @@ function get_next_thread_id()
 
   if (!$result)
     {
-      print '<h1>'._('Error')."</h1>\n";
+      print '<h1>'._('SavaneError')."</h1>\n";
       print db_error();
       exit;
     }

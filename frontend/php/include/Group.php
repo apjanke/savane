@@ -24,7 +24,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-require_once(dirname(__FILE__).'/Error.class');
+require_once(dirname(__FILE__) . '/SavaneError.php');
 
 $PROJECT_OBJ=array();
 
@@ -43,7 +43,7 @@ function project_get_object($group_id)
 }
 
 
-class Group extends Error
+class Group extends SavaneError
 {
 
   #associative array of data from db
@@ -57,10 +57,10 @@ class Group extends Error
   #whether the use is an admin/super user of this project
   var $is_admin;
 
-  function Group($id)
+  function __construct($id)
     {
       global $sys_dbname;
-      $this->Error();
+      SavaneError::__construct();
       $this->group_id=$id;
       $this->db_result=db_execute("SELECT * FROM $sys_dbname.groups WHERE group_id=?", array($id));
       if (db_numrows($this->db_result) < 1)
@@ -236,7 +236,7 @@ class Group extends Error
       else
 	{
 	  // return format with number $index
-	  $formats = split(',', $this->type_data_array['mailing_list_format']);
+	  $formats = preg_split('/,/', $this->type_data_array['mailing_list_format']);
 	  return str_replace("%PROJECT", $this->getUnixName(),
 			     str_replace("%NAME", $list, $formats[$index]));
 	}

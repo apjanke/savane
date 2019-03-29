@@ -21,7 +21,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require_once(dirname(__FILE__).'/Group.class');
+require_once(dirname(__FILE__) . '/Group.php');
 
 # Guess the context of the current page.
 function context_guess ()
@@ -259,14 +259,6 @@ function context_title ()
         {
         case 'configure': $title = _("Support Tracker Administration"); break;
         default: $title = _("Support"); break;
-        }
-      break;
-
-    case 'bugs':
-      switch (SUBCONTEXT)
-        {
-        case 'configure': $title = _("Bug Tracker Administration"); break;
-        default: $title = _("Bugs"); break;
         }
       break;
 

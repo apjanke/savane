@@ -1,5 +1,5 @@
 <?php /*-*-PHP-*-*/
-# Define Error class.
+# Define SavaneError class.
 # 
 # Copyright (C) 1999-2000 The SourceForge Crew
 # Copyright (C) 2000-2001 Free Software Foundation
@@ -21,12 +21,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-class Error {
+class SavaneError {
 
 	var $error_state;
 	var $error_message;
 
-	function Error() {
+	function __construct() {
 		$this->error_state=false;
 	}
 

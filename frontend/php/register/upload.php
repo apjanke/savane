@@ -38,8 +38,8 @@ if (!isset($tarball))
 }
 else
 {
-  if ($tarball['error'] != 0)
-    exit_error(sprintf(_("Error during upload: %s"), $tarball['error']));
+  if ($tarball['SavaneError'] != 0)
+    exit_error(sprintf(_("Error during upload: %s"), $tarball['SavaneError']));
 
   if (!move_uploaded_file($tarball['tmp_name'], $GLOBALS['sys_upload_dir']
                                                 . '/' . $tarball['name']))
